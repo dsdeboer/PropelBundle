@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
@@ -25,14 +26,14 @@ class PropelExtension extends Extension
     /**
      * Loads the Propel configuration.
      *
-     * @param array            $configs   An array of configuration settings
+     * @param array $configs An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $processor = new Processor();
+        $processor     = new Processor();
         $configuration = $this->getConfiguration($configs, $container);
-        $config = $processor->processConfiguration($configuration, $configs);
+        $config        = $processor->processConfiguration($configuration, $configs);
 
         // Composer
         if (file_exists($propelPath = $container->getParameter('kernel.root_dir') . '/../vendor/propel/propel1')) {
@@ -51,7 +52,7 @@ class PropelExtension extends Extension
         if (isset($config['phing_path'])) {
             $container->setParameter('propel.phing_path', $config['phing_path']);
         } elseif (!$container->hasParameter('propel.phing_path')) {
-                throw new \InvalidArgumentException('PropelBundle expects a "phing_path" parameter that must contain the absolute path to the Phing vendor library. The "phing_path" parameter must be defined under the "propel" root node in your configuration.');
+            throw new \InvalidArgumentException('PropelBundle expects a "phing_path" parameter that must contain the absolute path to the Phing vendor library. The "phing_path" parameter must be defined under the "propel" root node in your configuration.');
         }
 
         if (isset($config['logging']) && $config['logging']) {
@@ -64,7 +65,7 @@ class PropelExtension extends Extension
 
         // Load services
         if (!$container->hasDefinition('propel')) {
-            $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+            $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
             $loader->load('propel.xml');
             $loader->load('converters.xml');
         }
@@ -73,7 +74,7 @@ class PropelExtension extends Extension
         if (isset($config['build_properties']) && is_array($config['build_properties'])) {
             $buildProperties = $config['build_properties'];
         } else {
-            $buildProperties = array();
+            $buildProperties = [];
         }
 
         // behaviors
@@ -83,23 +84,28 @@ class PropelExtension extends Extension
             }
         }
 
-        $container->getDefinition('propel.build_properties')->setArguments(array($buildProperties));
+        $container->getDefinition('propel.build_properties')->setArguments([$buildProperties]);
 
         if (!empty($config['dbal'])) {
             $this->dbalLoad($config['dbal'], $container);
         }
     }
 
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration($container->getParameter('kernel.debug'));
+    }
+
     /**
      * Loads the DBAL configuration.
      *
-     * @param array            $config    An array of configuration settings
+     * @param array $config An array of configuration settings
      * @param ContainerBuilder $container A ContainerBuilder instance
      */
     protected function dbalLoad(array $config, ContainerBuilder $container)
     {
         if (empty($config['default_connection'])) {
-            $keys = array_keys($config['connections']);
+            $keys                         = array_keys($config['connections']);
             $config['default_connection'] = reset($keys);
         }
 
@@ -107,17 +113,17 @@ class PropelExtension extends Extension
         $container->setParameter('propel.dbal.default_connection', $connectionName);
 
         if (0 === count($config['connections'])) {
-            $config['connections'] = array($connectionName => $config);
+            $config['connections'] = [$connectionName => $config];
         }
 
-        $c = array();
+        $c = [];
         foreach ($config['connections'] as $name => $conf) {
             $c['datasources'][$name]['adapter'] = $conf['driver'];
             if (!empty($conf['slaves'])) {
                 $c['datasources'][$name]['slaves']['connection'] = $conf['slaves'];
             }
 
-            foreach (array('dsn', 'user', 'password', 'classname', 'options', 'attributes', 'settings', 'model_paths') as $att) {
+            foreach (['dsn', 'user', 'password', 'classname', 'options', 'attributes', 'settings', 'model_paths'] as $att) {
                 if (isset($conf[$att])) {
                     $c['datasources'][$name]['connection'][$att] = $conf[$att];
                 }
@@ -129,12 +135,7 @@ class PropelExtension extends Extension
             $c['datasources']['default'] = $connectionName;
         }
 
-        $container->getDefinition('propel.configuration')->setArguments(array($c));
-    }
-
-    public function getConfiguration(array $config, ContainerBuilder $container)
-    {
-        return new Configuration($container->getParameter('kernel.debug'));
+        $container->getDefinition('propel.configuration')->setArguments([$c]);
     }
 
     /**
@@ -144,7 +145,7 @@ class PropelExtension extends Extension
      */
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/schema';
+        return __DIR__ . '/../Resources/config/schema';
     }
 
     /**

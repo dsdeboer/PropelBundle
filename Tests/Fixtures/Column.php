@@ -13,14 +13,19 @@ namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 
 class Column extends \ColumnMap
 {
-    private $name;
     protected $type;
+    private   $name;
 
     public function __construct($name, $type)
     {
-        $this->name = $name;
-        $this->type = $type;
+        $this->name    = $name;
+        $this->type    = $type;
         $this->phpName = ucfirst($name);
+    }
+
+    public function getSize()
+    {
+        return $this->isText() ? 255 : 0;
     }
 
     public function isText()
@@ -40,11 +45,6 @@ class Column extends \ColumnMap
         }
 
         return false;
-    }
-
-    public function getSize()
-    {
-        return $this->isText() ? 255 : 0;
     }
 
     public function isNotNull()

@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -42,22 +43,22 @@ The <info>--force</info> parameter has to be used to actually drop the table.
 The <info>--connection</info> parameter allows you to change the connection to use.
 The default connection is the active connection (propel.dbal.default_connection).
 EOT
-        )
+            )
             ->setName('propel:table:drop');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $tablesToDelete = $input->getArgument('table');
 
         if ($input->getOption('force')) {
-            $nbTable = count($tablesToDelete);
-            $tablePlural = (($nbTable > 1 || $nbTable == 0) ? 's' : '' );
+            $nbTable     = count($tablesToDelete);
+            $tablePlural = (($nbTable > 1 || $nbTable == 0) ? 's' : '');
 
             if ('prod' === $this->getApplication()->getKernel()->getEnvironment()) {
                 $count = (count($input->getArgument('table')) ?: 'all');
@@ -78,7 +79,7 @@ EOT
             try {
                 list($name, $config) = $this->getConnection($input, $output);
                 $connection = \Propel::getConnection($name);
-                $adapter = \Propel::getDB($name);
+                $adapter    = \Propel::getDB($name);
 
                 $showStatement = $connection->prepare('SHOW TABLES;');
                 $showStatement->execute();
@@ -97,7 +98,9 @@ EOT
 
                 $connection->exec('SET FOREIGN_KEY_CHECKS = 0;');
 
-                array_walk($tablesToDelete, function(&$table, $key, $dbAdapter) { $table = $dbAdapter->quoteIdentifierTable($table); }, $adapter);
+                array_walk($tablesToDelete, function (&$table, $key, $dbAdapter) {
+                    $table = $dbAdapter->quoteIdentifierTable($table);
+                }, $adapter);
 
                 $tablesToDelete = join(', ', $tablesToDelete);
 
@@ -111,11 +114,11 @@ EOT
 
                 $connection->exec('SET FOREIGN_KEY_CHECKS = 1;');
             } catch (\Exception $e) {
-                $this->writeSection($output, array(
+                $this->writeSection($output, [
                     '[Propel] Exception caught',
                     '',
                     $e->getMessage()
-                ), 'fg=white;bg=red');
+                ], 'fg=white;bg=red');
             }
         } else {
             $output->writeln('<error>You have to use the "--force" option to drop some tables.</error>');

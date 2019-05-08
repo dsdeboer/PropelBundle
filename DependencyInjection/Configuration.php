@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -14,13 +15,13 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
-* This class contains the configuration information for the bundle
-*
-* This information is solely responsible for how the different configuration
-* sections are normalized, and merged.
-*
-* @author Duncan de Boer <duncan@charpand.nl>
-*/
+ * This class contains the configuration information for the bundle
+ *
+ * This information is solely responsible for how the different configuration
+ * sections are normalized, and merged.
+ *
+ * @author Duncan de Boer <duncan@charpand.nl>
+ */
 class Configuration implements ConfigurationInterface
 {
     private $debug;
@@ -30,9 +31,9 @@ class Configuration implements ConfigurationInterface
      *
      * @param Boolean $debug Wether to use the debug mode
      */
-    public function  __construct($debug)
+    public function __construct($debug)
     {
-        $this->debug = (Boolean) $debug;
+        $this->debug = (Boolean)$debug;
     }
 
     /**
@@ -43,7 +44,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('propel');
+        $rootNode    = $treeBuilder->root('propel');
 
         $this->addGeneralSection($rootNode);
         $this->addDbalSection($rootNode);
@@ -69,18 +70,17 @@ class Configuration implements ConfigurationInterface
     {
         $node
             ->children()
-                ->scalarNode('path')->end()
-                ->scalarNode('phing_path')->end()
-                ->scalarNode('logging')->defaultValue($this->debug)->end()
-                ->arrayNode('build_properties')
-                    ->useAttributeAsKey('key')
-                    ->prototype('scalar')->end()
-                ->end()
-                ->arrayNode('behaviors')
-                    ->useAttributeAsKey('key')
-                    ->prototype('scalar')->end()
-                ->end()
-        ;
+            ->scalarNode('path')->end()
+            ->scalarNode('phing_path')->end()
+            ->scalarNode('logging')->defaultValue($this->debug)->end()
+            ->arrayNode('build_properties')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->arrayNode('behaviors')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end();
     }
 
     /**
@@ -97,63 +97,68 @@ class Configuration implements ConfigurationInterface
      *         settings:    {}
      *         default_connection:  xxxxxx
      */
-   private function addDbalSection(ArrayNodeDefinition $node)
+    private function addDbalSection(ArrayNodeDefinition $node)
     {
         $node
             ->children()
             ->arrayNode('dbal')
-                ->beforeNormalization()
-                    ->ifNull()
-                    ->then(function($v) { return array ('connections' => array('default' => array())); })
-                ->end()
-                ->children()
-                    ->scalarNode('default_connection')->defaultValue('default')->end()
-                    ->scalarNode('driver')
-                        ->beforeNormalization()
-                            ->always()
-                            ->then(function($v) { return str_replace('pdo_', '', $v); })
-                        ->end()
-                        ->defaultValue('mysql')
-                    ->end()
-                    ->scalarNode('user')->defaultValue('root')->end()
-                    ->scalarNode('password')->defaultValue('')->end()
-                    ->scalarNode('dsn')
-                        ->beforeNormalization()
-                            ->always()
-                            ->then(function($v) { return str_replace('pdo_', '', $v); })
-                        ->end()
-                        ->defaultValue('')
-                    ->end()
-                    ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
-                ->end()
-                ->fixXmlConfig('option')
-                ->children()
-                    ->arrayNode('options')
-                    ->useAttributeAsKey('key')
-                    ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('attribute')
-                ->children()
-                    ->arrayNode('attributes')
-                    ->useAttributeAsKey('key')
-                    ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('setting')
-                ->children()
-                    ->arrayNode('settings')
-                    ->useAttributeAsKey('key')
-                    ->prototype('array')
-                        ->useAttributeAsKey('key')
-                            ->prototype('scalar')->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('connection')
-                ->append($this->getDbalConnectionsNode())
+            ->beforeNormalization()
+            ->ifNull()
+            ->then(function ($v) {
+                return ['connections' => ['default' => []]];
+            })
             ->end()
-        ;
+            ->children()
+            ->scalarNode('default_connection')->defaultValue('default')->end()
+            ->scalarNode('driver')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('mysql')
+            ->end()
+            ->scalarNode('user')->defaultValue('root')->end()
+            ->scalarNode('password')->defaultValue('')->end()
+            ->scalarNode('dsn')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('')
+            ->end()
+            ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
+            ->end()
+            ->fixXmlConfig('option')
+            ->children()
+            ->arrayNode('options')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('attribute')
+            ->children()
+            ->arrayNode('attributes')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('setting')
+            ->children()
+            ->arrayNode('settings')
+            ->useAttributeAsKey('key')
+            ->prototype('array')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('connection')
+            ->append($this->getDbalConnectionsNode())
+            ->end();
     }
 
     /**
@@ -175,87 +180,94 @@ class Configuration implements ConfigurationInterface
     private function getDbalConnectionsNode()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('connections');
+        $node        = $treeBuilder->root('connections');
 
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('name')
             ->prototype('array')
-                ->children()
-                    ->scalarNode('driver')
-                        ->beforeNormalization()
-                            ->always()
-                            ->then(function($v) { return str_replace('pdo_', '', $v); })
-                        ->end()
-                        ->defaultValue('mysql')
-                    ->end()
-                    ->scalarNode('user')->defaultValue('root')->end()
-                    ->scalarNode('password')->defaultValue('')->end()
-                    ->scalarNode('dsn')
-                        ->beforeNormalization()
-                            ->always()
-                            ->then(function($v) { return str_replace('pdo_', '', $v); })
-                        ->end()
-                        ->defaultValue('')
-                    ->end()
-                    ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
-                    ->arrayNode('slaves')
-                        ->useAttributeAsKey('name')
-                        ->prototype('array')
-                            ->children()
-                                ->scalarNode('driver')
-                                    ->beforeNormalization()
-                                        ->always()
-                                        ->then(function($v) { return str_replace('pdo_', '', $v); })
-                                    ->end()
-                                    ->defaultValue('mysql')
-                                ->end()
-                                ->scalarNode('user')->defaultValue('root')->end()
-                                ->scalarNode('password')->defaultValue('')->end()
-                                ->scalarNode('dsn')
-                                    ->beforeNormalization()
-                                        ->always()
-                                        ->then(function($v) { return str_replace('pdo_', '', $v); })
-                                    ->end()
-                                    ->defaultValue('')
-                                ->end()
-                                ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('option')
-                    ->children()
-                        ->arrayNode('options')
-                        ->useAttributeAsKey('key')
-                        ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('model_path')
-                    ->children()
-                        ->arrayNode('model_paths')
-                        ->defaultValue(array('src/', 'vendor/'))
-                        ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('attribute')
-                    ->children()
-                        ->arrayNode('attributes')
-                        ->useAttributeAsKey('key')
-                        ->prototype('scalar')->end()
-                    ->end()
-                ->end()
-                ->fixXmlConfig('setting')
-                    ->children()
-                        ->arrayNode('settings')
-                        ->useAttributeAsKey('key')
-                        ->prototype('array')
-                            ->useAttributeAsKey('key')
-                            ->prototype('scalar')
-                        ->end()
-                    ->end()
-                ->end()
-        ;
+            ->children()
+            ->scalarNode('driver')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('mysql')
+            ->end()
+            ->scalarNode('user')->defaultValue('root')->end()
+            ->scalarNode('password')->defaultValue('')->end()
+            ->scalarNode('dsn')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('')
+            ->end()
+            ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
+            ->arrayNode('slaves')
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+            ->children()
+            ->scalarNode('driver')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('mysql')
+            ->end()
+            ->scalarNode('user')->defaultValue('root')->end()
+            ->scalarNode('password')->defaultValue('')->end()
+            ->scalarNode('dsn')
+            ->beforeNormalization()
+            ->always()
+            ->then(function ($v) {
+                return str_replace('pdo_', '', $v);
+            })
+            ->end()
+            ->defaultValue('')
+            ->end()
+            ->scalarNode('classname')->defaultValue($this->debug ? 'DebugPDO' : 'PropelPDO')->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('option')
+            ->children()
+            ->arrayNode('options')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('model_path')
+            ->children()
+            ->arrayNode('model_paths')
+            ->defaultValue(['src/', 'vendor/'])
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('attribute')
+            ->children()
+            ->arrayNode('attributes')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->fixXmlConfig('setting')
+            ->children()
+            ->arrayNode('settings')
+            ->useAttributeAsKey('key')
+            ->prototype('array')
+            ->useAttributeAsKey('key')
+            ->prototype('scalar')
+            ->end()
+            ->end()
+            ->end();
 
         return $node;
     }

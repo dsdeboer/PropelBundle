@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,9 +34,9 @@ class DatabaseCreateCommand extends AbstractCommand
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -45,7 +46,7 @@ class DatabaseCreateCommand extends AbstractCommand
         if (null === $dbName) {
             return $output->writeln('<error>No database name found.</error>');
         } else {
-            $query  = 'CREATE DATABASE '. $dbName .';';
+            $query = 'CREATE DATABASE ' . $dbName . ';';
         }
 
         try {
@@ -57,11 +58,11 @@ class DatabaseCreateCommand extends AbstractCommand
 
             $output->writeln(sprintf('<info>Database <comment>%s</comment> has been created.</info>', $dbName));
         } catch (\Exception $e) {
-            $this->writeSection($output, array(
+            $this->writeSection($output, [
                 '[Propel] Exception caught',
                 '',
                 $e->getMessage()
-            ), 'fg=white;bg=red');
+            ], 'fg=white;bg=red');
         }
     }
 
@@ -71,8 +72,8 @@ class DatabaseCreateCommand extends AbstractCommand
      *
      * @see https://github.com/doctrine/doctrine1/blob/master/lib/Doctrine/Connection.php#L1491
      *
-     * @param  string $name   A connection name.
-     * @param  array  $config A Propel connection configuration.
+     * @param string $name A connection name.
+     * @param array $config A Propel connection configuration.
      * @return array
      */
     protected function getTemporaryConfiguration($name, $config)
@@ -80,13 +81,13 @@ class DatabaseCreateCommand extends AbstractCommand
         $dbName = $this->parseDbName($config['connection']['dsn']);
 
         $config['connection']['dsn'] = preg_replace(
-            '#dbname='.$dbName.'(;|$)#',
+            '#dbname=' . $dbName . '(;|$)#',
             '',
             $config['connection']['dsn']
         );
 
-        return array(
-            'datasources' => array($name => $config)
-        );
+        return [
+            'datasources' => [$name => $config]
+        ];
     }
 }

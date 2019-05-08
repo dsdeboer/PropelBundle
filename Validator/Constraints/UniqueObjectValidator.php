@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
@@ -26,7 +27,7 @@ class UniqueObjectValidator extends ConstraintValidator
      */
     public function validate($object, Constraint $constraint)
     {
-        $fields      = (array) $constraint->fields;
+        $fields      = (array)$constraint->fields;
         $class       = get_class($object);
         $peerClass   = $class . 'Peer';
         $queryClass  = $class . 'Query';
@@ -34,7 +35,7 @@ class UniqueObjectValidator extends ConstraintValidator
 
         foreach ($fields as $fieldName) {
             if (false === array_search($fieldName, $classFields)) {
-                throw new ConstraintDefinitionException('The field "' . $fieldName .'" doesn\'t exist in the "' . $class . '" class.');
+                throw new ConstraintDefinitionException('The field "' . $fieldName . '" doesn\'t exist in the "' . $class . '" class.');
             }
         }
 
@@ -50,7 +51,7 @@ class UniqueObjectValidator extends ConstraintValidator
         $countUser = count($bddUsers);
 
         if ($countUser > 1 || ($countUser === 1 && $object !== $bddUsers[0])) {
-            $fieldParts = array();
+            $fieldParts = [];
 
             foreach ($fields as $fieldName) {
                 $fieldParts[] = sprintf(
@@ -61,12 +62,12 @@ class UniqueObjectValidator extends ConstraintValidator
             }
 
             $this->context->buildViolation($constraint->message)
-                ->atPath($constraint->errorPath)
-                ->setParameters(array(
-                    '{{ object_class }}' => $class,
-                    '{{ fields }}' => implode($constraint->messageFieldSeparator, $fieldParts)
-                ))
-                ->addViolation();
+                          ->atPath($constraint->errorPath)
+                          ->setParameters([
+                              '{{ object_class }}' => $class,
+                              '{{ fields }}'       => implode($constraint->messageFieldSeparator, $fieldParts)
+                          ])
+                          ->addViolation();
 
         }
     }

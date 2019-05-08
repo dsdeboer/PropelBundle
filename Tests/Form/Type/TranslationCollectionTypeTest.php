@@ -19,14 +19,9 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class TranslationCollectionTypeTest extends TypeTestCase
 {
-    const TRANSLATION_CLASS = 'Propel\Bundle\PropelBundle\Tests\Fixtures\TranslatableItem';
+    const TRANSLATION_CLASS       = 'Propel\Bundle\PropelBundle\Tests\Fixtures\TranslatableItem';
     const TRANSLATABLE_I18N_CLASS = 'Propel\Bundle\PropelBundle\Tests\Fixtures\TranslatableItemI18n';
-    const NON_TRANSLATION_CLASS = 'Propel\Bundle\PropelBundle\Tests\Fixtures\Item';
-
-    protected function getExtensions()
-    {
-        return array(new PropelExtension());
-    }
+    const NON_TRANSLATION_CLASS   = 'Propel\Bundle\PropelBundle\Tests\Fixtures\Item';
 
     public function testTranslationsAdded()
     {
@@ -34,17 +29,17 @@ class TranslationCollectionTypeTest extends TypeTestCase
         $item->addTranslatableItemI18n(new TranslatableItemI18n(1, 'fr', 'val1'));
         $item->addTranslatableItemI18n(new TranslatableItemI18n(2, 'en', 'val2'));
 
-        $builder = $this->factory->createBuilder('form', null, array(
+        $builder = $this->factory->createBuilder('form', null, [
             'data_class' => self::TRANSLATION_CLASS,
-        ));
+        ]);
 
-        $builder->add('translatableItemI18ns', 'propel1_translation_collection', array(
-            'languages' => array('en', 'fr'),
-            'options' => array(
+        $builder->add('translatableItemI18ns', 'propel1_translation_collection', [
+            'languages' => ['en', 'fr'],
+            'options'   => [
                 'data_class' => self::TRANSLATABLE_I18N_CLASS,
-                'columns' => array('value', 'value2' => array('label' => 'Label', 'type' => 'textarea')),
-            ),
-        ));
+                'columns'    => ['value', 'value2' => ['label' => 'Label', 'type' => 'textarea']],
+            ],
+        ]);
         $form = $builder->getForm();
         $form->setData($item);
         $translations = $form->get('translatableItemI18ns');
@@ -71,16 +66,16 @@ class TranslationCollectionTypeTest extends TypeTestCase
 
         $this->assertCount(0, $item->getTranslatableItemI18ns());
 
-        $builder = $this->factory->createBuilder('form', null, array(
+        $builder = $this->factory->createBuilder('form', null, [
             'data_class' => self::TRANSLATION_CLASS,
-        ));
-        $builder->add('translatableItemI18ns', 'propel1_translation_collection', array(
-            'languages' => array('en', 'fr'),
-            'options' => array(
+        ]);
+        $builder->add('translatableItemI18ns', 'propel1_translation_collection', [
+            'languages' => ['en', 'fr'],
+            'options'   => [
                 'data_class' => self::TRANSLATABLE_I18N_CLASS,
-                'columns' => array('value', 'value2' => array('label' => 'Label', 'type' => 'textarea')),
-            ),
-        ));
+                'columns'    => ['value', 'value2' => ['label' => 'Label', 'type' => 'textarea']],
+            ],
+        ]);
 
         $form = $builder->getForm();
         $form->setData($item);
@@ -95,16 +90,16 @@ class TranslationCollectionTypeTest extends TypeTestCase
     {
         $item = new Item(null, 'val');
 
-        $builder = $this->factory->createBuilder('form', null, array(
+        $builder = $this->factory->createBuilder('form', null, [
             'data_class' => self::NON_TRANSLATION_CLASS,
-        ));
-        $builder->add('value', 'propel1_translation_collection', array(
-            'languages' => array('en', 'fr'),
-            'options' => array(
+        ]);
+        $builder->add('value', 'propel1_translation_collection', [
+            'languages' => ['en', 'fr'],
+            'options'   => [
                 'data_class' => self::TRANSLATABLE_I18N_CLASS,
-                'columns' => array('value', 'value2' => array('label' => 'Label', 'type' => 'textarea')),
-            ),
-        ));
+                'columns'    => ['value', 'value2' => ['label' => 'Label', 'type' => 'textarea']],
+            ],
+        ]);
 
         $form = $builder->getForm();
         $form->setData($item);
@@ -115,12 +110,12 @@ class TranslationCollectionTypeTest extends TypeTestCase
      */
     public function testNoDataClassAdded()
     {
-        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, array(
-            'languages' => array('en', 'fr'),
-            'options' => array(
-                'columns' => array('value', 'value2'),
-            ),
-        ));
+        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, [
+            'languages' => ['en', 'fr'],
+            'options'   => [
+                'columns' => ['value', 'value2'],
+            ],
+        ]);
     }
 
     /**
@@ -128,12 +123,12 @@ class TranslationCollectionTypeTest extends TypeTestCase
      */
     public function testNoLanguagesAdded()
     {
-        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, array(
-           'options' => array(
-               'data_class' => self::TRANSLATABLE_I18N_CLASS,
-               'columns' => array('value', 'value2'),
-           ),
-        ));
+        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, [
+            'options' => [
+                'data_class' => self::TRANSLATABLE_I18N_CLASS,
+                'columns'    => ['value', 'value2'],
+            ],
+        ]);
     }
 
     /**
@@ -141,11 +136,16 @@ class TranslationCollectionTypeTest extends TypeTestCase
      */
     public function testNoColumnsAdded()
     {
-        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, array(
-            'languages' => array('en', 'fr'),
-            'options' => array(
+        $this->factory->createNamed('itemI18ns', 'propel1_translation_collection', null, [
+            'languages' => ['en', 'fr'],
+            'options'   => [
                 'data_class' => self::TRANSLATABLE_I18N_CLASS,
-            ),
-        ));
+            ],
+        ]);
+    }
+
+    protected function getExtensions()
+    {
+        return [new PropelExtension()];
     }
 }

@@ -33,9 +33,9 @@ class TranslationCollectionFormListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            FormEvents::PRE_SET_DATA => array('preSetData', 1),
-        );
+        return [
+            FormEvents::PRE_SET_DATA => ['preSetData', 1],
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -52,13 +52,13 @@ class TranslationCollectionFormListener implements EventSubscriberInterface
         }
 
         //get the class name of the i18nClass
-        $temp = explode('\\', $this->i18nClass);
+        $temp      = explode('\\', $this->i18nClass);
         $dataClass = end($temp);
 
-        $rootData = $form->getRoot()->getData();
+        $rootData  = $form->getRoot()->getData();
         $foundData = false;
 
-        $addFunction = 'add'.$dataClass;
+        $addFunction = 'add' . $dataClass;
 
         //add a database row for every needed language
         foreach ($this->languages as $lang) {
@@ -83,7 +83,7 @@ class TranslationCollectionFormListener implements EventSubscriberInterface
                         break;
                     } elseif ($currentForm->hasParent()) {
                         $currentForm = $currentForm->getParent();
-                        $rootData = $currentForm->getData();
+                        $rootData    = $currentForm->getData();
                     } else {
                         break;
                     }

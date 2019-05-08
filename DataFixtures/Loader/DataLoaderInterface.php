@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 
 /**
@@ -19,8 +20,8 @@ interface DataLoaderInterface
     /**
      * Loads data from a set of files.
      *
-     * @param array  $files          A set of files containing datas to load.
+     * @param array $files A set of files containing datas to load.
      * @param string $connectionName The Propel connection name
      */
-    public function load($files = array(), $connectionName);
+    public function load($files = [], $connectionName);
 }

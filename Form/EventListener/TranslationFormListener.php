@@ -26,15 +26,15 @@ class TranslationFormListener implements EventSubscriberInterface
 
     public function __construct($columns, $dataClass)
     {
-        $this->columns = $columns;
+        $this->columns   = $columns;
         $this->dataClass = $dataClass;
     }
 
     public static function getSubscribedEvents()
     {
-        return array(
-            FormEvents::PRE_SET_DATA => array('preSetData', 1),
-        );
+        return [
+            FormEvents::PRE_SET_DATA => ['preSetData', 1],
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -49,11 +49,11 @@ class TranslationFormListener implements EventSubscriberInterface
         //loop over all columns and add the input
         foreach ($this->columns as $column => $options) {
             if (is_string($options)) {
-                $column = $options;
-                $options = array();
+                $column  = $options;
+                $options = [];
             }
             if (null === $options) {
-                $options = array();
+                $options = [];
             }
 
             $type = 'text';
@@ -65,13 +65,13 @@ class TranslationFormListener implements EventSubscriberInterface
                 $label = $options['label'];
             }
 
-            $customOptions = array();
+            $customOptions = [];
             if (array_key_exists('options', $options)) {
                 $customOptions = $options['options'];
             }
-            $options = array(
-                'label' => $label.' '.strtoupper($data->getLocale()),
-            );
+            $options = [
+                'label' => $label . ' ' . strtoupper($data->getLocale()),
+            ];
 
             $options = array_merge($options, $customOptions);
 

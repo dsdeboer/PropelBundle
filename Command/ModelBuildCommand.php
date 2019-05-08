@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -37,14 +38,13 @@ The <info>%command.name%</info> command builds the Propel runtime model classes 
   <info>php app/console %command.full_name%</info>
 EOT
             )
-            ->setName('propel:model:build')
-        ;
+            ->setName('propel:model:build');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

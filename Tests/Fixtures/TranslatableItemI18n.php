@@ -21,9 +21,14 @@ class TranslatableItemI18n implements \Persistent
 
     public function __construct($id = null, $locale = null, $value = null)
     {
-        $this->id = $id;
+        $this->id     = $id;
         $this->locale = $locale;
-        $this->value = $value;
+        $this->value  = $value;
+    }
+
+    public function getPrimaryKey()
+    {
+        return $this->getId();
     }
 
     public function getId()
@@ -34,11 +39,6 @@ class TranslatableItemI18n implements \Persistent
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    public function getPrimaryKey()
-    {
-        return $this->getId();
     }
 
     public function setPrimaryKey($primaryKey)
@@ -86,14 +86,14 @@ class TranslatableItemI18n implements \Persistent
     {
     }
 
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
     public function getItem()
@@ -106,23 +106,23 @@ class TranslatableItemI18n implements \Persistent
         $this->item = $item;
     }
 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
     public function getValue()
     {
         return $this->value;
     }
 
-    public function setValue2($value2)
+    public function setValue($value)
     {
-        $this->value2 = $value2;
+        $this->value = $value;
     }
 
     public function getValue2()
     {
         return $this->value2;
+    }
+
+    public function setValue2($value2)
+    {
+        $this->value2 = $value2;
     }
 }

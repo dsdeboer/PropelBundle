@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,22 +33,21 @@ The <info>propel:graphviz</info> generates Graphviz file for your project.
   <info>php app/console propel:graphviz</info>
 EOT
             )
-            ->setName('propel:graphviz:generate')
-        ;
+            ->setName('propel:graphviz:generate');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dest = $this->getApplication()->getKernel()->getRootDir() . '/propel/graph/';
 
-        $this->callPhing('graphviz', array(
-            'propel.graph.dir'    => $dest,
-        ));
+        $this->callPhing('graphviz', [
+            'propel.graph.dir' => $dest,
+        ]);
 
         $this->writeNewDirectory($output, $dest);
     }

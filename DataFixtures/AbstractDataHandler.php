@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures;
 
 use Propel;
@@ -41,14 +42,6 @@ abstract class AbstractDataHandler
     }
 
     /**
-     * @return string
-     */
-    protected function getRootDir()
-    {
-        return $this->rootDir;
-    }
-
-    /**
      * Load Map builders.
      *
      * @param string $connectionName A connection name.
@@ -63,9 +56,9 @@ abstract class AbstractDataHandler
         if (0 === count($this->dbMap->getTables())) {
             $finder = new Finder();
             $files  = $finder->files()->name('*TableMap.php')
-                ->in($this->getModelSearchPaths($connectionName))
-                ->exclude('PropelBundle')
-                ->exclude('Tests');
+                             ->in($this->getModelSearchPaths($connectionName))
+                             ->exclude('PropelBundle')
+                             ->exclude('Tests');
 
             foreach ($files as $file) {
                 $class = $this->guessFullClassName($file->getRelativePath(), basename($file, '.php'));
@@ -78,33 +71,52 @@ abstract class AbstractDataHandler
     }
 
     /**
-     * Check if a table is in a database
-     * @param  string  $class
-     * @param  string  $connectionName
-     * @return boolean
+     * Gets the search path for models out of the configuration.
+     *
+     * @param string $connectionName A connection name.
+     *
+     * @return string[]
      */
-    protected function isInDatabase($class, $connectionName)
+    protected function getModelSearchPaths($connectionName)
     {
-        $table = new $class();
+        $configuration = Propel::getConfiguration();
+        $searchPath    = [];
 
-        return constant($table->getPeerClassname().'::DATABASE_NAME') == $connectionName;
+        if (!empty($configuration['datasources'][$connectionName]['connection']['model_paths'])) {
+            $modelPaths = $configuration['datasources'][$connectionName]['connection']['model_paths'];
+            foreach ($modelPaths as $modelPath) {
+                $searchPath[] = $this->getRootDir() . '/../' . $modelPath;
+            }
+        } else {
+            $searchPath[] = $this->getRootDir() . '/../';
+        }
+
+        return $searchPath;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getRootDir()
+    {
+        return $this->rootDir;
     }
 
     /**
      * Try to find a valid class with its namespace based on the filename.
      * Based on the PSR-0 standard, the namespace should be the directory structure.
      *
-     * @param string $path           The relative path of the file.
+     * @param string $path The relative path of the file.
      * @param string $shortClassName The short class name aka the filename without extension.
      */
     private function guessFullClassName($path, $shortClassName)
     {
-        $array = array();
+        $array = [];
         $path  = str_replace('/', '\\', $path);
 
         $array[] = $path;
         while ($pos = strpos($path, '\\')) {
-            $path = substr($path, $pos + 1, strlen($path));
+            $path    = substr($path, $pos + 1, strlen($path));
             $array[] = $path;
         }
 
@@ -121,25 +133,15 @@ abstract class AbstractDataHandler
     }
 
     /**
-     * Gets the search path for models out of the configuration.
-     *
-     * @param string $connectionName A connection name.
-     *
-     * @return string[]
+     * Check if a table is in a database
+     * @param string $class
+     * @param string $connectionName
+     * @return boolean
      */
-    protected function getModelSearchPaths($connectionName) {
-        $configuration = Propel::getConfiguration();
-        $searchPath = array();
+    protected function isInDatabase($class, $connectionName)
+    {
+        $table = new $class();
 
-        if (!empty($configuration['datasources'][$connectionName]['connection']['model_paths'])) {
-            $modelPaths = $configuration['datasources'][$connectionName]['connection']['model_paths'];
-            foreach ($modelPaths as $modelPath) {
-                $searchPath[] = $this->getRootDir() . '/../' . $modelPath;
-            }
-        } else {
-            $searchPath[] = $this->getRootDir() . '/../';
-        }
-
-        return $searchPath;
+        return constant($table->getPeerClassname() . '::DATABASE_NAME') == $connectionName;
     }
 }

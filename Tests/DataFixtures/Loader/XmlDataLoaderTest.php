@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\DataFixtures\Loader;
 
 use Propel\Bundle\PropelBundle\DataFixtures\Loader\XmlDataLoader;
@@ -14,7 +15,6 @@ use Propel\Bundle\PropelBundle\Tests\DataFixtures\TestCase;
 
 /**
  * @author Duncan de Boer <duncan@charpand.nl>
-
  */
 class XmlDataLoaderTest extends TestCase
 {
@@ -33,8 +33,8 @@ XML;
 
         $filename = $this->getTempFile($fixtures);
 
-        $loader = new XmlDataLoader(__DIR__.'/../../Fixtures/DataFixtures/Loader');
-        $loader->load(array($filename), 'default');
+        $loader = new XmlDataLoader(__DIR__ . '/../../Fixtures/DataFixtures/Loader');
+        $loader->load([$filename], 'default');
 
         $books = \Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookPeer::doSelect(new \Criteria(), $this->con);
         $this->assertCount(1, $books);

@@ -61,18 +61,18 @@ class TranslationCollectionType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array(
+        $resolver->setRequired([
             'languages',
-        ));
+        ]);
 
-        $resolver->setDefaults(array(
-            'type' => 'propel1_translation',
-            'allow_add' => false,
+        $resolver->setDefaults([
+            'type'         => 'propel1_translation',
+            'allow_add'    => false,
             'allow_delete' => false,
-            'options' => array(
+            'options'      => [
                 'data_class' => null,
-                'columns' => null,
-            ),
-        ));
+                'columns'    => null,
+            ],
+        ]);
     }
 }

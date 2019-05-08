@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,42 +38,41 @@ The <info>--connection</info> parameter allows you to change the connection to u
 The default connection is the active connection (propel.dbal.default_connection).
 EOT
             )
-            ->setName('propel:reverse')
-        ;
+            ->setName('propel:reverse');
 
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         list($name, $defaultConfig) = $this->getConnection($input, $output);
 
-        $ret = $this->callPhing('reverse', array(
-            'propel.project'            => $name,
-            'propel.database'           => $defaultConfig['adapter'],
-            'propel.database.url'       => $defaultConfig['connection']['dsn'],
-            'propel.database.user'      => $defaultConfig['connection']['user'],
-            'propel.database.password'  => isset($defaultConfig['connection']['password']) ? $defaultConfig['connection']['password'] : '',
-        ));
+        $ret = $this->callPhing('reverse', [
+            'propel.project'           => $name,
+            'propel.database'          => $defaultConfig['adapter'],
+            'propel.database.url'      => $defaultConfig['connection']['dsn'],
+            'propel.database.user'     => $defaultConfig['connection']['user'],
+            'propel.database.password' => isset($defaultConfig['connection']['password']) ? $defaultConfig['connection']['password'] : '',
+        ]);
 
         if (true === $ret) {
             $filesystem = new Filesystem();
-            $generated  = $this->getCacheDir().'/schema.xml';
+            $generated  = $this->getCacheDir() . '/schema.xml';
             $filename   = $name . '_reversed_schema.xml';
             $destFile   = $this->getApplication()->getKernel()->getRootDir() . '/propel/generated-schemas/' . $filename;
 
             if (file_exists($generated)) {
                 $filesystem->copy($generated, $destFile);
-                $output->writeln(array(
+                $output->writeln([
                     '',
                     sprintf('>>  <info>File+</info>    %s', $destFile),
-                ));
+                ]);
             } else {
-                $output->writeln(array('', 'No generated files.'));
+                $output->writeln(['', 'No generated files.']);
             }
         } else {
             $this->writeTaskError($output, 'reverse');

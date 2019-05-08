@@ -2,11 +2,11 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Fixtures\Model\om;
 
-use \Criteria;
-use \ModelCriteria;
-use \PropelPDO;
+use Criteria;
+use ModelCriteria;
 use Propel\Bundle\PropelBundle\Tests\Fixtures\Model\BookPeer;
 use Propel\Bundle\PropelBundle\Tests\Fixtures\Model\BookQuery;
+use PropelPDO;
 
 /**
  * Base class that represents a query for the 'book' table.
@@ -43,8 +43,8 @@ abstract class BaseBookQuery extends ModelCriteria
     /**
      * Initializes internal state of BaseBookQuery object.
      *
-     * @param string $dbName     The dabase name
-     * @param string $modelName  The phpName of a model, e.g. 'Book'
+     * @param string $dbName The dabase name
+     * @param string $modelName The phpName of a model, e.g. 'Book'
      * @param string $modelAlias The alias for the model in this query, e.g. 'b'
      */
     public function __construct($dbName = 'mydb', $modelName = 'Propel\\Bundle\\PropelBundle\\Tests\\Fixtures\\Model\\Book', $modelAlias = null)
@@ -55,8 +55,8 @@ abstract class BaseBookQuery extends ModelCriteria
     /**
      * Returns a new BookQuery object.
      *
-     * @param string   $modelAlias The alias of a model in the query
-     * @param Criteria $criteria   Optional Criteria to build the query from
+     * @param string $modelAlias The alias of a model in the query
+     * @param Criteria $criteria Optional Criteria to build the query from
      *
      * @return BookQuery
      */
@@ -82,44 +82,25 @@ abstract class BaseBookQuery extends ModelCriteria
      * <code>
      * $obj  = $c->findPk(12, $con);
      * </code>
-     * @param mixed     $key Primary key to use for the query
+     * @param mixed $key Primary key to use for the query
      * @param PropelPDO $con an optional connection object
      *
      * @return Book|array|mixed the result, formatted by the current formatter
      */
     public function findPk($key, $con = null)
     {
-        if ((null !== ($obj = BookPeer::getInstanceFromPool((string) $key))) && $this->getFormatter()->isObjectFormatter()) {
+        if ((null !== ($obj = BookPeer::getInstanceFromPool((string)$key))) && $this->getFormatter()->isObjectFormatter()) {
             // the object is alredy in the instance pool
             return $obj;
         } else {
             // the object has not been requested yet, or the formatter is not an object formatter
             $criteria = $this->isKeepQuery() ? clone $this : $this;
-            $stmt = $criteria
+            $stmt     = $criteria
                 ->filterByPrimaryKey($key)
                 ->getSelectStatement($con);
 
             return $criteria->getFormatter()->init($criteria)->formatOne($stmt);
         }
-    }
-
-    /**
-     * Find objects by primary key
-     * <code>
-     * $objs = $c->findPks(array(12, 56, 832), $con);
-     * </code>
-     * @param array     $keys Primary keys to use for the query
-     * @param PropelPDO $con  an optional connection object
-     *
-     * @return PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
-     */
-    public function findPks($keys, $con = null)
-    {
-        $criteria = $this->isKeepQuery() ? clone $this : $this;
-
-        return $this
-            ->filterByPrimaryKeys($keys)
-            ->find($con);
     }
 
     /**
@@ -132,6 +113,25 @@ abstract class BaseBookQuery extends ModelCriteria
     public function filterByPrimaryKey($key)
     {
         return $this->addUsingAlias(BookPeer::ID, $key, Criteria::EQUAL);
+    }
+
+    /**
+     * Find objects by primary key
+     * <code>
+     * $objs = $c->findPks(array(12, 56, 832), $con);
+     * </code>
+     * @param array $keys Primary keys to use for the query
+     * @param PropelPDO $con an optional connection object
+     *
+     * @return PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
+     */
+    public function findPks($keys, $con = null)
+    {
+        $criteria = $this->isKeepQuery() ? clone $this : $this;
+
+        return $this
+            ->filterByPrimaryKeys($keys)
+            ->find($con);
     }
 
     /**
@@ -194,7 +194,7 @@ abstract class BaseBookQuery extends ModelCriteria
             if (is_array($name)) {
                 $comparison = Criteria::IN;
             } elseif (preg_match('/[\%\*]/', $name)) {
-                $name = str_replace('*', '%', $name);
+                $name       = str_replace('*', '%', $name);
                 $comparison = Criteria::LIKE;
             }
         }
@@ -223,7 +223,7 @@ abstract class BaseBookQuery extends ModelCriteria
             if (is_array($slug)) {
                 $comparison = Criteria::IN;
             } elseif (preg_match('/[\%\*]/', $slug)) {
-                $slug = str_replace('*', '%', $slug);
+                $slug       = str_replace('*', '%', $slug);
                 $comparison = Criteria::LIKE;
             }
         }

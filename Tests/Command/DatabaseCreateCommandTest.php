@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Command;
 
 use Propel\Bundle\PropelBundle\Command\DatabaseCreateCommand;
@@ -46,28 +47,28 @@ class DatabaseCreateCommandTest extends TestCase
 
     public function dataTemporaryConfiguration()
     {
-        return array(
-            array(
+        return [
+            [
                 'dbname',
-                array('connection' => array('dsn' => 'mydsn:host=localhost;dbname=test_db;')),
+                ['connection' => ['dsn' => 'mydsn:host=localhost;dbname=test_db;']],
                 'mydsn:host=localhost;'
-            ),
-            array(
+            ],
+            [
                 'dbname_first',
-                array('connection' => array('dsn' => 'mydsn:dbname=test_db;host=localhost')),
+                ['connection' => ['dsn' => 'mydsn:dbname=test_db;host=localhost']],
                 'mydsn:host=localhost'
-            ),
-            array(
+            ],
+            [
                 'dbname_no_semicolon',
-                array('connection' => array('dsn' => 'mydsn:host=localhost;dbname=test_db')),
+                ['connection' => ['dsn' => 'mydsn:host=localhost;dbname=test_db']],
                 'mydsn:host=localhost;'
-            ),
-            array(
+            ],
+            [
                 'no_dbname',
-                array('connection' => array('dsn' => 'mydsn:host=localhost;')),
+                ['connection' => ['dsn' => 'mydsn:host=localhost;']],
                 'mydsn:host=localhost;'
-            ),
-        );
+            ],
+        ];
     }
 }
 

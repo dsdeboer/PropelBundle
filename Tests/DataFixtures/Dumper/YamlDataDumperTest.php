@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\DataFixtures\Dumper;
 
 use Propel\Bundle\PropelBundle\DataFixtures\Dumper\YamlDataDumper;
@@ -15,7 +16,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
  * @author Duncan de Boer <duncan@charpand.nl>
-
  */
 class YamlDataDumperTest extends TestCase
 {
@@ -24,7 +24,7 @@ class YamlDataDumperTest extends TestCase
         $author = new \Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookAuthor();
         $author->setName('A famous one')->save($this->con);
 
-        $complementary = new \stdClass();
+        $complementary                  = new \stdClass();
         $complementary->first_word_date = '2012-01-01';
 
         $book = new \Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\Book();
@@ -32,12 +32,11 @@ class YamlDataDumperTest extends TestCase
             ->setName('An important one')
             ->setAuthorId(1)
             ->setComplementaryInfos($complementary)
-            ->save($this->con)
-        ;
+            ->save($this->con);
 
         $filename = $this->getTempFile();
 
-        $loader = new YamlDataDumper(__DIR__.'/../../Fixtures/DataFixtures/Loader');
+        $loader = new YamlDataDumper(__DIR__ . '/../../Fixtures/DataFixtures/Loader');
         $loader->dump($filename);
 
         $expected = $this->getYamlForSymfonyVersion();

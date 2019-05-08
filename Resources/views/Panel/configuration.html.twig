@@ -4,25 +4,25 @@
     <thead>
     </thead>
     <tbody>
-        <tr>
-            <th>Propel version</th>
-            <td>{{ propel_version }}</td>
-        </tr>
-        <tr>
-            <th>Default connection</th>
-            <td>{{ default_connection }}</td>
-        <tr>
-            <th>Logging</th>
-            <td>{{ logging ? 'enabled' : 'disabled' }}</td>
-        </tr>
-        <tr>
-            <th>Propel path</th>
-            <td>{{ path }}</td>
-        </tr>
-        <tr>
-            <th>Phing path</th>
-            <td>{{ phing_path }}</td>
-        </tr>
+    <tr>
+        <th>Propel version</th>
+        <td>{{ propel_version }}</td>
+    </tr>
+    <tr>
+        <th>Default connection</th>
+        <td>{{ default_connection }}</td>
+    <tr>
+        <th>Logging</th>
+        <td>{{ logging ? 'enabled' : 'disabled' }}</td>
+    </tr>
+    <tr>
+        <th>Propel path</th>
+        <td>{{ path }}</td>
+    </tr>
+    <tr>
+        <th>Phing path</th>
+        <td>{{ phing_path }}</td>
+    </tr>
     </tbody>
 </table>
 
@@ -30,13 +30,13 @@
 
 <table summary="Current Propel connections">
     <thead>
-        <tr>
-            <th>Connection name</th>
-            <th colspan="2" style="text-align: center;">Configuration parameters</th>
-        </tr>
+    <tr>
+        <th>Connection name</th>
+        <th colspan="2" style="text-align: center;">Configuration parameters</th>
+    </tr>
     </thead>
     <tbody>
-        {% for name, config in configuration.datasources if config is iterable %}
+    {% for name, config in configuration.datasources if config is iterable %}
         <tr>
             <th rowspan="5" style="vertical-align: top;">
                 {{ name }}
@@ -57,7 +57,7 @@
             <td>
                 <ul>
                     {% for key, value in config.connection.options %}
-                    <li>{{ key }} : {{ value }}</li>
+                        <li>{{ key }} : {{ value }}</li>
                     {% endfor %}
                 </ul>
             </td>
@@ -67,11 +67,11 @@
             <td>
                 <ul>
                     {% for key, value in config.connection.attributes %}
-                    <li>{{ key }} : {{ value }}</li>
+                        <li>{{ key }} : {{ value }}</li>
                     {% endfor %}
                 </ul>
             </td>
         </tr>
-        {% endfor %}
+    {% endfor %}
     </tbody>
 </table>

@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,29 +38,28 @@ The <info>%command.name%</info> command builds the SQL table generation code bas
 EOT
             )
             ->addOption('connection', null, InputOption::VALUE_OPTIONAL, 'Set this parameter to define a connection to use')
-            ->setName('propel:sql:build')
-        ;
+            ->setName('propel:sql:build');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $finder = new Finder();
+        $finder     = new Finder();
         $filesystem = new Filesystem();
 
-        $sqlDir = $this->getApplication()->getKernel()->getCacheDir().DIRECTORY_SEPARATOR.'propel'.DIRECTORY_SEPARATOR.'sql';
+        $sqlDir = $this->getApplication()->getKernel()->getCacheDir() . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'sql';
 
         $filesystem->remove($sqlDir);
         $filesystem->mkdir($sqlDir);
 
         // Execute the task
-        $ret = $this->callPhing('build-sql', array(
+        $ret = $this->callPhing('build-sql', [
             'propel.sql.dir' => $sqlDir,
-        ));
+        ]);
 
         // Show the list of generated files
         if (true === $ret) {
@@ -67,14 +67,14 @@ EOT
 
             $nbFiles = 0;
             foreach ($files as $file) {
-                $fileExt = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
-                $finalLocation = $sqlDir.DIRECTORY_SEPARATOR.$file->getFilename();
+                $fileExt       = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
+                $finalLocation = $sqlDir . DIRECTORY_SEPARATOR . $file->getFilename();
 
                 if ($fileExt === 'map' && $filesystem->exists($finalLocation)) {
-                    $this->mergeMapFiles($finalLocation, (string) $file);
+                    $this->mergeMapFiles($finalLocation, (string)$file);
                 }
 
-                $this->writeNewFile($output, (string) $file);
+                $this->writeNewFile($output, (string)$file);
 
                 if ('sql' === $fileExt) {
                     ++$nbFiles;
@@ -85,11 +85,11 @@ EOT
                 $nbFiles, $nbFiles > 1 ? 's' : '', $nbFiles > 1 ? 've' : 's'
             ));
         } else {
-            $this->writeSection($output, array(
+            $this->writeSection($output, [
                 '[Propel] Error',
                 '',
                 'An error has occured during the "propel:sql:build" command process. To get more details, run the command with the "--verbose" option.',
-            ), 'fg=white;bg=red');
+            ], 'fg=white;bg=red');
         }
     }
 
@@ -97,7 +97,7 @@ EOT
      * Reads the existing target and the generated map files, and adds to the
      * target the missing lines that are in the generated file.
      *
-     * @param string $target    target map filename
+     * @param string $target target map filename
      * @param string $generated generated map filename
      *
      * @return bool

@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -28,22 +29,22 @@ class PanelController extends ContainerAware
 
         return $templating->renderResponse(
             'PropelBundle:Panel:configuration.html.twig',
-            array(
+            [
                 'propel_version'     => \Propel::VERSION,
                 'configuration'      => $this->container->get('propel.configuration')->getParameters(),
                 'default_connection' => $this->container->getParameter('propel.dbal.default_connection'),
                 'logging'            => $this->container->getParameter('propel.logging'),
                 'path'               => $this->container->getParameter('propel.path'),
                 'phing_path'         => $this->container->getParameter('propel.phing_path'),
-            )
+            ]
         );
     }
 
     /**
      * Renders the profiler panel for the given token.
      *
-     * @param string  $token      The profiler token
-     * @param string  $connection The connection name
+     * @param string $token The profiler token
+     * @param string $connection The connection name
      * @param integer $query
      *
      * @return Symfony\Component\HttpFoundation\Response A Response instance
@@ -67,7 +68,7 @@ class PanelController extends ContainerAware
         $db = \Propel::getDB($connection);
 
         try {
-            $stmt = $db->doExplainPlan($con, $queries[$query]['sql']);
+            $stmt    = $db->doExplainPlan($con, $queries[$query]['sql']);
             $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             return new Response('<div class="error">This query cannot be explained.</div>');
@@ -75,10 +76,10 @@ class PanelController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse(
             'PropelBundle:Panel:explain.html.twig',
-            array(
-                'data' => $results,
+            [
+                'data'  => $results,
                 'query' => $query,
-            )
+            ]
         );
     }
 }

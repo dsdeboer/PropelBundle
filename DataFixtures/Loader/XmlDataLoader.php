@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 
 /**
@@ -27,29 +28,29 @@ class XmlDataLoader extends AbstractDataLoader
     }
 
     /**
-     * @param  SimpleXMLElement $xml
+     * @param SimpleXMLElement $xml
      * @return array
      */
     protected function simpleXmlToArray($xml)
     {
-        $array = array();
+        $array = [];
         if ($xml instanceof \SimpleXMLElement) {
             foreach ($xml as $key => $value) {
                 // First make a valid key which is the Ns (Namespace) attribute
                 // + the element name (the class name)
                 foreach ($value->attributes() as $subkey => $subvalue) {
-                    if ('Namespace' === (string) $subkey) {
+                    if ('Namespace' === (string)$subkey) {
                         $key = $subvalue . '\\' . $key;
                         break;
                     }
                 }
 
-                $array[$key] = array();
+                $array[$key] = [];
                 foreach ($value as $elementKey => $elementValue) {
-                    $array[$key][$elementKey] = array();
+                    $array[$key][$elementKey] = [];
 
                     foreach ($elementValue->attributes() as $subkey => $subvalue) {
-                        $array[$key][$elementKey][$subkey] = (string) $subvalue;
+                        $array[$key][$elementKey][$subkey] = (string)$subvalue;
                     }
                 }
             }

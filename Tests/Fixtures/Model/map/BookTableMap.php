@@ -2,8 +2,7 @@
 
 namespace Propel\Bundle\PropelBundle\Tests\Fixtures\Model\map;
 
-use \RelationMap;
-use \TableMap;
+use TableMap;
 
 /**
  * This class defines the structure of the 'book' table.

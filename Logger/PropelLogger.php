@@ -30,7 +30,7 @@ class PropelLogger implements \BasicLogger
     /**
      * @var array
      */
-    protected $queries = array();
+    protected $queries = [];
 
     /**
      * @var Stopwatch
@@ -45,12 +45,12 @@ class PropelLogger implements \BasicLogger
     /**
      * Constructor.
      *
-     * @param LoggerInterface $logger    A LoggerInterface instance
-     * @param Stopwatch       $stopwatch A Stopwatch instance
+     * @param LoggerInterface $logger A LoggerInterface instance
+     * @param Stopwatch $stopwatch A Stopwatch instance
      */
     public function __construct(LoggerInterface $logger = null, Stopwatch $stopwatch = null)
     {
-        $this->logger = $logger;
+        $this->logger    = $logger;
         $this->stopwatch = $stopwatch;
     }
 
@@ -60,6 +60,40 @@ class PropelLogger implements \BasicLogger
     public function alert($message)
     {
         $this->log($message, 'alert');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function log($message, $severity = null)
+    {
+        if (null !== $this->logger) {
+            $message = is_string($message) ? $message : var_export($message, true);
+
+            switch ($severity) {
+                case 'alert':
+                    $this->logger->alert($message);
+                    break;
+                case 'crit':
+                    $this->logger->critical($message);
+                    break;
+                case 'err':
+                    $this->logger->error($message);
+                    break;
+                case 'warning':
+                    $this->logger->warning($message);
+                    break;
+                case 'notice':
+                    $this->logger->notice($message);
+                    break;
+                case 'info':
+                    $this->logger->info($message);
+                    break;
+                case 'debug':
+                default:
+                    $this->logger->debug($message);
+            }
+        }
     }
 
     /**
@@ -110,10 +144,10 @@ class PropelLogger implements \BasicLogger
         $add = true;
 
         if (null !== $this->stopwatch) {
-            $trace = debug_backtrace();
+            $trace  = debug_backtrace();
             $method = $trace[2]['args'][2];
 
-            $watch = 'Propel Query '.(count($this->queries) + 1);
+            $watch = 'Propel Query ' . (count($this->queries) + 1);
             if ('PropelPDO::prepare' === $method) {
                 $this->isPrepared = true;
                 $this->stopwatch->start($watch, 'propel');
@@ -128,40 +162,6 @@ class PropelLogger implements \BasicLogger
         if ($add) {
             $this->queries[] = $message;
             $this->log($message, 'debug');
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function log($message, $severity = null)
-    {
-        if (null !== $this->logger) {
-            $message = is_string($message) ? $message : var_export($message, true);
-
-            switch ($severity) {
-                case 'alert':
-                    $this->logger->alert($message);
-                    break;
-                case 'crit':
-                    $this->logger->critical($message);
-                    break;
-                case 'err':
-                    $this->logger->error($message);
-                    break;
-                case 'warning':
-                    $this->logger->warning($message);
-                    break;
-                case 'notice':
-                    $this->logger->notice($message);
-                    break;
-                case 'info':
-                    $this->logger->info($message);
-                    break;
-                case 'debug':
-                default:
-                    $this->logger->debug($message);
-            }
         }
     }
 

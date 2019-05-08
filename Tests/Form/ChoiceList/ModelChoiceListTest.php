@@ -22,34 +22,29 @@ class ModelChoiceListTest extends TestCase
 {
     const ITEM_CLASS = '\Propel\Bundle\PropelBundle\Tests\Fixtures\Item';
 
-    protected function setUp()
-    {
-        ItemQuery::$result = array();
-    }
-
     public function testEmptyChoicesReturnsEmpty()
     {
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array()
+            []
         );
 
-        $this->assertSame(array(), $choiceList->getChoices());
+        $this->assertSame([], $choiceList->getChoices());
     }
 
     public function testReadOnlyIsValidChoice()
     {
-        $item = new ReadOnlyItem();
+        $item       = new ReadOnlyItem();
         $choiceList = new ModelChoiceList(
             '\Propel\Bundle\PropelBundle\Tests\Fixtures\ReadOnlyItem',
             'name',
-            array(
+            [
                 $item,
-            )
+            ]
         );
 
-        $this->assertSame(array(42 => $item), $choiceList->getChoices());
+        $this->assertSame([42 => $item], $choiceList->getChoices());
     }
 
     public function testFlattenedChoices()
@@ -60,13 +55,13 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
+            [
                 $item1,
                 $item2,
-            )
+            ]
         );
 
-        $this->assertSame(array(1 => $item1, 2 => $item2), $choiceList->getChoices());
+        $this->assertSame([1 => $item1, 2 => $item2], $choiceList->getChoices());
     }
 
     public function testFlattenedPreferredChoices()
@@ -77,19 +72,19 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
+            [
                 $item1,
                 $item2,
-            ),
+            ],
             null,
             null,
-            array(
+            [
                 $item1,
-            )
+            ]
         );
 
-        $this->assertSame(array(1 => $item1, 2 => $item2), $choiceList->getChoices());
-        $this->assertEquals(array(1 => new ChoiceView($item1, '1', 'Foo')), $choiceList->getPreferredViews());
+        $this->assertSame([1 => $item1, 2 => $item2], $choiceList->getChoices());
+        $this->assertEquals([1 => new ChoiceView($item1, '1', 'Foo')], $choiceList->getPreferredViews());
     }
 
     public function testNestedChoices()
@@ -100,17 +95,17 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
-                'group1' => array($item1),
-                'group2' => array($item2),
-            )
+            [
+                'group1' => [$item1],
+                'group2' => [$item2],
+            ]
         );
 
-        $this->assertSame(array(1 => $item1, 2 => $item2), $choiceList->getChoices());
-        $this->assertEquals(array(
-            'group1' => array(1 => new ChoiceView($item1, '1', 'Foo')),
-            'group2' => array(2 => new ChoiceView($item2, '2', 'Bar')),
-        ), $choiceList->getRemainingViews());
+        $this->assertSame([1 => $item1, 2 => $item2], $choiceList->getChoices());
+        $this->assertEquals([
+            'group1' => [1 => new ChoiceView($item1, '1', 'Foo')],
+            'group2' => [2 => new ChoiceView($item2, '2', 'Bar')],
+        ], $choiceList->getRemainingViews());
     }
 
     public function testGroupBySupportsString()
@@ -123,22 +118,22 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
+            [
                 $item1,
                 $item2,
                 $item3,
                 $item4,
-            ),
+            ],
             null,
             'groupName'
         );
 
-        $this->assertEquals(array(1 => $item1, 2 => $item2, 3 => $item3, 4 => $item4), $choiceList->getChoices());
-        $this->assertEquals(array(
-            'Group1' => array(1 => new ChoiceView($item1, '1', 'Foo'), 2 => new ChoiceView($item2, '2', 'Bar')),
-            'Group2' => array(3 => new ChoiceView($item3, '3', 'Baz')),
-            4 => new ChoiceView($item4, '4', 'Boo!'),
-        ), $choiceList->getRemainingViews());
+        $this->assertEquals([1 => $item1, 2 => $item2, 3 => $item3, 4 => $item4], $choiceList->getChoices());
+        $this->assertEquals([
+            'Group1' => [1 => new ChoiceView($item1, '1', 'Foo'), 2 => new ChoiceView($item2, '2', 'Bar')],
+            'Group2' => [3 => new ChoiceView($item3, '3', 'Baz')],
+            4        => new ChoiceView($item4, '4', 'Boo!'),
+        ], $choiceList->getRemainingViews());
     }
 
     public function testGroupByInvalidPropertyPathReturnsFlatChoices()
@@ -149,18 +144,18 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
+            [
                 $item1,
                 $item2,
-            ),
+            ],
             null,
             'child.that.does.not.exist'
         );
 
-        $this->assertEquals(array(
+        $this->assertEquals([
             1 => $item1,
             2 => $item2,
-        ), $choiceList->getChoices());
+        ], $choiceList->getChoices());
     }
 
     public function testGetValuesForChoices()
@@ -168,10 +163,10 @@ class ModelChoiceListTest extends TestCase
         $item1 = new Item(1, 'Foo');
         $item2 = new Item(2, 'Bar');
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $item1,
             $item2,
-        );
+        ];
 
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
@@ -182,26 +177,26 @@ class ModelChoiceListTest extends TestCase
             null
         );
 
-        $this->assertEquals(array(1, 2), $choiceList->getValuesForChoices(array($item1, $item2)));
+        $this->assertEquals([1, 2], $choiceList->getValuesForChoices([$item1, $item2]));
     }
 
     public function testDifferentEqualObjectsAreChoosen()
     {
         $item = new Item(1, 'Foo');
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $item,
-        );
+        ];
 
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array($item)
+            [$item]
         );
 
         $choosenItem = new Item(1, 'Foo');
 
-        $this->assertEquals(array('1'), $choiceList->getValuesForChoices(array($choosenItem)));
+        $this->assertEquals(['1'], $choiceList->getValuesForChoices([$choosenItem]));
     }
 
     public function testLegacygetIndicesForChoices()
@@ -211,10 +206,10 @@ class ModelChoiceListTest extends TestCase
         $item1 = new Item(1, 'Foo');
         $item2 = new Item(2, 'Bar');
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $item1,
             $item2,
-        );
+        ];
 
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
@@ -225,7 +220,7 @@ class ModelChoiceListTest extends TestCase
             null
         );
 
-        $this->assertEquals(array(1, 2), $choiceList->getIndicesForChoices(array($item1, $item2)));
+        $this->assertEquals([1, 2], $choiceList->getIndicesForChoices([$item1, $item2]));
     }
 
     public function testLegacyDifferentEqualObjectsAreChoosen()
@@ -234,46 +229,46 @@ class ModelChoiceListTest extends TestCase
 
         $item = new Item(1, 'Foo');
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $item,
-        );
+        ];
 
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array($item)
+            [$item]
         );
 
         $choosenItem = new Item(1, 'Foo');
 
-        $this->assertEquals(array(1), $choiceList->getIndicesForChoices(array($choosenItem)));
+        $this->assertEquals([1], $choiceList->getIndicesForChoices([$choosenItem]));
     }
 
     public function testLegacyGetIndicesForNullChoices()
     {
         $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
 
-        $item = new Item(1, 'Foo');
+        $item       = new Item(1, 'Foo');
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array($item)
+            [$item]
         );
 
-        $this->assertEquals(array(), $choiceList->getIndicesForChoices(array(null)));
+        $this->assertEquals([], $choiceList->getIndicesForChoices([null]));
     }
 
     public function testDontAllowInvalidChoiceValues()
     {
-        $item = new Item(1, 'Foo');
+        $item       = new Item(1, 'Foo');
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array($item)
+            [$item]
         );
 
-        $this->assertEquals(array(), $choiceList->getValuesForChoices(array(new Item(2, 'Bar'))));
-        $this->assertEquals(array(), $choiceList->getChoicesForValues(array(2)));
+        $this->assertEquals([], $choiceList->getValuesForChoices([new Item(2, 'Bar')]));
+        $this->assertEquals([], $choiceList->getChoicesForValues([2]));
     }
 
     /**
@@ -300,17 +295,22 @@ class ModelChoiceListTest extends TestCase
         $choiceList = new ModelChoiceList(
             self::ITEM_CLASS,
             'value',
-            array(
+            [
                 $item1,
                 $item2,
-            ),
+            ],
             null,
             null,
-            array(),
+            [],
             null,
             'slug'
         );
 
-        $this->assertSame(array('slug' => $item1, 'slug2' => $item2), $choiceList->getChoices());
+        $this->assertSame(['slug' => $item1, 'slug2' => $item2], $choiceList->getChoices());
+    }
+
+    protected function setUp()
+    {
+        ItemQuery::$result = [];
     }
 }

@@ -13,22 +13,20 @@ namespace Propel\Bundle\PropelBundle\Tests\Fixtures;
 
 class ItemQuery
 {
-    private $map = array(
-        'id' => \PropelColumnTypes::INTEGER,
-        'value' => \PropelColumnTypes::VARCHAR,
-        'price' => \PropelColumnTypes::FLOAT,
-        'is_active' => \PropelColumnTypes::BOOLEAN,
-        'slug' => \PropelColumnTypes::VARCHAR,
-        'enabled' => \PropelColumnTypes::BOOLEAN_EMU,
+    public static $result = [];
+    private $map = [
+        'id'         => \PropelColumnTypes::INTEGER,
+        'value'      => \PropelColumnTypes::VARCHAR,
+        'price'      => \PropelColumnTypes::FLOAT,
+        'is_active'  => \PropelColumnTypes::BOOLEAN,
+        'slug'       => \PropelColumnTypes::VARCHAR,
+        'enabled'    => \PropelColumnTypes::BOOLEAN_EMU,
         'updated_at' => \PropelColumnTypes::TIMESTAMP,
-    );
-
-    private $caseInsensitiveMap = array(
-        'isactive' => 'is_active',
+    ];
+    private $caseInsensitiveMap = [
+        'isactive'  => 'is_active',
         'updatedat' => 'updated_at',
-    );
-
-    public static $result = array();
+    ];
 
     public function find()
     {
@@ -53,25 +51,7 @@ class ItemQuery
         $cm->setType('INTEGER');
         $cm->setPhpName('Id');
 
-        return array('id' => $cm);
-    }
-
-    /**
-     * Method from the TableMap API.
-     */
-    public function hasColumn($column)
-    {
-        return in_array($column, array_keys($this->map));
-    }
-
-    /**
-     * Method from the TableMap API.
-     */
-    public function getColumn($column)
-    {
-        if ($this->hasColumn($column)) {
-            return new Column($column, $this->map[$column]);
-        }
+        return ['id' => $cm];
     }
 
     /**
@@ -99,6 +79,24 @@ class ItemQuery
     /**
      * Method from the TableMap API.
      */
+    public function getColumn($column)
+    {
+        if ($this->hasColumn($column)) {
+            return new Column($column, $this->map[$column]);
+        }
+    }
+
+    /**
+     * Method from the TableMap API.
+     */
+    public function hasColumn($column)
+    {
+        return in_array($column, array_keys($this->map));
+    }
+
+    /**
+     * Method from the TableMap API.
+     */
     public function getRelations()
     {
         // table maps
@@ -121,10 +119,10 @@ class ItemQuery
         $resellerRelation->setType(\RelationMap::MANY_TO_MANY);
         $resellerRelation->setLocalTable($resellerTable);
 
-        return array(
+        return [
             $mainAuthorRelation,
             $authorRelation,
             $resellerRelation,
-        );
+        ];
     }
 }

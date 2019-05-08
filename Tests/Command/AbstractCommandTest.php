@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Command;
 
 use Propel\Bundle\PropelBundle\Command\AbstractCommand;
@@ -43,7 +44,7 @@ class AbstractCommandTest extends TestCase
     public function testTransformToLogicalName()
     {
         $bundleDir = realpath(__DIR__ . '/../Fixtures/src/My/SuperBundle');
-        $filename = 'Resources' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'a-schema.xml';
+        $filename  = 'Resources' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'a-schema.xml';
 
         $bundle = $this->getMock('Symfony\Component\HttpKernel\Bundle\BundleInterface');
         $bundle
@@ -55,7 +56,7 @@ class AbstractCommandTest extends TestCase
             ->method('getPath')
             ->will($this->returnValue($bundleDir));
 
-        $schema = new \SplFileInfo($bundleDir . DIRECTORY_SEPARATOR . $filename);
+        $schema   = new \SplFileInfo($bundleDir . DIRECTORY_SEPARATOR . $filename);
         $expected = '@MySuperBundle/Resources/config/a-schema.xml';
         $this->assertEquals($expected, $this->command->transformToLogicalName($schema, $bundle));
     }
@@ -63,7 +64,7 @@ class AbstractCommandTest extends TestCase
     public function testTransformToLogicalNameWithSubDir()
     {
         $bundleDir = realpath(__DIR__ . '/../Fixtures/src/My/ThirdBundle');
-        $filename = 'Resources' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'schema.xml';
+        $filename  = 'Resources' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'propel' . DIRECTORY_SEPARATOR . 'schema.xml';
 
         $bundle = $this->getMock('Symfony\Component\HttpKernel\Bundle\BundleInterface');
         $bundle
@@ -75,7 +76,7 @@ class AbstractCommandTest extends TestCase
             ->method('getPath')
             ->will($this->returnValue($bundleDir));
 
-        $schema = new \SplFileInfo($bundleDir . DIRECTORY_SEPARATOR . $filename);
+        $schema   = new \SplFileInfo($bundleDir . DIRECTORY_SEPARATOR . $filename);
         $expected = '@MyThirdBundle/Resources/config/propel/schema.xml';
         $this->assertEquals($expected, $this->command->transformToLogicalName($schema, $bundle));
     }
@@ -135,7 +136,7 @@ class AbstractCommandTest extends TestCase
         $kernel
             ->expects($this->once())
             ->method('getBundles')
-            ->will($this->returnValue(array($bundle)));
+            ->will($this->returnValue([$bundle]));
 
         $schemas = $this->command->getFinalSchemas($kernel);
 
@@ -166,7 +167,7 @@ class AbstractCommandTest extends TestCase
         $kernel
             ->expects($this->once())
             ->method('getBundles')
-            ->will($this->returnValue(array($bundle)));
+            ->will($this->returnValue([$bundle]));
 
         $schemas = $this->command->getFinalSchemas($kernel);
 

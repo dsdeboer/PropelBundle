@@ -7,9 +7,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 abstract class BaseAbstractType extends AbstractType
 {
-    protected $options = array(
+    protected $options = [
         'name' => '',
-    );
+    ];
 
     public function __construct($mergeOptions = null)
     {
@@ -18,19 +18,14 @@ abstract class BaseAbstractType extends AbstractType
         }
     }
 
+    public function mergeOptions($options)
+    {
+        $this->options = array_merge($this->options, $options);
+    }
+
     public function setOption($name, $value)
     {
         $this->options[$name] = $value;
-    }
-
-    public function getOption($name)
-    {
-        return $this->options[$name];
-    }
-
-    public function setOptions($options)
-    {
-        $this->options = $options;
     }
 
     public function getOptions()
@@ -38,9 +33,9 @@ abstract class BaseAbstractType extends AbstractType
         return $this->options;
     }
 
-    public function mergeOptions($options)
+    public function setOptions($options)
     {
-        $this->options = array_merge($this->options, $options);
+        $this->options = $options;
     }
 
     /**
@@ -57,5 +52,10 @@ abstract class BaseAbstractType extends AbstractType
     public function getName()
     {
         return $this->getOption('name');
+    }
+
+    public function getOption($name)
+    {
+        return $this->options[$name];
     }
 }

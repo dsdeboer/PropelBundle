@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,14 +41,14 @@ The <info>%command.name%</info> command allows you to quickly generate Form Type
 
 The <info>--force</info> parameter allows you to overwrite existing files.
 EOT
-        )
+            )
             ->setName('propel:form:generate');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

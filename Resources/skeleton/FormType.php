@@ -3,14 +3,15 @@
 namespace ##NAMESPACE##;
 
 use Propel\Bundle\PropelBundle\Form\BaseAbstractType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ##CLASS## extends BaseAbstractType
 {
-    protected $options = array(
+    protected $options = [
         'data_class' => '##FQCN##',
         'name'       => '##TYPE_NAME##',
-    );
+    ];
 
     /**
      * {@inheritdoc}

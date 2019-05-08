@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Command;
 
 use Propel\Bundle\PropelBundle\Command\GeneratorAwareCommand;
@@ -19,14 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class GeneratorAwareCommandTest extends TestCase
 {
     protected $container;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->container = $this->getContainer();
-        $this->container->setParameter('propel.path',  __DIR__ . '/../../vendor/propel/propel1');
-    }
 
     public function testGetDatabasesFromSchema()
     {
@@ -47,15 +40,25 @@ class GeneratorAwareCommandTest extends TestCase
             $this->assertInstanceOf('\Table', $table);
         }
     }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->container = $this->getContainer();
+        $this->container->setParameter('propel.path', __DIR__ . '/../../vendor/propel/propel1');
+    }
 }
 
 class GeneratorAwareCommandTestable extends GeneratorAwareCommand
 {
     protected $container;
 
-    public function setContainer(ContainerInterface $container = null)
+    public function getDatabasesFromSchema(\SplFileInfo $file)
     {
-        $this->container = $container;
+        $this->loadPropelGenerator();
+
+        return parent::getDatabasesFromSchema($file);
     }
 
     protected function getContainer()
@@ -63,10 +66,8 @@ class GeneratorAwareCommandTestable extends GeneratorAwareCommand
         return $this->container;
     }
 
-    public function getDatabasesFromSchema(\SplFileInfo $file)
+    public function setContainer(ContainerInterface $container = null)
     {
-        $this->loadPropelGenerator();
-
-        return parent::getDatabasesFromSchema($file);
+        $this->container = $container;
     }
 }

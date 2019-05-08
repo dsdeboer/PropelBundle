@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Command;
 
 use Propel\Bundle\PropelBundle\Command\FixturesLoadCommand;
@@ -26,9 +27,13 @@ class FixturesLoadCommandTest extends TestCase
 
         // let's create some dummy fixture files
         $this->fixturesDir   = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'propel';
-        $this->fixturesFiles = array(
-            '10_foo.yml', '20_bar.yml', '15_biz.yml', '18_boo.sql', '42_baz.sql'
-        );
+        $this->fixturesFiles = [
+            '10_foo.yml',
+            '20_bar.yml',
+            '15_biz.yml',
+            '18_boo.sql',
+            '42_baz.sql'
+        ];
 
         $this->filesystem = new Filesystem();
         $this->filesystem->mkdir($this->fixturesDir);
@@ -48,12 +53,12 @@ class FixturesLoadCommandTest extends TestCase
     public function testOrderedFixturesFiles()
     {
         $this->assertEquals(
-            array('10_foo.yml', '15_biz.yml', '20_bar.yml',),
+            ['10_foo.yml', '15_biz.yml', '20_bar.yml',],
             $this->cleanFixtureIterator($this->command->getFixtureFiles('yml', $this->fixturesDir))
         );
 
         $this->assertEquals(
-            array('18_boo.sql', '42_baz.sql',),
+            ['18_boo.sql', '42_baz.sql',],
             $this->cleanFixtureIterator($this->command->getFixtureFiles('sql', $this->fixturesDir))
         );
     }
@@ -62,7 +67,7 @@ class FixturesLoadCommandTest extends TestCase
     {
         $tmpDir = realpath($this->fixturesDir);
 
-        return array_map(function($file) use ($tmpDir) {
+        return array_map(function ($file) use ($tmpDir) {
             return str_replace($tmpDir . DIRECTORY_SEPARATOR, '', $file);
         }, array_values(iterator_to_array($file_iterator)));
     }

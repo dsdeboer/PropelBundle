@@ -22,21 +22,11 @@ class Item implements \Persistent
 
     public function __construct($id = null, $value = null, $groupName = null, $price = null, $slug = null)
     {
-        $this->id = $id;
-        $this->value = $value;
+        $this->id        = $id;
+        $this->value     = $value;
         $this->groupName = $groupName;
-        $this->price = $price;
-        $this->slug = $slug;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
+        $this->price     = $price;
+        $this->slug      = $slug;
     }
 
     public function getValue()
@@ -62,6 +52,16 @@ class Item implements \Persistent
     public function getPrimaryKey()
     {
         return $this->getId();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function setPrimaryKey($primaryKey)

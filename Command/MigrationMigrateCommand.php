@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,10 +28,10 @@ class MigrationMigrateCommand extends AbstractCommand
     {
         $this
             ->setDescription('Executes the next migrations up')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputOption('--up', '', InputOption::VALUE_NONE, 'Executes the next migration up'),
                 new InputOption('--down', '', InputOption::VALUE_NONE, 'Executes the next migration down'),
-            ))
+            ])
             ->setHelp(<<<EOT
 The <info>propel:migration:migrate</info> command checks the version of the database structure, looks for migrations files not yet executed (i.e. with a greater version timestamp), and executes them.
 
@@ -43,14 +44,13 @@ The <info>propel:migration:migrate</info> command checks the version of the data
     <info>php app/console propel:migration:migrate --down</info> : checks the version of the database structure, and looks for migration files already executed (i.e. with a lower version timestamp). <comment>The last executed migration found is reversed.</comment>
 EOT
             )
-            ->setName('propel:migration:migrate')
-        ;
+            ->setName('propel:migration:migrate');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

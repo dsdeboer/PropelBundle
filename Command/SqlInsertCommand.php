@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,20 +40,19 @@ The <info>--connection</info> parameter allows you to change the connection to u
 The default connection is the active connection (propel.dbal.default_connection).
 EOT
             )
-            ->setName('propel:sql:insert')
-        ;
+            ->setName('propel:sql:insert');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if ($input->getOption('force')) {
             $connections = $this->getConnections();
-            $sqlDir = $this->getSqlDir();
+            $sqlDir      = $this->getSqlDir();
 
             $manager = new \PropelSqlManager();
             $manager->setWorkingDirectory($sqlDir);
@@ -73,35 +73,6 @@ EOT
         }
     }
 
-    protected function getSqlDir()
-    {
-        return sprintf('%s/propel/sql', $this->getApplication()->getKernel()->getCacheDir());
-    }
-
-    /**
-     * @param \PropelSqlManager $manager
-     * @param OutputInterface   $output
-     * @param string            $connectionName
-     */
-    protected function doSqlInsert(\PropelSqlManager $manager, OutputInterface $output, $connectionName)
-    {
-        try {
-            $statusCode = $manager->insertSql($connectionName);
-        } catch (\Exception $e) {
-            return $this->writeSection(
-                $output,
-                array('[Propel] Exception', '', $e),
-                'fg=white;bg=red'
-            );
-        }
-
-        if (true === $statusCode) {
-            $output->writeln('<info>All SQL statements have been inserted.</info>');
-        } else {
-            $output->writeln('<comment>No SQL statements found.</comment>');
-        }
-    }
-
     /**
      * @return array
      */
@@ -109,7 +80,7 @@ EOT
     {
         $propelConfiguration = $this->getContainer()->get('propel.configuration');
 
-        $connections = array();
+        $connections = [];
         foreach ($propelConfiguration['datasources'] as $name => $config) {
             if (is_scalar($config)) {
                 continue;
@@ -119,5 +90,34 @@ EOT
         }
 
         return $connections;
+    }
+
+    protected function getSqlDir()
+    {
+        return sprintf('%s/propel/sql', $this->getApplication()->getKernel()->getCacheDir());
+    }
+
+    /**
+     * @param \PropelSqlManager $manager
+     * @param OutputInterface $output
+     * @param string $connectionName
+     */
+    protected function doSqlInsert(\PropelSqlManager $manager, OutputInterface $output, $connectionName)
+    {
+        try {
+            $statusCode = $manager->insertSql($connectionName);
+        } catch (\Exception $e) {
+            return $this->writeSection(
+                $output,
+                ['[Propel] Exception', '', $e],
+                'fg=white;bg=red'
+            );
+        }
+
+        if (true === $statusCode) {
+            $output->writeln('<info>All SQL statements have been inserted.</info>');
+        } else {
+            $output->writeln('<comment>No SQL statements found.</comment>');
+        }
     }
 }

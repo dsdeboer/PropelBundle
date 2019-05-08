@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Util;
 
 /**
@@ -20,7 +21,7 @@ class PropelInflector
      * Camelize a word.
      * Inspirated by https://github.com/doctrine/common/blob/master/lib/Doctrine/Common/Util/Inflector.php
      *
-     * @param  string $word The word to camelize.
+     * @param string $word The word to camelize.
      * @return string
      */
     public static function camelize($word)

@@ -7,12 +7,12 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\DataFixtures\Loader;
 
 use Propel\Bundle\PropelBundle\Tests\DataFixtures\TestCase;
 
 /**
-
  */
 class DataWiperTest extends TestCase
 {
@@ -25,32 +25,29 @@ class DataWiperTest extends TestCase
         $book
             ->setName('Armageddon is near')
             ->setBookAuthor($author)
-            ->save($this->con)
-        ;
+            ->save($this->con);
 
         $savedBook = \Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookPeer::doSelectOne(new \Criteria(), $this->con);
         $this->assertInstanceOf('Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\Book', $savedBook, 'The fixture has been saved correctly.');
 
         $builder = $this->getMockBuilder('Propel\Bundle\PropelBundle\DataFixtures\Loader\DataWiper');
         $wipeout = $builder
-            ->setMethods(array('loadMapBuilders'))
+            ->setMethods(['loadMapBuilders'])
             ->disableOriginalConstructor()
-            ->getMock()
-        ;
+            ->getMock();
 
         $dbMap = new \DatabaseMap('default');
         $dbMap->addTableFromMapClass('Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\map\BookTableMap');
         $reflection = new \ReflectionObject($wipeout);
-        $property = $reflection->getProperty('dbMap');
+        $property   = $reflection->getProperty('dbMap');
         $property->setAccessible(true);
         $property->setValue($wipeout, $dbMap);
 
         $wipeout
             ->expects($this->once())
-            ->method('loadMapBuilders')
-        ;
+            ->method('loadMapBuilders');
 
-        $wipeout->load(array(), 'default');
+        $wipeout->load([], 'default');
 
         $this->assertCount(0, \Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookPeer::doSelect(new \Criteria(), $this->con));
     }

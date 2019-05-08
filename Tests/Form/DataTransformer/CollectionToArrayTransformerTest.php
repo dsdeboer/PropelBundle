@@ -18,11 +18,6 @@ class CollectionToArrayTransformerTest extends TestCase
 {
     private $transformer;
 
-    protected function setUp()
-    {
-        $this->transformer = new CollectionToArrayTransformer();
-    }
-
     public function testTransform()
     {
         $result = $this->transformer->transform(new \PropelObjectCollection());
@@ -50,7 +45,7 @@ class CollectionToArrayTransformerTest extends TestCase
     public function testTransformWithData()
     {
         $coll = new \PropelObjectCollection();
-        $coll->setData(array('foo', 'bar'));
+        $coll->setData(['foo', 'bar']);
 
         $result = $this->transformer->transform($coll);
 
@@ -86,10 +81,10 @@ class CollectionToArrayTransformerTest extends TestCase
 
     public function testReverseTransformWithData()
     {
-        $inputData = array('foo', 'bar');
+        $inputData = ['foo', 'bar'];
 
         $result = $this->transformer->reverseTransform($inputData);
-        $data = $result->getData();
+        $data   = $result->getData();
 
         $this->assertInstanceOf('\PropelObjectCollection', $result);
 
@@ -98,6 +93,11 @@ class CollectionToArrayTransformerTest extends TestCase
         $this->assertEquals('foo', $data[0]);
         $this->assertEquals('bar', $data[1]);
         $this->assertsame($inputData, $data);
+    }
+
+    protected function setUp()
+    {
+        $this->transformer = new CollectionToArrayTransformer();
     }
 }
 

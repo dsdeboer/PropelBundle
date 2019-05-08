@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Propel\Bundle\PropelBundle\DataFixtures\Dumper\YamlDataDumper;
@@ -47,14 +48,13 @@ The <info>--dir</info> parameter allows you to change the output directory.
 The default connection is the active connection (propel.dbal.default_connection).
 EOT
             )
-            ->setName('propel:fixtures:dump')
-        ;
+            ->setName('propel:fixtures:dump');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -80,10 +80,11 @@ EOT
         try {
             $dumper->dump($filename, $name);
         } catch (\Exception $e) {
-            $this->writeSection($output, array(
+            $this->writeSection($output, [
                 '[Propel] Exception',
                 '',
-                $e->getMessage()), 'fg=white;bg=red');
+                $e->getMessage()
+            ], 'fg=white;bg=red');
 
             return false;
         }

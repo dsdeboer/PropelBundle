@@ -26,39 +26,37 @@ class CompatModelChoiceListTest extends AbstractChoiceListTest
         $this->query
             ->expects($this->once())
             ->method('filterById')
-            ->with(array(1, 2))
-            ->will($this->returnSelf())
-        ;
+            ->with([1, 2])
+            ->will($this->returnSelf());
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $this->item2,
             $this->item1,
-        );
+        ];
 
         parent::testGetChoicesForValues();
     }
 
     protected function setUp()
     {
-        $this->query = $this->getMock('Propel\Bundle\PropelBundle\Tests\Fixtures\ItemQuery', array(
+        $this->query = $this->getMock('Propel\Bundle\PropelBundle\Tests\Fixtures\ItemQuery', [
             'filterById',
-        ), array(), '', true, true, true, false, true);
+        ], [], '', true, true, true, false, true);
 
         $this->query
             ->expects($this->any())
             ->method('filterById')
             ->with($this->anything())
-            ->will($this->returnSelf())
-        ;
+            ->will($this->returnSelf());
 
         $this->createItems();
 
-        ItemQuery::$result = array(
+        ItemQuery::$result = [
             $this->item1,
             $this->item2,
             $this->item3,
             $this->item4,
-        );
+        ];
 
         parent::setUp();
     }
@@ -78,41 +76,41 @@ class CompatModelChoiceListTest extends AbstractChoiceListTest
 
     protected function getChoices()
     {
-        return array(
+        return [
             1 => $this->item1,
             2 => $this->item2,
             3 => $this->item3,
             4 => $this->item4,
-        );
+        ];
     }
 
     protected function getLabels()
     {
-        return array(
+        return [
             1 => 'Foo',
             2 => 'Bar',
             3 => 'Baz',
             4 => 'Cuz',
-        );
+        ];
     }
 
     protected function getValues()
     {
-        return array(
+        return [
             1 => '1',
             2 => '2',
             3 => '3',
             4 => '4',
-        );
+        ];
     }
 
     protected function getIndices()
     {
-        return array(
+        return [
             1,
             2,
             3,
             4,
-        );
+        ];
     }
 }

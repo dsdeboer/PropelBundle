@@ -8,7 +8,6 @@ use Propel\Bundle\PropelBundle\Translation\ModelTranslation;
 use Symfony\Component\Translation\MessageCatalogue;
 
 /**
-
  *
  * @covers Propel\Bundle\PropelBundle\Translation\ModelTranslation
  */
@@ -27,12 +26,12 @@ class ModelTranslationTest extends TestCase
 
         $this->loadPropelQuickBuilder();
 
-        $schema = file_get_contents(__DIR__.'/../Fixtures/translation_schema.xml');
+        $schema = file_get_contents(__DIR__ . '/../Fixtures/translation_schema.xml');
 
         $builder = new \PropelQuickBuilder();
         $builder->setSchema($schema);
         if (class_exists('Propel\Bundle\PropelBundle\Tests\Fixtures\Model\map\TranslationTableMap')) {
-            $builder->setClassTargets(array());
+            $builder->setClassTargets([]);
         }
 
         $this->con = $builder->build();
@@ -47,19 +46,26 @@ class ModelTranslationTest extends TestCase
             ->setLocale('en_US')
             ->setDomain('test')
             ->setUpdatedAt(new \DateTime())
-            ->save()
-        ;
+            ->save();
 
         $resource = $this->getResource();
 
-        $translator = $this->getMock('Symfony\Component\Translation\Translator', array(), array('en_US'));
+        $translator = $this->getMock('Symfony\Component\Translation\Translator', [], ['en_US']);
         $translator
             ->expects($this->once())
             ->method('addResource')
-            ->with('propel', $resource, 'en_US', 'test')
-        ;
+            ->with('propel', $resource, 'en_US', 'test');
 
         $resource->registerResources($translator);
+    }
+
+    protected function getResource()
+    {
+        return new ModelTranslation(self::MODEL_CLASS, [
+            'columns' => [
+                'translation' => 'message',
+            ],
+        ]);
     }
 
     public function testIsFreshWithoutEntries()
@@ -80,12 +86,11 @@ class ModelTranslationTest extends TestCase
             ->setLocale('en_US')
             ->setDomain('test')
             ->setUpdatedAt($date)
-            ->save()
-        ;
+            ->save();
 
         $resource = $this->getResource();
 
-        $timestamp = (int) $date->format('U');
+        $timestamp = (int)$date->format('U');
 
         $this->assertFalse($resource->isFresh($timestamp - 10));
     }
@@ -94,7 +99,7 @@ class ModelTranslationTest extends TestCase
     {
         $invalidResource = $this->getMock('Symfony\Component\Config\Resource\ResourceInterface');
 
-        $resource = $this->getResource();
+        $resource  = $this->getResource();
         $catalogue = $resource->load($invalidResource, 'en_US');
 
         $this->assertEmpty($catalogue->getResources());
@@ -111,8 +116,7 @@ class ModelTranslationTest extends TestCase
             ->setLocale('en_US')
             ->setDomain('test')
             ->setUpdatedAt($date)
-            ->save()
-        ;
+            ->save();
 
         // different locale
         $translation = new Entry();
@@ -122,8 +126,7 @@ class ModelTranslationTest extends TestCase
             ->setLocale('de_DE')
             ->setDomain('test')
             ->setUpdatedAt($date)
-            ->save()
-        ;
+            ->save();
 
         // different domain
         $translation = new Entry();
@@ -133,34 +136,33 @@ class ModelTranslationTest extends TestCase
             ->setLocale('en_US')
             ->setDomain('test2')
             ->setUpdatedAt($date)
-            ->save()
-        ;
+            ->save();
 
-        $resource = $this->getResource();
+        $resource  = $this->getResource();
         $catalogue = $resource->load($resource, 'en_US', 'test');
 
         $this->assertInstanceOf('Symfony\Component\Translation\MessageCatalogue', $catalogue);
         $this->assertEquals('en_US', $catalogue->getLocale());
 
-        $expected = array(
-            'test' => array(
+        $expected = [
+            'test' => [
                 'example.key' => 'This is an example translation.',
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals($expected, $catalogue->all());
     }
 
     public function testDump()
     {
-        $catalogue = new MessageCatalogue('en_US', array(
-            'test' => array(
+        $catalogue = new MessageCatalogue('en_US', [
+            'test'  => [
                 'example.key' => 'This is an example translation.',
-            ),
-            'test2' => array(
+            ],
+            'test2' => [
                 'example.key' => 'This is an example translation.',
-            ),
-        ));
+            ],
+        ]);
 
         $resource = $this->getResource();
         $this->assertEmpty($resource->load($resource, 'en_US', 'test')->all());
@@ -170,35 +172,26 @@ class ModelTranslationTest extends TestCase
         $stmt = $this->con->prepare('SELECT `key`, `message`, `locale`, `domain` FROM `translation`;');
         $stmt->execute();
 
-        $result = array();
+        $result = [];
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $result[] = $row;
         }
 
-        $expected = array(
-            array(
-                'key' => 'example.key',
+        $expected = [
+            [
+                'key'     => 'example.key',
                 'message' => 'This is an example translation.',
-                'locale' => 'en_US',
-                'domain' => 'test',
-            ),
-            array(
-                'key' => 'example.key',
+                'locale'  => 'en_US',
+                'domain'  => 'test',
+            ],
+            [
+                'key'     => 'example.key',
                 'message' => 'This is an example translation.',
-                'locale' => 'en_US',
-                'domain' => 'test2',
-            ),
-        );
+                'locale'  => 'en_US',
+                'domain'  => 'test2',
+            ],
+        ];
 
         $this->assertEquals($expected, $result);
-    }
-
-    protected function getResource()
-    {
-        return new ModelTranslation(self::MODEL_CLASS, array(
-            'columns' => array(
-                'translation' => 'message',
-            ),
-        ));
     }
 }

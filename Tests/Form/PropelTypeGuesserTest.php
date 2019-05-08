@@ -17,19 +17,28 @@ use Symfony\Component\Form\Guess\Guess;
 
 class PropelTypeGuesserTest extends TestCase
 {
-    const CLASS_NAME = 'Propel\Bundle\PropelBundle\Tests\Fixtures\Item';
+    const CLASS_NAME         = 'Propel\Bundle\PropelBundle\Tests\Fixtures\Item';
     const UNKNOWN_CLASS_NAME = 'Propel\Bundle\PropelBundle\Tests\Fixtures\UnknownItem';
 
     private $guesser;
 
-    protected function setUp()
+    public static function dataProviderForGuessType()
     {
-        $this->guesser = new PropelTypeGuesser();
-    }
+        return [
+            ['is_active', 'checkbox', Guess::HIGH_CONFIDENCE],
+            ['enabled', 'checkbox', Guess::HIGH_CONFIDENCE],
+            ['id', 'integer', Guess::MEDIUM_CONFIDENCE],
+            ['value', 'text', Guess::MEDIUM_CONFIDENCE],
+            ['price', 'number', Guess::MEDIUM_CONFIDENCE],
+            ['updated_at', 'datetime', Guess::HIGH_CONFIDENCE],
 
-    protected function tearDown()
-    {
-        $this->guesser = null;
+            ['isActive', 'checkbox', Guess::HIGH_CONFIDENCE],
+            ['updatedAt', 'datetime', Guess::HIGH_CONFIDENCE],
+
+            ['Authors', 'model', Guess::HIGH_CONFIDENCE, true],
+            ['Resellers', 'model', Guess::HIGH_CONFIDENCE, true],
+            ['MainAuthor', 'model', Guess::HIGH_CONFIDENCE, false],
+        ];
     }
 
     public function testGuessMaxLengthWithText()
@@ -115,22 +124,13 @@ class PropelTypeGuesserTest extends TestCase
         }
     }
 
-    public static function dataProviderForGuessType()
+    protected function setUp()
     {
-        return array(
-            array('is_active',  'checkbox', Guess::HIGH_CONFIDENCE),
-            array('enabled',    'checkbox', Guess::HIGH_CONFIDENCE),
-            array('id',         'integer',  Guess::MEDIUM_CONFIDENCE),
-            array('value',      'text',     Guess::MEDIUM_CONFIDENCE),
-            array('price',      'number',   Guess::MEDIUM_CONFIDENCE),
-            array('updated_at', 'datetime', Guess::HIGH_CONFIDENCE),
+        $this->guesser = new PropelTypeGuesser();
+    }
 
-            array('isActive',   'checkbox', Guess::HIGH_CONFIDENCE),
-            array('updatedAt',  'datetime', Guess::HIGH_CONFIDENCE),
-
-            array('Authors',    'model',    Guess::HIGH_CONFIDENCE,     true),
-            array('Resellers',  'model',    Guess::HIGH_CONFIDENCE,     true),
-            array('MainAuthor', 'model',    Guess::HIGH_CONFIDENCE,     false),
-        );
+    protected function tearDown()
+    {
+        $this->guesser = null;
     }
 }

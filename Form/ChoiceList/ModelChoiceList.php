@@ -14,8 +14,6 @@ namespace Propel\Bundle\PropelBundle\Form\ChoiceList;
 use Propel\Bundle\PropelBundle\Form\Type\ModelType;
 use Symfony\Component\Form\Exception\StringCastException;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ObjectChoiceList;
-use Symfony\Component\Form\Extension\Core\DataTransformer\ChoicesToValuesTransformer;
-use Symfony\Component\Form\Extension\Core\DataTransformer\ChoiceToValueTransformer;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -24,7 +22,6 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  * A choice list for object choices based on Propel model.
  *
  * @author Duncan de Boer <duncan@charpand.nl>
-
  */
 class ModelChoiceList extends ObjectChoiceList
 {
@@ -35,7 +32,7 @@ class ModelChoiceList extends ObjectChoiceList
      *
      * @var array
      */
-    protected $identifier = array();
+    protected $identifier = [];
 
     /**
      * The query to retrieve the choices of this list.
@@ -68,27 +65,35 @@ class ModelChoiceList extends ObjectChoiceList
     /**
      * Constructor.
      *
-     * @see ModelType How to use the preferred choices.
-     *
-     * @param string                    $class            The FQCN of the model class to be loaded.
-     * @param string                    $labelPath        A property path pointing to the property used for the choice labels.
-     * @param array                     $choices          An optional array to use, rather than fetching the models.
-     * @param \ModelCriteria            $queryObject      The query to use retrieving model data from database.
-     * @param string                    $groupPath        A property path pointing to the property used to group the choices.
-     * @param array|\ModelCriteria      $preferred        The preferred items of this choice.
+     * @param string $class The FQCN of the model class to be loaded.
+     * @param string $labelPath A property path pointing to the property used for the choice labels.
+     * @param array $choices An optional array to use, rather than fetching the models.
+     * @param \ModelCriteria $queryObject The query to use retrieving model data from database.
+     * @param string $groupPath A property path pointing to the property used to group the choices.
+     * @param array|\ModelCriteria $preferred The preferred items of this choice.
      *                                                    Either an array if $choices is given,
      *                                                    or a \ModelCriteria to be merged with the $queryObject.
      * @param PropertyAccessorInterface $propertyAccessor The reflection graph for reading property paths.
-     * @param string                    $useAsIdentifier  a custom unique column (eg slug) to use instead of primary key.
+     * @param string $useAsIdentifier a custom unique column (eg slug) to use instead of primary key.
      *
      * @throws MissingOptionsException In case the class parameter is empty.
      * @throws InvalidOptionsException In case the query class is not found.
+     * @see ModelType How to use the preferred choices.
+     *
      */
-    public function __construct($class, $labelPath = null, $choices = null, $queryObject = null, $groupPath = null, $preferred = array(), PropertyAccessorInterface $propertyAccessor = null, $useAsIdentifier = null)
-    {
+    public function __construct(
+        $class,
+        $labelPath = null,
+        $choices = null,
+        $queryObject = null,
+        $groupPath = null,
+        $preferred = [],
+        PropertyAccessorInterface $propertyAccessor = null,
+        $useAsIdentifier = null
+    ) {
         $this->class = $class;
 
-        $queryClass = $this->class.'Query';
+        $queryClass = $this->class . 'Query';
         if (!class_exists($queryClass)) {
             if (empty($this->class)) {
                 throw new MissingOptionsException('The "class" parameter is empty, you should provide the model class');
@@ -100,7 +105,7 @@ class ModelChoiceList extends ObjectChoiceList
 
         $this->query = $queryObject ?: $query;
         if ($useAsIdentifier) {
-            $this->identifier = array($this->query->getTableMap()->getColumn($useAsIdentifier));
+            $this->identifier = [$this->query->getTableMap()->getColumn($useAsIdentifier)];
         } else {
             $this->identifier = $this->query->getTableMap()->getPrimaryKeys();
         }
@@ -114,8 +119,8 @@ class ModelChoiceList extends ObjectChoiceList
         if (!$this->loaded) {
             // Make sure the constraints of the parent constructor are
             // fulfilled
-            $choices = array();
-            $preferred = array();
+            $choices   = [];
+            $preferred = [];
         }
 
         if (1 === count($this->identifier) && $this->isScalar(current($this->identifier))) {
@@ -123,6 +128,22 @@ class ModelChoiceList extends ObjectChoiceList
         }
 
         parent::__construct($choices, $labelPath, $preferred, $groupPath, null, $propertyAccessor);
+    }
+
+    /**
+     * Whether this column contains scalar values (to be used as indices).
+     *
+     * @param \ColumnMap $column
+     *
+     * @return bool
+     */
+    private function isScalar(\ColumnMap $column)
+    {
+        return in_array($column->getPdoType(), [
+            \PDO::PARAM_BOOL,
+            \PDO::PARAM_INT,
+            \PDO::PARAM_STR,
+        ]);
     }
 
     /**
@@ -138,31 +159,39 @@ class ModelChoiceList extends ObjectChoiceList
     /**
      * {@inheritdoc}
      */
-    public function getChoices()
-    {
-        $this->load();
-
-        return parent::getChoices();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValues()
-    {
-        $this->load();
-
-        return parent::getValues();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getPreferredViews()
     {
         $this->load();
 
         return parent::getPreferredViews();
+    }
+
+    /**
+     * Loads the complete choice list entries, once.
+     *
+     * If data has been loaded the choice list is initialized with the retrieved data.
+     */
+    private function load()
+    {
+        if ($this->loaded) {
+            return;
+        }
+
+        $models = (array)$this->query->find();
+
+        $preferred = [];
+        if ($this->preferredQuery instanceof \ModelCriteria) {
+            $preferred = (array)$this->preferredQuery->find();
+        }
+
+        try {
+            // The second parameter $labels is ignored by ObjectChoiceList
+            parent::initialize($models, [], $preferred);
+
+            $this->loaded = true;
+        } catch (StringCastException $e) {
+            throw new StringCastException(str_replace('argument $labelPath', 'option "property"', $e->getMessage()), null, $e);
+        }
     }
 
     /**
@@ -181,7 +210,7 @@ class ModelChoiceList extends ObjectChoiceList
     public function getChoicesForValues(array $values)
     {
         if (empty($values)) {
-            return array();
+            return [];
         }
 
         /*
@@ -195,16 +224,16 @@ class ModelChoiceList extends ObjectChoiceList
          */
         if (!$this->loaded) {
             if (1 === count($this->identifier)) {
-                $filterBy = 'filterBy'.current($this->identifier)->getPhpName();
+                $filterBy = 'filterBy' . current($this->identifier)->getPhpName();
 
                 // The initial query is cloned, so all additional filters are applied correctly.
-                $query = clone $this->query;
-                $result = (array) $query
+                $query  = clone $this->query;
+                $result = (array)$query
                     ->$filterBy($values)
                     ->find();
 
                 // Preserve the keys as provided by the values.
-                $models = array();
+                $models = [];
                 foreach ($values as $index => $value) {
                     foreach ($result as $eachModel) {
                         if ($value === $this->createValue($eachModel)) {
@@ -230,12 +259,73 @@ class ModelChoiceList extends ObjectChoiceList
     }
 
     /**
+     * Creates a new unique value for this model.
+     *
+     * If the model has a single-field identifier, this identifier is used.
+     *
+     * Otherwise a new integer is generated.
+     *
+     * @param mixed $model The choice to create a value for
+     *
+     * @return int|string A unique value without character limitations.
+     */
+    protected function createValue($model)
+    {
+        if ($this->identifierAsIndex) {
+            return (string)current($this->getIdentifierValues($model));
+        }
+
+        return parent::createValue($model);
+    }
+
+    /**
+     * Returns the values of the identifier fields of a model.
+     *
+     * Propel must know about this model, that is, the model must already
+     * be persisted or added to the idmodel map before. Otherwise an
+     * exception is thrown.
+     *
+     * @param object $model The model for which to get the identifier
+     *
+     * @return array
+     */
+    private function getIdentifierValues($model)
+    {
+        if (!$model instanceof $this->class) {
+            return [];
+        }
+
+        if (1 === count($this->identifier) && current($this->identifier) instanceof \ColumnMap) {
+            $phpName = current($this->identifier)->getPhpName();
+
+            if (method_exists($model, 'get' . $phpName)) {
+                return [$model->{'get' . $phpName}()];
+            }
+        }
+
+        if ($model instanceof \Persistent) {
+            return [$model->getPrimaryKey()];
+        }
+
+        // readonly="true" models do not implement \Persistent.
+        if ($model instanceof \BaseObject && method_exists($model, 'getPrimaryKey')) {
+            return [$model->getPrimaryKey()];
+        }
+
+        if (!method_exists($model, 'getPrimaryKeys')) {
+            return [];
+        }
+
+        return $model->getPrimaryKeys();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getValuesForChoices(array $models)
     {
         if (empty($models)) {
-            return array();
+            return [];
         }
 
         if (!$this->loaded) {
@@ -249,7 +339,7 @@ class ModelChoiceList extends ObjectChoiceList
              * @see ChoiceToValueTransformer::transform()
              */
             if (1 === count($this->identifier)) {
-                $values = array();
+                $values = [];
                 foreach ($models as $index => $model) {
                     if ($model instanceof $this->class) {
                         // Make sure to convert to the right format
@@ -263,7 +353,7 @@ class ModelChoiceList extends ObjectChoiceList
 
         $this->load();
 
-        $values = array();
+        $values          = [];
         $availableValues = $this->getValues();
 
         /*
@@ -299,20 +389,61 @@ class ModelChoiceList extends ObjectChoiceList
 
     /**
      * {@inheritdoc}
+     */
+    public function getValues()
+    {
+        $this->load();
+
+        return parent::getValues();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChoices()
+    {
+        $this->load();
+
+        return parent::getChoices();
+    }
+
+    /**
+     * Check the given choices for equality.
+     *
+     * @param mixed $choice
+     * @param mixed $givenChoice
+     *
+     * @return bool
+     */
+    private function isEqual($choice, $givenChoice)
+    {
+        if ($choice === $givenChoice) {
+            return true;
+        }
+
+        if ($this->getIdentifierValues($choice) === $this->getIdentifierValues($givenChoice)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * @deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForChoices(array $models)
     {
-        trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+        trigger_error('The ' . __METHOD__ . ' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         if (empty($models)) {
-            return array();
+            return [];
         }
 
         $this->load();
 
-        $indices = array();
+        $indices = [];
 
         /*
          * Overwriting default implementation.
@@ -352,10 +483,10 @@ class ModelChoiceList extends ObjectChoiceList
      */
     public function getIndicesForValues(array $values)
     {
-        trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+        trigger_error('The ' . __METHOD__ . ' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         if (empty($values)) {
-            return array();
+            return [];
         }
 
         $this->load();
@@ -382,131 +513,5 @@ class ModelChoiceList extends ObjectChoiceList
         }
 
         return parent::createIndex($model);
-    }
-
-    /**
-     * Creates a new unique value for this model.
-     *
-     * If the model has a single-field identifier, this identifier is used.
-     *
-     * Otherwise a new integer is generated.
-     *
-     * @param mixed $model The choice to create a value for
-     *
-     * @return int|string A unique value without character limitations.
-     */
-    protected function createValue($model)
-    {
-        if ($this->identifierAsIndex) {
-            return (string) current($this->getIdentifierValues($model));
-        }
-
-        return parent::createValue($model);
-    }
-
-    /**
-     * Loads the complete choice list entries, once.
-     *
-     * If data has been loaded the choice list is initialized with the retrieved data.
-     */
-    private function load()
-    {
-        if ($this->loaded) {
-            return;
-        }
-
-        $models = (array) $this->query->find();
-
-        $preferred = array();
-        if ($this->preferredQuery instanceof \ModelCriteria) {
-            $preferred = (array) $this->preferredQuery->find();
-        }
-
-        try {
-            // The second parameter $labels is ignored by ObjectChoiceList
-            parent::initialize($models, array(), $preferred);
-
-            $this->loaded = true;
-        } catch (StringCastException $e) {
-            throw new StringCastException(str_replace('argument $labelPath', 'option "property"', $e->getMessage()), null, $e);
-        }
-    }
-
-    /**
-     * Returns the values of the identifier fields of a model.
-     *
-     * Propel must know about this model, that is, the model must already
-     * be persisted or added to the idmodel map before. Otherwise an
-     * exception is thrown.
-     *
-     * @param object $model The model for which to get the identifier
-     *
-     * @return array
-     */
-    private function getIdentifierValues($model)
-    {
-        if (!$model instanceof $this->class) {
-            return array();
-        }
-
-        if (1 === count($this->identifier) && current($this->identifier) instanceof \ColumnMap) {
-            $phpName = current($this->identifier)->getPhpName();
-
-            if (method_exists($model, 'get'.$phpName)) {
-                return array($model->{'get'.$phpName}());
-            }
-        }
-
-        if ($model instanceof \Persistent) {
-            return array($model->getPrimaryKey());
-        }
-
-        // readonly="true" models do not implement \Persistent.
-        if ($model instanceof \BaseObject && method_exists($model, 'getPrimaryKey')) {
-            return array($model->getPrimaryKey());
-        }
-
-        if (!method_exists($model, 'getPrimaryKeys')) {
-            return array();
-        }
-
-        return $model->getPrimaryKeys();
-    }
-
-    /**
-     * Whether this column contains scalar values (to be used as indices).
-     *
-     * @param \ColumnMap $column
-     *
-     * @return bool
-     */
-    private function isScalar(\ColumnMap $column)
-    {
-        return in_array($column->getPdoType(), array(
-            \PDO::PARAM_BOOL,
-            \PDO::PARAM_INT,
-            \PDO::PARAM_STR,
-        ));
-    }
-
-    /**
-     * Check the given choices for equality.
-     *
-     * @param mixed $choice
-     * @param mixed $givenChoice
-     *
-     * @return bool
-     */
-    private function isEqual($choice, $givenChoice)
-    {
-        if ($choice === $givenChoice) {
-            return true;
-        }
-
-        if ($this->getIdentifierValues($choice) === $this->getIdentifierValues($givenChoice)) {
-            return true;
-        }
-
-        return false;
     }
 }

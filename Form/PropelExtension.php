@@ -39,22 +39,23 @@ class PropelExtension extends AbstractExtension
     /**
      * PropelExtension constructor.
      *
-     * @param PropertyAccessorInterface|null  $propertyAccessor
+     * @param PropertyAccessorInterface|null $propertyAccessor
      * @param ChoiceListFactoryInterface|null $choiceListFactory
      */
     public function __construct(PropertyAccessorInterface $propertyAccessor = null, ChoiceListFactoryInterface $choiceListFactory = null)
     {
-        $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
+        $this->propertyAccessor  = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
         $this->choiceListFactory = $choiceListFactory ?: new PropertyAccessDecorator(new DefaultChoiceListFactory(), $this->propertyAccessor);
 
     }
+
     protected function loadTypes()
     {
-        return array(
+        return [
             new Type\ModelType($this->propertyAccessor, $this->choiceListFactory),
             new Type\TranslationCollectionType(),
             new Type\TranslationType(),
-        );
+        ];
     }
 
     protected function loadTypeGuesser()

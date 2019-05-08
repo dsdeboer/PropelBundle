@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 
 use BaseObject;
@@ -27,28 +28,20 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
     /**
      * @var array
      */
-    protected $deletedClasses = array();
+    protected $deletedClasses = [];
 
     /**
      * @var array
      */
-    protected $object_references = array();
-
-    /**
-     * Transforms a file containing data in an array.
-     *
-     * @param  string $file A filename.
-     * @return array
-     */
-    abstract protected function transformDataToArray($file);
+    protected $object_references = [];
 
     /**
      * {@inheritdoc}
      */
-    public function load($files = array(), $connectionName)
+    public function load($files = [], $connectionName)
     {
-        $nbFiles = 0;
-        $this->deletedClasses = array();
+        $nbFiles              = 0;
+        $this->deletedClasses = [];
 
         $this->loadMapBuilders($connectionName);
         $this->con = Propel::getConnection($connectionName);
@@ -56,7 +49,7 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
         try {
             $this->con->beginTransaction();
 
-            $datas = array();
+            $datas = [];
             foreach ($files as $file) {
                 $content = $this->transformDataToArray($file);
 
@@ -77,6 +70,14 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
 
         return $nbFiles;
     }
+
+    /**
+     * Transforms a file containing data in an array.
+     *
+     * @param string $file A filename.
+     * @return array
+     */
+    abstract protected function transformDataToArray($file);
 
     /**
      * Deletes current data.
@@ -105,14 +106,14 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
     protected function deleteClassData($class)
     {
         // Check that peer class exists before calling doDeleteAll()
-        $peerClass = constant($class.'::PEER');
+        $peerClass = constant($class . '::PEER');
         if (!class_exists($peerClass)) {
             throw new \InvalidArgumentException(sprintf('Unknown class "%sPeer".', $class));
         }
 
         // bypass the soft_delete behavior if enabled
         $deleteMethod = method_exists($peerClass, 'doForceDeleteAll') ? 'doForceDeleteAll' : 'doDeleteAll';
-        call_user_func(array($peerClass, $deleteMethod), $this->con);
+        call_user_func([$peerClass, $deleteMethod], $this->con);
 
         $this->deletedClasses[] = $class;
 
@@ -141,8 +142,8 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
             if ('\\' == $class[0]) {
                 $class = substr($class, 1);
             }
-            $tableMap     = $this->dbMap->getTable(constant(constant($class.'::PEER').'::TABLE_NAME'));
-            $column_names = call_user_func_array(array(constant($class.'::PEER'), 'getFieldNames'), array(BasePeer::TYPE_FIELDNAME));
+            $tableMap     = $this->dbMap->getTable(constant(constant($class . '::PEER') . '::TABLE_NAME'));
+            $column_names = call_user_func_array([constant($class . '::PEER'), 'getFieldNames'], [BasePeer::TYPE_FIELDNAME]);
 
             // iterate through datas for this class
             // might have been empty just for force a table to be emptied on import
@@ -202,8 +203,8 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
                          * but which is not a ForeignKey (e.g. delegatable behavior on 1:1 relation).
                          */
                         if ($column->isPrimaryKey() && null !== $value && !$column->isForeignKey()) {
-                            if (isset($this->object_references[$class.'_'.$value])) {
-                                $obj = $this->object_references[$class.'_'.$value];
+                            if (isset($this->object_references[$class . '_' . $value])) {
+                                $obj = $this->object_references[$class . '_' . $value];
 
                                 continue;
                             }
@@ -211,21 +212,23 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
 
                         if ($column->isForeignKey() && null !== $value) {
                             $relatedTable = $this->dbMap->getTable($column->getRelatedTableName());
-                            if (isset($this->object_references[$relatedTable->getClassname().'_'.$value])) {
+                            if (isset($this->object_references[$relatedTable->getClassname() . '_' . $value])) {
                                 $value = $this
-                                    ->object_references[$relatedTable->getClassname().'_'.$value]
+                                             ->object_references[$relatedTable->getClassname() . '_' . $value]
                                     ->getByName($column->getRelatedName(), BasePeer::TYPE_COLNAME);
-                            } else if (isset($data[$relatedTable->getClassName()])) {
-                                throw new \InvalidArgumentException(
-                                    sprintf('The object "%s" from class "%s" is not defined in your data file.', $value, $relatedTable->getClassname())
-                                );
+                            } else {
+                                if (isset($data[$relatedTable->getClassName()])) {
+                                    throw new \InvalidArgumentException(
+                                        sprintf('The object "%s" from class "%s" is not defined in your data file.', $value, $relatedTable->getClassname())
+                                    );
+                                }
                             }
                         }
                     }
 
                     if (false !== $pos = array_search($name, $column_names)) {
                         $obj->setByPosition($pos, $value);
-                    } elseif (is_callable(array($obj, $method = 'set'.ucfirst(PropelInflector::camelize($name))))) {
+                    } elseif (is_callable([$obj, $method = 'set' . ucfirst(PropelInflector::camelize($name))])) {
                         $obj->$method($value);
                     } else {
                         throw new \InvalidArgumentException(sprintf('Column "%s" does not exist for class "%s".', $name, $class));
@@ -240,61 +243,16 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
     }
 
     /**
-     * Save a reference to the specified object (and its ancestors) before loading them.
-     *
-     * @param string     $class Class name of passed object
-     * @param string     $key   Key identifying specified object
-     * @param BaseObject $obj   A Propel object
-     */
-    protected function saveParentReference($class, $key, &$obj)
-    {
-        if (method_exists($obj, 'getPrimaryKey')) {
-
-            $this->object_references[$class.'_'.$key] = $obj;
-
-            // Get parent (schema ancestor) of parent (Propel base class) in case of inheritance
-            if (false !== ($parentClass = get_parent_class(get_parent_class($class)))) {
-
-                $reflectionClass = new \ReflectionClass($parentClass);
-                if (!$reflectionClass->isAbstract()) {
-                    $parentObj = $obj->getParentOrCreate();
-                    $this->saveParentReference($parentClass, $key, $parentObj);
-                }
-
-            }
-
-        }
-    }
-
-    /**
-     * Retrieve all the parent classes of a given class (for the inheritance).
-     *
-     * @param string     $class Class name of the current object
-     */
-    protected function getInheritedClasses($class) {
-        $reflectionClass = new \ReflectionClass($class);
-        $classes = array();
-
-        while (!$reflectionClass->isAbstract()) {
-            $classes[] = constant(constant($class.'::PEER').'::TABLE_NAME');
-            $class = get_parent_class(get_parent_class($class));
-            $reflectionClass = new \ReflectionClass($class);
-        }
-
-        return $classes;
-    }
-
-    /**
      * Loads many to many objects.
      *
-     * @param BaseObject $obj             A Propel object
-     * @param string     $middleTableName The middle table name
-     * @param array      $values          An array of values
+     * @param BaseObject $obj A Propel object
+     * @param string $middleTableName The middle table name
+     * @param array $values An array of values
      */
     protected function loadManyToMany($obj, $middleTableName, $values)
     {
-        $middleTable = $this->dbMap->getTable($middleTableName);
-        $middleClass = $middleTable->getClassname();
+        $middleTable      = $this->dbMap->getTable($middleTableName);
+        $middleClass      = $middleTable->getClassname();
         $inheritedClasses = $this->getInheritedClasses(get_class($obj));
 
         foreach ($middleTable->getColumns() as $column) {
@@ -313,7 +271,7 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
         }
 
         foreach ($values as $value) {
-            if (!isset($this->object_references[$relatedClass.'_'.$value])) {
+            if (!isset($this->object_references[$relatedClass . '_' . $value])) {
                 throw new \InvalidArgumentException(
                     sprintf('The object "%s" from class "%s" is not defined in your data file.', $value, $relatedClass)
                 );
@@ -321,8 +279,54 @@ abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoa
 
             $middle = new $middleClass();
             $middle->$setter($obj);
-            $middle->$relatedSetter($this->object_references[$relatedClass.'_'.$value]);
+            $middle->$relatedSetter($this->object_references[$relatedClass . '_' . $value]);
             $middle->save($this->con);
+        }
+    }
+
+    /**
+     * Retrieve all the parent classes of a given class (for the inheritance).
+     *
+     * @param string $class Class name of the current object
+     */
+    protected function getInheritedClasses($class)
+    {
+        $reflectionClass = new \ReflectionClass($class);
+        $classes         = [];
+
+        while (!$reflectionClass->isAbstract()) {
+            $classes[]       = constant(constant($class . '::PEER') . '::TABLE_NAME');
+            $class           = get_parent_class(get_parent_class($class));
+            $reflectionClass = new \ReflectionClass($class);
+        }
+
+        return $classes;
+    }
+
+    /**
+     * Save a reference to the specified object (and its ancestors) before loading them.
+     *
+     * @param string $class Class name of passed object
+     * @param string $key Key identifying specified object
+     * @param BaseObject $obj A Propel object
+     */
+    protected function saveParentReference($class, $key, &$obj)
+    {
+        if (method_exists($obj, 'getPrimaryKey')) {
+
+            $this->object_references[$class . '_' . $key] = $obj;
+
+            // Get parent (schema ancestor) of parent (Propel base class) in case of inheritance
+            if (false !== ($parentClass = get_parent_class(get_parent_class($class)))) {
+
+                $reflectionClass = new \ReflectionClass($parentClass);
+                if (!$reflectionClass->isAbstract()) {
+                    $parentObj = $obj->getParentOrCreate();
+                    $this->saveParentReference($parentClass, $key, $parentObj);
+                }
+
+            }
+
         }
     }
 }

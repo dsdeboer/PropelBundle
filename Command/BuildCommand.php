@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
@@ -29,49 +30,49 @@ class BuildCommand extends AbstractCommand
     {
         $this
             ->setDescription('Hub for Propel build commands (Model classes, SQL)')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputOption('classes', '', InputOption::VALUE_NONE, 'Build only classes'),
                 new InputOption('sql', '', InputOption::VALUE_NONE, 'Build only SQL'),
                 new InputOption('insert-sql', '', InputOption::VALUE_NONE, 'Build all and insert SQL'),
                 new InputOption('connection', null, InputOption::VALUE_OPTIONAL, 'Set this parameter to define a connection to use')
-            ))
+            ])
             ->setName('propel:build');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$input->getOption('sql')) {
-            $in = new ArrayInput(array(
-                    'command'      => 'propel:model:build',
-                    '--connection' => $input->getOption('connection'),
-                    '--verbose'    => $input->getOption('verbose'),
-            ));
+            $in           = new ArrayInput([
+                'command'      => 'propel:model:build',
+                '--connection' => $input->getOption('connection'),
+                '--verbose'    => $input->getOption('verbose'),
+            ]);
             $modelCommand = $this->getApplication()->find('propel:model:build');
-            $res = $modelCommand->run($in, $output);
+            $res          = $modelCommand->run($in, $output);
         }
 
         if (!$input->getOption('classes')) {
-            $in = new ArrayInput(array(
-                    'command'      => 'propel:build:sql',
-                    '--connection' => $input->getOption('connection'),
-                    '--verbose'    => $input->getOption('verbose'),
-            ));
+            $in         = new ArrayInput([
+                'command'      => 'propel:build:sql',
+                '--connection' => $input->getOption('connection'),
+                '--verbose'    => $input->getOption('verbose'),
+            ]);
             $sqlCommand = $this->getApplication()->find('propel:sql:build');
             $sqlCommand->run($in, $output);
         }
 
         if ($input->getOption('insert-sql')) {
-            $in = new ArrayInput(array(
-                    'command'      => 'propel:sql:insert',
-                    '--connection' => $input->getOption('connection'),
-                    '--verbose'    => $input->getOption('verbose'),
-                    '--force'      => true,
-            ));
+            $in            = new ArrayInput([
+                'command'      => 'propel:sql:insert',
+                '--connection' => $input->getOption('connection'),
+                '--verbose'    => $input->getOption('verbose'),
+                '--force'      => true,
+            ]);
             $insertCommand = $this->getApplication()->find('propel:sql:insert');
             $insertCommand->run($in, $output);
         }

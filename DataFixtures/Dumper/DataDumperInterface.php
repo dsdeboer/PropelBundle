@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures\Dumper;
 
 /**
@@ -19,7 +20,7 @@ interface DataDumperInterface
     /**
      * Dumps data to fixtures from a given connection.
      *
-     * @param string $filename       The file name to write data.
+     * @param string $filename The file name to write data.
      * @param string $connectionName The Propel connection name.
      */
     public function dump($filename, $connectionName = null);

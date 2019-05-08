@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Security\User;
 
 use Propel\Bundle\PropelBundle\Security\User\PropelUserProvider;
@@ -38,7 +39,7 @@ SCHEMA;
 
         $builder = new \PropelQuickBuilder();
         $builder->setSchema($schema);
-        $builder->setClassTargets(array('tablemap', 'peer', 'object', 'query', 'peerstub', 'querystub'));
+        $builder->setClassTargets(['tablemap', 'peer', 'object', 'query', 'peerstub', 'querystub']);
         $builder->build();
     }
 

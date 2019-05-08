@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,14 +33,13 @@ The <info>propel:migration:status</info> command checks the version of the datab
   <info>php app/console propel:migration:status</info>
 EOT
             )
-            ->setName('propel:migration:status')
-        ;
+            ->setName('propel:migration:status');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

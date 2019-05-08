@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Tests\Util;
 
 use Propel\Bundle\PropelBundle\Tests\TestCase;
@@ -17,29 +18,29 @@ use Propel\Bundle\PropelBundle\Util\PropelInflector;
  */
 class PropelInflectorTest extends TestCase
 {
+    public static function dataProviderForTestCamelize()
+    {
+        return [
+            ['', ''],
+            [null, null],
+            ['foo', 'foo'],
+            ['Foo', 'foo'],
+            ['fooBar', 'fooBar'],
+            ['FooBar', 'fooBar'],
+            ['Foo_bar', 'fooBar'],
+            ['Foo_Bar', 'fooBar'],
+            ['Foo Bar', 'fooBar'],
+            ['Foo bar Baz', 'fooBarBaz'],
+            ['Foo_Bar_Baz', 'fooBarBaz'],
+            ['foo_bar_baz', 'fooBarBaz'],
+        ];
+    }
+
     /**
      * @dataProvider dataProviderForTestCamelize
      */
     public function testCamelize($word, $expected)
     {
         $this->assertEquals($expected, PropelInflector::camelize($word));
-    }
-
-    public static function dataProviderForTestCamelize()
-    {
-        return array(
-            array('', ''),
-            array(null, null),
-            array('foo', 'foo'),
-            array('Foo', 'foo'),
-            array('fooBar', 'fooBar'),
-            array('FooBar', 'fooBar'),
-            array('Foo_bar', 'fooBar'),
-            array('Foo_Bar', 'fooBar'),
-            array('Foo Bar', 'fooBar'),
-            array('Foo bar Baz', 'fooBarBaz'),
-            array('Foo_Bar_Baz', 'fooBarBaz'),
-            array('foo_bar_baz', 'fooBarBaz'),
-        );
     }
 }

@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,8 +32,8 @@ abstract class GeneratorAwareCommand extends AbstractCommand
     {
         $propelPath = $this->getContainer()->getParameter('propel.path');
 
-        require_once sprintf('%s/generator/lib/builder/util/XmlToAppData.php',   $propelPath);
-        require_once sprintf('%s/generator/lib/config/GeneratorConfig.php',      $propelPath);
+        require_once sprintf('%s/generator/lib/builder/util/XmlToAppData.php', $propelPath);
+        require_once sprintf('%s/generator/lib/config/GeneratorConfig.php', $propelPath);
         require_once sprintf('%s/generator/lib/config/QuickGeneratorConfig.php', $propelPath);
 
         set_include_path(sprintf('%s/generator/lib', $propelPath) . PATH_SEPARATOR . get_include_path());
@@ -44,7 +45,7 @@ abstract class GeneratorAwareCommand extends AbstractCommand
             $transformer = new \XmlToAppData(null, null, 'UTF-8');
         }
 
-        $config      = new \QuickGeneratorConfig();
+        $config = new \QuickGeneratorConfig();
 
         if (file_exists($propelIni = $this->getContainer()->getParameter('kernel.root_dir') . '/config/propel.ini')) {
             foreach ($this->getProperties($propelIni) as $key => $value) {
@@ -54,7 +55,7 @@ abstract class GeneratorAwareCommand extends AbstractCommand
                     $j = strpos($newKey, '.');
                     while (false !== $j) {
                         $newKey = substr($newKey, 0, $j) . ucfirst(substr($newKey, $j + 1));
-                        $j = strpos($newKey, '.');
+                        $j      = strpos($newKey, '.');
                     }
 
                     $config->setBuildProperty($newKey, $value);

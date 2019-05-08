@@ -16,7 +16,7 @@ use Propel\Bundle\PropelBundle\Tests\Fixtures\Model\om\BaseBookQuery;
  */
 class BookQuery extends BaseBookQuery
 {
-    private $bySlug = false;
+    private $bySlug       = false;
     private $byAuthorSlug = false;
 
     /**

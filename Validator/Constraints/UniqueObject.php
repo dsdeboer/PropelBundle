@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
@@ -34,7 +35,7 @@ class UniqueObject extends Constraint
     /**
      * @var array
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * @var string Used to set the path where the error will be attached, default is global.
@@ -63,7 +64,7 @@ class UniqueObject extends Constraint
      */
     public function getRequiredOptions()
     {
-        return array('fields');
+        return ['fields'];
     }
 
     /**

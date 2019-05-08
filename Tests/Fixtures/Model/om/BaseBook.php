@@ -19,7 +19,7 @@ use PropelPDO;
  *
  *
  */
-abstract class BaseBook extends BaseObject  implements Persistent
+abstract class BaseBook extends BaseObject implements Persistent
 {
 
     /**
@@ -66,98 +66,13 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * @var        boolean
      */
     protected $alreadyInValidation = false;
-
     /**
-     * Get the [id] column value.
-     *
-     * @return int
+     * Array of ValidationFailed objects.
+     * @var        array ValidationFailed[]
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $validationFailures = [];
 
-    /**
-     * Get the [name] column value.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the [slug] column value.
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set the value of [id] column.
-     *
-     * @param  int  $v new value
-     * @return Book The current object (for fluent API support)
-     */
-    public function setId($v)
-    {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->id !== $v) {
-            $this->id = $v;
-            $this->modifiedColumns[] = BookPeer::ID;
-        }
-
-        return $this;
-    } // setId()
-
-    /**
-     * Set the value of [name] column.
-     *
-     * @param  string $v new value
-     * @return Book   The current object (for fluent API support)
-     */
-    public function setName($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->name !== $v) {
-            $this->name = $v;
-            $this->modifiedColumns[] = BookPeer::NAME;
-        }
-
-        return $this;
-    } // setName()
-
-    /**
-     * Set the value of [slug] column.
-     *
-     * @param  string $v new value
-     * @return Book   The current object (for fluent API support)
-     */
-    public function setSlug($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->slug !== $v) {
-            $this->slug = $v;
-            $this->modifiedColumns[] = BookPeer::SLUG;
-        }
-
-        return $this;
-    } // setSlug()
-
-    /**
+/**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -169,69 +84,15 @@ abstract class BaseBook extends BaseObject  implements Persistent
     {
         // otherwise, everything was equal, so return TRUE
         return true;
-    } // hasOnlyDefaultValues()
-
-    /**
-     * Hydrates (populates) the object variables with values from the database resultset.
-     *
-     * An offset (0-based "start column") is specified so that objects can be hydrated
-     * with a subset of the columns in the resultset rows.  This is needed, for example,
-     * for results of JOIN queries where the resultset row includes columns from two or
-     * more tables.
-     *
-     * @param  array           $row       The row returned by PDOStatement->fetch(PDO::FETCH_NUM)
-     * @param  int             $startcol  0-based offset column which indicates which restultset column to start with.
-     * @param  boolean         $rehydrate Whether this object is being re-hydrated from the database.
-     * @return int             next starting column
-     * @throws PropelException - Any caught Exception will be rewrapped as a PropelException.
-     */
-    public function hydrate($row, $startcol = 0, $rehydrate = false)
-    {
-        try {
-
-            $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->slug = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->resetModified();
-
-            $this->setNew(false);
-
-            if ($rehydrate) {
-                $this->ensureConsistency();
-            }
-
-            return $startcol + 3; // 3 = BookPeer::NUM_COLUMNS - BookPeer::NUM_LAZY_LOAD_COLUMNS).
-
-        } catch (Exception $e) {
-            throw new \PropelException("Error populating Book object", $e);
-        }
     }
-
-    /**
-     * Checks and repairs the internal consistency of the object.
-     *
-     * This method is executed after an already-instantiated object is re-hydrated
-     * from the database.  It exists to check any foreign keys to make sure that
-     * the objects related to the current object are correct based on foreign key.
-     *
-     * You can override this method in the stub class, but you should always invoke
-     * the base method from the overridden method (i.e. parent::ensureConsistency()),
-     * in case your model changes.
-     *
-     * @throws PropelException
-     */
-    public function ensureConsistency()
-    {
-
-    } // ensureConsistency
 
     /**
      * Reloads this object from datastore based on primary key and (optionally) resets all associated objects.
      *
      * This will only work if the object has been saved and has a valid primary key set.
      *
-     * @param  boolean         $deep (optional) Whether to also de-associated any related objects.
-     * @param  PropelPDO       $con  (optional) The PropelPDO connection to use.
+     * @param boolean $deep (optional) Whether to also de-associated any related objects.
+     * @param PropelPDO $con (optional) The PropelPDO connection to use.
      * @return void
      * @throws PropelException - if this object is deleted, unsaved or doesn't have pk match in db
      */
@@ -253,7 +114,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
         // already in the pool.
 
         $stmt = BookPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
-        $row = $stmt->fetch(PDO::FETCH_NUM);
+        $row  = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
             throw new PropelException('Cannot find matching row in the database to reload object values.');
@@ -265,10 +126,80 @@ abstract class BaseBook extends BaseObject  implements Persistent
         } // if (deep)
     }
 
+        /**
+     * Builds a Criteria object containing the primary key for this object.
+     *
+     * Unlike buildCriteria() this method includes the primary key values regardless
+     * of whether or not they have been modified.
+     *
+     * @return Criteria The Criteria object containing value(s) for primary key(s).
+     */
+    public function buildPkeyCriteria()
+    {
+        $criteria = new Criteria(BookPeer::DATABASE_NAME);
+        $criteria->add(BookPeer::ID, $this->id);
+
+        return $criteria;
+    } // setId()
+
+        /**
+     * Hydrates (populates) the object variables with values from the database resultset.
+     *
+     * An offset (0-based "start column") is specified so that objects can be hydrated
+     * with a subset of the columns in the resultset rows.  This is needed, for example,
+     * for results of JOIN queries where the resultset row includes columns from two or
+     * more tables.
+     *
+     * @param array $row The row returned by PDOStatement->fetch(PDO::FETCH_NUM)
+     * @param int $startcol 0-based offset column which indicates which restultset column to start with.
+     * @param boolean $rehydrate Whether this object is being re-hydrated from the database.
+     * @return int             next starting column
+     * @throws PropelException - Any caught Exception will be rewrapped as a PropelException.
+     */
+    public function hydrate($row, $startcol = 0, $rehydrate = false)
+    {
+        try {
+
+            $this->id   = ($row[$startcol + 0] !== null) ? (int)$row[$startcol + 0] : null;
+            $this->name = ($row[$startcol + 1] !== null) ? (string)$row[$startcol + 1] : null;
+            $this->slug = ($row[$startcol + 2] !== null) ? (string)$row[$startcol + 2] : null;
+            $this->resetModified();
+
+            $this->setNew(false);
+
+            if ($rehydrate) {
+                $this->ensureConsistency();
+            }
+
+            return $startcol + 3; // 3 = BookPeer::NUM_COLUMNS - BookPeer::NUM_LAZY_LOAD_COLUMNS).
+
+        } catch (Exception $e) {
+            throw new \PropelException("Error populating Book object", $e);
+        }
+    } // setName()
+
     /**
+     * Checks and repairs the internal consistency of the object.
+     *
+     * This method is executed after an already-instantiated object is re-hydrated
+     * from the database.  It exists to check any foreign keys to make sure that
+     * the objects related to the current object are correct based on foreign key.
+     *
+     * You can override this method in the stub class, but you should always invoke
+     * the base method from the overridden method (i.e. parent::ensureConsistency()),
+     * in case your model changes.
+     *
+     * @throws PropelException
+     */
+    public function ensureConsistency()
+    {
+
+    } // setSlug()
+
+        /**
      * Removes this object from datastore and sets delete attribute.
      *
-     * @param  PropelPDO       $con
+     * @param PropelPDO $con
      * @return void
      * @throws PropelException
      * @see        BaseObject::setDeleted()
@@ -287,8 +218,8 @@ abstract class BaseBook extends BaseObject  implements Persistent
         $con->beginTransaction();
         try {
             $deleteQuery = BookQuery::create()
-                ->filterByPrimaryKey($this->getPrimaryKey());
-            $ret = $this->preDelete($con);
+                                    ->filterByPrimaryKey($this->getPrimaryKey());
+            $ret         = $this->preDelete($con);
             if ($ret) {
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
@@ -301,6 +232,45 @@ abstract class BaseBook extends BaseObject  implements Persistent
             $con->rollBack();
             throw $e;
         }
+    } // hasOnlyDefaultValues()
+
+    /**
+     * Returns the primary key for this object (row).
+     * @return int
+     */
+    public function getPrimaryKey()
+    {
+        return $this->getId();
+    }
+
+        /**
+     * Get the [id] column value.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    } // ensureConsistency
+
+/**
+     * Set the value of [id] column.
+     *
+     * @param int $v new value
+     * @return Book The current object (for fluent API support)
+     */
+    public function setId($v)
+    {
+        if ($v !== null) {
+            $v = (int)$v;
+        }
+
+        if ($this->id !== $v) {
+            $this->id                = $v;
+            $this->modifiedColumns[] = BookPeer::ID;
+        }
+
+        return $this;
     }
 
     /**
@@ -311,7 +281,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * method.  This method wraps all precipitate database operations in a
      * single transaction.
      *
-     * @param  PropelPDO       $con
+     * @param PropelPDO $con
      * @return int             The number of rows affected by this insert/update and any referring fk objects' save() operations.
      * @throws PropelException
      * @see        doSave()
@@ -356,13 +326,13 @@ abstract class BaseBook extends BaseObject  implements Persistent
         }
     }
 
-    /**
+/**
      * Performs the work of inserting or updating the row in the database.
      *
      * If the object is new, it inserts it; otherwise an update is performed.
      * All related objects are also updated in this method.
      *
-     * @param  PropelPDO       $con
+     * @param PropelPDO $con
      * @return int             The number of rows affected by this insert/update and any referring fk objects' save() operations.
      * @throws PropelException
      * @see        save()
@@ -373,7 +343,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
-            if ($this->isNew() ) {
+            if ($this->isNew()) {
                 $this->modifiedColumns[] = BookPeer::ID;
             }
 
@@ -381,11 +351,11 @@ abstract class BaseBook extends BaseObject  implements Persistent
             if ($this->isModified()) {
                 if ($this->isNew()) {
                     $criteria = $this->buildCriteria();
-                    if ($criteria->keyContainsValue(BookPeer::ID) ) {
-                        throw new PropelException('Cannot insert a value for auto-increment primary key ('.BookPeer::ID.')');
+                    if ($criteria->keyContainsValue(BookPeer::ID)) {
+                        throw new PropelException('Cannot insert a value for auto-increment primary key (' . BookPeer::ID . ')');
                     }
 
-                    $pk = BasePeer::doInsert($criteria, $con);
+                    $pk           = BasePeer::doInsert($criteria, $con);
                     $affectedRows = 1;
                     $this->setId($pk);  //[IMV] update autoincrement primary key
                     $this->setNew(false);
@@ -401,13 +371,28 @@ abstract class BaseBook extends BaseObject  implements Persistent
         }
 
         return $affectedRows;
-    } // doSave()
+    }
 
-    /**
-     * Array of ValidationFailed objects.
-     * @var        array ValidationFailed[]
+        /**
+     * Build a Criteria object containing the values of all modified columns in this object.
+     *
+     * @return Criteria The Criteria object containing all modified values.
      */
-    protected $validationFailures = array();
+    public function buildCriteria()
+    {
+        $criteria = new Criteria(BookPeer::DATABASE_NAME);
+
+        if ($this->isColumnModified(BookPeer::ID)) {
+            $criteria->add(BookPeer::ID, $this->id);
+        }
+        if ($this->isColumnModified(BookPeer::NAME)) {
+            $criteria->add(BookPeer::NAME, $this->name);
+        }
+        if ($this->isColumnModified(BookPeer::SLUG)) {
+            $criteria->add(BookPeer::SLUG, $this->slug);
+        }
+        return $criteria;
+    } // doSave()
 
     /**
      * Gets any ValidationFailed objects that resulted from last call to validate().
@@ -427,7 +412,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * If $columns is either a column name or an array of column names
      * only those columns are validated.
      *
-     * @param  mixed   $columns Column name or an array of column names.
+     * @param mixed $columns Column name or an array of column names.
      * @return boolean Whether all columns pass validation.
      * @see        doValidate()
      * @see        getValidationFailures()
@@ -436,7 +421,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
     {
         $res = $this->doValidate($columns);
         if ($res === true) {
-            $this->validationFailures = array();
+            $this->validationFailures = [];
 
             return true;
         } else {
@@ -453,22 +438,21 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * also be validated.  If all pass then <code>true</code> is returned; otherwise
      * an aggreagated array of ValidationFailed objects will be returned.
      *
-     * @param  array $columns Array of column names to validate.
+     * @param array $columns Array of column names to validate.
      * @return mixed <code>true</code> if all validations pass; array of <code>ValidationFailed</code> objets otherwise.
      */
     protected function doValidate($columns = null)
     {
         if (!$this->alreadyInValidation) {
             $this->alreadyInValidation = true;
-            $retval = null;
+            $retval                    = null;
 
-            $failureMap = array();
+            $failureMap = [];
 
 
             if (($retval = BookPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
-
 
 
             $this->alreadyInValidation = false;
@@ -488,7 +472,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = BookPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos   = BookPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -498,7 +482,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * Retrieves a field from the object by Position as specified in the xml schema.
      * Zero-based.
      *
-     * @param  int   $pos position in xml schema
+     * @param int $pos position in xml schema
      * @return mixed Value of field at $pos
      */
     public function getByPosition($pos)
@@ -520,6 +504,66 @@ abstract class BaseBook extends BaseObject  implements Persistent
     }
 
     /**
+     * Get the [name] column value.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+/**
+     * Set the value of [name] column.
+     *
+     * @param string $v new value
+     * @return Book   The current object (for fluent API support)
+     */
+    public function setName($v)
+    {
+        if ($v !== null) {
+            $v = (string)$v;
+        }
+
+        if ($this->name !== $v) {
+            $this->name              = $v;
+            $this->modifiedColumns[] = BookPeer::NAME;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the [slug] column value.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+/**
+     * Set the value of [slug] column.
+     *
+     * @param string $v new value
+     * @return Book   The current object (for fluent API support)
+     */
+    public function setSlug($v)
+    {
+        if ($v !== null) {
+            $v = (string)$v;
+        }
+
+        if ($this->slug !== $v) {
+            $this->slug              = $v;
+            $this->modifiedColumns[] = BookPeer::SLUG;
+        }
+
+        return $this;
+    }
+
+    /**
      * Exports the object as an array.
      *
      * You can specify the key type of the array by passing one of the class
@@ -529,22 +573,22 @@ abstract class BaseBook extends BaseObject  implements Persistent
      *                    BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM.
      *                    Defaults to BasePeer::TYPE_PHPNAME.
      * @param boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
-     * @param array   $alreadyDumpedObjects   List of objects to skip to avoid recursion
+     * @param array $alreadyDumpedObjects List of objects to skip to avoid recursion
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
+    public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = [])
     {
         if (isset($alreadyDumpedObjects['Book'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
         $alreadyDumpedObjects['Book'][$this->getPrimaryKey()] = true;
-        $keys = BookPeer::getFieldNames($keyType);
-        $result = array(
+        $keys                                                 = BookPeer::getFieldNames($keyType);
+        $result                                               = [
             $keys[0] => $this->getId(),
             $keys[1] => $this->getName(),
             $keys[2] => $this->getSlug(),
-        );
+        ];
 
         return $result;
     }
@@ -552,9 +596,9 @@ abstract class BaseBook extends BaseObject  implements Persistent
     /**
      * Sets a field from the object by name passed in as a string.
      *
-     * @param string $name  peer name
-     * @param mixed  $value field value
-     * @param string $type  The type of fieldname the $name is of:
+     * @param string $name peer name
+     * @param mixed $value field value
+     * @param string $type The type of fieldname the $name is of:
      *                     one of the class type constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME
      *                     BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM
      * @return void
@@ -570,8 +614,8 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * Sets a field from the object by Position as specified in the xml schema.
      * Zero-based.
      *
-     * @param  int   $pos   position in xml schema
-     * @param  mixed $value field value
+     * @param int $pos position in xml schema
+     * @param mixed $value field value
      * @return void
      */
     public function setByPosition($pos, $value)
@@ -602,63 +646,29 @@ abstract class BaseBook extends BaseObject  implements Persistent
      * BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM.
      * The default key type is the column's phpname (e.g. 'AuthorId')
      *
-     * @param  array  $arr     An array to populate the object from.
-     * @param  string $keyType The type of keys the array uses.
+     * @param array $arr An array to populate the object from.
+     * @param string $keyType The type of keys the array uses.
      * @return void
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
         $keys = BookPeer::getFieldNames($keyType);
 
-        if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setSlug($arr[$keys[2]]);
-    }
-
-    /**
-     * Build a Criteria object containing the values of all modified columns in this object.
-     *
-     * @return Criteria The Criteria object containing all modified values.
-     */
-    public function buildCriteria()
-    {
-        $criteria = new Criteria(BookPeer::DATABASE_NAME);
-
-        if ($this->isColumnModified(BookPeer::ID)) $criteria->add(BookPeer::ID, $this->id);
-        if ($this->isColumnModified(BookPeer::NAME)) $criteria->add(BookPeer::NAME, $this->name);
-        if ($this->isColumnModified(BookPeer::SLUG)) $criteria->add(BookPeer::SLUG, $this->slug);
-        return $criteria;
-    }
-
-    /**
-     * Builds a Criteria object containing the primary key for this object.
-     *
-     * Unlike buildCriteria() this method includes the primary key values regardless
-     * of whether or not they have been modified.
-     *
-     * @return Criteria The Criteria object containing value(s) for primary key(s).
-     */
-    public function buildPkeyCriteria()
-    {
-        $criteria = new Criteria(BookPeer::DATABASE_NAME);
-        $criteria->add(BookPeer::ID, $this->id);
-
-        return $criteria;
-    }
-
-    /**
-     * Returns the primary key for this object (row).
-     * @return int
-     */
-    public function getPrimaryKey()
-    {
-        return $this->getId();
+        if (array_key_exists($keys[0], $arr)) {
+            $this->setId($arr[$keys[0]]);
+        }
+        if (array_key_exists($keys[1], $arr)) {
+            $this->setName($arr[$keys[1]]);
+        }
+        if (array_key_exists($keys[2], $arr)) {
+            $this->setSlug($arr[$keys[2]]);
+        }
     }
 
     /**
      * Generic method to set the primary key (id column).
      *
-     * @param  int  $key Primary key.
+     * @param int $key Primary key.
      * @return void
      */
     public function setPrimaryKey($key)
@@ -676,14 +686,36 @@ abstract class BaseBook extends BaseObject  implements Persistent
     }
 
     /**
+     * Makes a copy of this object that will be inserted as a new row in table when saved.
+     * It creates a new object filling in the simple attributes, but skipping any primary
+     * keys that are defined for the table.
+     *
+     * If desired, this method can also make copies of all associated (fkey referrers)
+     * objects.
+     *
+     * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
+     * @return Book            Clone of current object.
+     * @throws PropelException
+     */
+    public function copy($deepCopy = false)
+    {
+        // we use get_class(), because this might be a subclass
+        $clazz   = get_class($this);
+        $copyObj = new $clazz();
+        $this->copyInto($copyObj, $deepCopy);
+
+        return $copyObj;
+    }
+
+    /**
      * Sets contents of passed object to values from current object.
      *
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param  object          $copyObj  An object of Book (or compatible) type.
-     * @param  boolean         $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @param  boolean         $makeNew  Whether to reset autoincrement PKs and make the object new.
+     * @param object $copyObj An object of Book (or compatible) type.
+     * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
+     * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
@@ -692,30 +724,8 @@ abstract class BaseBook extends BaseObject  implements Persistent
         $copyObj->setSlug($this->getSlug());
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setId(null); // this is a auto-increment column, so set to default value
         }
-    }
-
-    /**
-     * Makes a copy of this object that will be inserted as a new row in table when saved.
-     * It creates a new object filling in the simple attributes, but skipping any primary
-     * keys that are defined for the table.
-     *
-     * If desired, this method can also make copies of all associated (fkey referrers)
-     * objects.
-     *
-     * @param  boolean         $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Book            Clone of current object.
-     * @throws PropelException
-     */
-    public function copy($deepCopy = false)
-    {
-        // we use get_class(), because this might be a subclass
-        $clazz = get_class($this);
-        $copyObj = new $clazz();
-        $this->copyInto($copyObj, $deepCopy);
-
-        return $copyObj;
     }
 
     /**
@@ -741,10 +751,10 @@ abstract class BaseBook extends BaseObject  implements Persistent
      */
     public function clear()
     {
-        $this->id = null;
-        $this->name = null;
-        $this->slug = null;
-        $this->alreadyInSave = false;
+        $this->id                  = null;
+        $this->name                = null;
+        $this->slug                = null;
+        $this->alreadyInSave       = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -775,7 +785,7 @@ abstract class BaseBook extends BaseObject  implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(BookPeer::DEFAULT_STRING_FORMAT);
+        return (string)$this->exportTo(BookPeer::DEFAULT_STRING_FORMAT);
     }
 
 } // BaseBook

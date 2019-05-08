@@ -46,9 +46,9 @@ class TranslationType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array(
+        $resolver->setRequired([
             'data_class',
             'columns',
-        ));
+        ]);
     }
 }

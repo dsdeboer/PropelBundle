@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,25 +35,24 @@ The <info>propel:migration:generate-diff</info> command compares the current dat
   <info>php app/console propel:migration:generate-diff</info>
 EOT
             )
-            ->setName('propel:migration:generate-diff')
-        ;
+            ->setName('propel:migration:generate-diff');
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (true === $this->callPhing('diff')) {
             $this->writeSummary($output, 'propel-sql-diff');
-        } elseif ( strpos( $this->buffer, 'Uncommitted migrations have been found' ) ) {
-            $this->writeSection($output, array(
+        } elseif (strpos($this->buffer, 'Uncommitted migrations have been found')) {
+            $this->writeSection($output, [
                 '[Propel] Error',
                 '',
                 'Uncommitted migrations have been found. You should either execute or delete them before rerunning the propel:migration:generate-diff command.'
-            ), 'fg=white;bg=red');
+            ], 'fg=white;bg=red');
         } else {
             $this->writeTaskError($output, 'propel-sql-diff');
         }

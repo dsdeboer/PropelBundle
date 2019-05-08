@@ -24,6 +24,12 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class PropelDataCollector extends DataCollector
 {
     /**
+     * Propel configuration.
+     *
+     * @var \PropelConfiguration
+     */
+    protected $propelConfiguration;
+    /**
      * Propel logger.
      *
      * @var PropelLogger
@@ -31,21 +37,14 @@ class PropelDataCollector extends DataCollector
     private $logger;
 
     /**
-     * Propel configuration.
-     *
-     * @var \PropelConfiguration
-     */
-    protected $propelConfiguration;
-
-    /**
      * Constructor.
      *
-     * @param PropelLogger         $logger              A Propel logger.
+     * @param PropelLogger $logger A Propel logger.
      * @param \PropelConfiguration $propelConfiguration The Propel configuration object.
      */
     public function __construct(PropelLogger $logger, \PropelConfiguration $propelConfiguration)
     {
-        $this->logger = $logger;
+        $this->logger              = $logger;
         $this->propelConfiguration = $propelConfiguration;
     }
 
@@ -54,10 +53,50 @@ class PropelDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        $this->data = array(
-            'queries' => $this->buildQueries(),
+        $this->data = [
+            'queries'    => $this->buildQueries(),
             'querycount' => $this->countQueries(),
-        );
+        ];
+    }
+
+    /**
+     * Computes the stats of all executed SQL queries.
+     *
+     * @return array
+     */
+    private function buildQueries()
+    {
+        $queries = [];
+
+        $outerGlue = $this->propelConfiguration->getParameter('debugpdo.logging.outerglue', ' | ');
+        $innerGlue = $this->propelConfiguration->getParameter('debugpdo.logging.innerglue', ': ');
+
+        foreach ($this->logger->getQueries() as $q) {
+            $parts = explode($outerGlue, $q, 4);
+
+            $times    = explode($innerGlue, $parts[0]);
+            $con      = explode($innerGlue, $parts[2]);
+            $memories = explode($innerGlue, $parts[1]);
+
+            $sql    = trim($parts[3]);
+            $con    = trim($con[1]);
+            $time   = trim($times[1]);
+            $memory = trim($memories[1]);
+
+            $queries[] = ['connection' => $con, 'sql' => $sql, 'time' => $time, 'memory' => $memory];
+        }
+
+        return $queries;
+    }
+
+    /**
+     * Returns the total count of SQL queries.
+     *
+     * @return int
+     */
+    private function countQueries()
+    {
+        return count($this->logger->getQueries());
     }
 
     /**
@@ -99,49 +138,9 @@ class PropelDataCollector extends DataCollector
     {
         $time = 0;
         foreach ($this->data['queries'] as $query) {
-            $time += (float) $query['time'];
+            $time += (float)$query['time'];
         }
 
         return $time;
-    }
-
-    /**
-     * Computes the stats of all executed SQL queries.
-     *
-     * @return array
-     */
-    private function buildQueries()
-    {
-        $queries = array();
-
-        $outerGlue = $this->propelConfiguration->getParameter('debugpdo.logging.outerglue', ' | ');
-        $innerGlue = $this->propelConfiguration->getParameter('debugpdo.logging.innerglue', ': ');
-
-        foreach ($this->logger->getQueries() as $q) {
-            $parts = explode($outerGlue, $q, 4);
-
-            $times = explode($innerGlue, $parts[0]);
-            $con = explode($innerGlue, $parts[2]);
-            $memories = explode($innerGlue, $parts[1]);
-
-            $sql = trim($parts[3]);
-            $con = trim($con[1]);
-            $time = trim($times[1]);
-            $memory = trim($memories[1]);
-
-            $queries[] = array('connection' => $con, 'sql' => $sql, 'time' => $time, 'memory' => $memory);
-        }
-
-        return $queries;
-    }
-
-    /**
-     * Returns the total count of SQL queries.
-     *
-     * @return int
-     */
-    private function countQueries()
-    {
-        return count($this->logger->getQueries());
     }
 }

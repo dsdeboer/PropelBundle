@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,11 +48,11 @@ class YamlDataLoader extends AbstractDataLoader
 
             if (null !== $this->container && $this->container->has('faker.generator')) {
                 $generator = $this->container->get('faker.generator');
-                $faker = function($type) use ($generator) {
+                $faker     = function ($type) use ($generator) {
                     $args = func_get_args();
                     array_shift($args);
 
-                    $value = call_user_func_array(array($generator, $type), $args);
+                    $value = call_user_func_array([$generator, $type], $args);
                     if ($value instanceof \DateTime) {
                         $value = $value->format('Y-m-d H:i:s');
                     }
@@ -59,7 +60,7 @@ class YamlDataLoader extends AbstractDataLoader
                     echo Yaml::dump($value) . "\n";
                 };
             } else {
-                $faker = function($text) {
+                $faker = function ($text) {
                     echo $text . "\n";
                 };
             }

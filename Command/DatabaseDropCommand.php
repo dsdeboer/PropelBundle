@@ -7,6 +7,7 @@
  *
  * @license    MIT License
  */
+
 namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -44,9 +45,9 @@ EOT
     }
 
     /**
+     * @throws \InvalidArgumentException When the target directory does not exist
      * @see Command
      *
-     * @throws \InvalidArgumentException When the target directory does not exist
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -67,7 +68,7 @@ EOT
             if (null === $dbName) {
                 return $output->writeln('<error>No database name found.</error>');
             } else {
-                $query  = 'DROP DATABASE '. $dbName .';';
+                $query = 'DROP DATABASE ' . $dbName . ';';
             }
 
             try {
@@ -77,11 +78,11 @@ EOT
 
                 $output->writeln(sprintf('<info>Database <comment>%s</comment> has been dropped.</info>', $dbName));
             } catch (\Exception $e) {
-                $this->writeSection($output, array(
+                $this->writeSection($output, [
                     '[Propel] Exception caught',
                     '',
                     $e->getMessage()
-                ), 'fg=white;bg=red');
+                ], 'fg=white;bg=red');
             }
         } else {
             $output->writeln('<error>You have to use the "--force" option to drop the database.</error>');

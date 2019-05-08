@@ -18,20 +18,10 @@ class TranslatableItem implements \Persistent
     private $groupName;
     private $price;
 
-    public function __construct($id = null, $translations = array())
+    public function __construct($id = null, $translations = [])
     {
-        $this->id = $id;
+        $this->id                  = $id;
         $this->currentTranslations = $translations;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     public function getGroupName()
@@ -47,6 +37,16 @@ class TranslatableItem implements \Persistent
     public function getPrimaryKey()
     {
         return $this->getId();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function setPrimaryKey($primaryKey)
