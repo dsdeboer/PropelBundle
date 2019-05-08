@@ -14,7 +14,7 @@ namespace Propel\Bundle\PropelBundle\Twig\Extension;
  *
  * @package PropelBundle
  * @subpackage Extension
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class SyntaxExtension extends \Twig_Extension
 {

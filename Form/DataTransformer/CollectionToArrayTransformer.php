@@ -18,7 +18,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * CollectionToArrayTransformer class.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  * @author Pierre-Yves Lebecq <py.lebecq@gmail.com>
  */
 class CollectionToArrayTransformer implements DataTransformerInterface

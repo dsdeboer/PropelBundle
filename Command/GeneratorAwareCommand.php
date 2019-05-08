@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 abstract class GeneratorAwareCommand extends AbstractCommand
 {

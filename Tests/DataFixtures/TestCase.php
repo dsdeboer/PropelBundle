@@ -12,7 +12,7 @@ namespace Propel\Bundle\PropelBundle\Tests\DataFixtures;
 use Propel\Bundle\PropelBundle\Tests\TestCase as BaseTestCase;
 
 /**
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+
  */
 class TestCase extends BaseTestCase
 {

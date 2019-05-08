@@ -14,7 +14,7 @@ use Propel\Bundle\PropelBundle\Tests\Fixtures\Model\User;
 use Propel\Bundle\PropelBundle\Tests\TestCase;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelUserProviderTest extends TestCase
 {

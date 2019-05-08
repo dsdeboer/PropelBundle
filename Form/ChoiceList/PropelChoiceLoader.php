@@ -15,8 +15,8 @@ use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
+
  * @author Moritz Schroeder <moritz.schroeder@molabs.de>
  */
 class PropelChoiceLoader implements ChoiceLoaderInterface

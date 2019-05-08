@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * FixturesLoadCommand
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class FixturesLoadCommand extends AbstractCommand
 {

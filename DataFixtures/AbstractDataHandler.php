@@ -13,7 +13,7 @@ use Propel;
 use Symfony\Component\Finder\Finder;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 abstract class AbstractDataHandler
 {

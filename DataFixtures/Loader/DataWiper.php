@@ -10,7 +10,7 @@
 namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 
 /**
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+
  */
 class DataWiper extends AbstractDataLoader
 {

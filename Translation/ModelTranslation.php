@@ -11,7 +11,7 @@ use Symfony\Component\Translation\Translator;
 /**
  * A translation loader retrieving data from a Propel model.
  *
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+
  */
 class ModelTranslation implements DumperInterface, LoaderInterface, ResourceInterface, \Serializable
 {

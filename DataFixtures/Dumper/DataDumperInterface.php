@@ -12,7 +12,7 @@ namespace Propel\Bundle\PropelBundle\DataFixtures\Dumper;
 /**
  * Interface that exposes how Propel data dumpers should work.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 interface DataDumperInterface
 {

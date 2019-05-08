@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * PanelController is designed to display information in the Propel Panel.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PanelController implements ContainerAwareInterface
 {

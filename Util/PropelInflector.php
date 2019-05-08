@@ -12,7 +12,7 @@ namespace Propel\Bundle\PropelBundle\Util;
 /**
  * The Propel inflector class provides methods for inflecting text.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelInflector
 {

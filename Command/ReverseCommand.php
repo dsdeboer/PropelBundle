@@ -17,7 +17,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * ReverseCommand.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class ReverseCommand extends AbstractCommand
 {

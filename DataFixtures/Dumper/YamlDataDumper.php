@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * YAML fixtures dumper.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class YamlDataDumper extends AbstractDataDumper
 {

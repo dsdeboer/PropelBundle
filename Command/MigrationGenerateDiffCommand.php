@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * MigrationGenerateDiffCommand.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class MigrationGenerateDiffCommand extends AbstractCommand
 {

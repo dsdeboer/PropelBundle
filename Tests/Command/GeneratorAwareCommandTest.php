@@ -14,7 +14,7 @@ use Propel\Bundle\PropelBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class GeneratorAwareCommandTest extends TestCase
 {
@@ -25,7 +25,7 @@ class GeneratorAwareCommandTest extends TestCase
         parent::setUp();
 
         $this->container = $this->getContainer();
-        $this->container->setParameter('propel.path',  __DIR__ . '/../../vendor/propel/propel1');
+        $this->container->setParameter('propel.path',  __DIR__ . '/../../vendor/dsdeboer/propel1');
     }
 
     public function testGetDatabasesFromSchema()

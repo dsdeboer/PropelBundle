@@ -20,7 +20,7 @@ use PropelException;
 /**
  * Abstract class to manage a common logic to load datas.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 abstract class AbstractDataLoader extends AbstractDataHandler implements DataLoaderInterface
 {

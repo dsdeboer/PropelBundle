@@ -19,7 +19,7 @@ use Symfony\Component\Finder\Finder;
  * SqlBuildCommand.
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class SqlBuildCommand extends AbstractCommand
 {

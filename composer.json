@@ -1,22 +1,32 @@
 {
-  "name": "propel/propel-bundle",
+  "name": "dsdeboer/propel-bundle",
   "description": "Integration of Propel in Symfony2",
-  "keywords": ["propel", "orm", "persistence"],
+  "keywords": [
+    "propel",
+    "orm",
+    "persistence"
+  ],
   "type": "symfony-bundle",
   "license": "MIT",
-  "authors": [{
-    "name": "William Durand",
-    "email": "william.durand1@gmail.com"
-  }],
-
+  "authors": [
+    {
+      "name": "Duncan de Boer",
+      "email": "duncan@charpand.nl"
+    }
+  ],
   "autoload": {
-    "psr-4": { "Propel\\Bundle\\PropelBundle\\": "" },
-    "files": ["autoload_aliases.php"],
-    "exclude-from-classmap": [ "Tests/" ]
+    "psr-4": {
+      "Propel\\Bundle\\PropelBundle\\": ""
+    },
+    "files": [
+      "autoload_aliases.php"
+    ],
+    "exclude-from-classmap": [
+      "Tests/"
+    ]
   },
-
   "require": {
-    "propel/propel1": "^1.6.8",
+    "dsdeboer/propel1": "^1.7.*",
     "symfony/framework-bundle": "^3.0.2"
   },
   "require-dev": {
@@ -26,16 +36,11 @@
     "sensio/framework-extra-bundle": "^3.0.2",
     "fzaninotto/faker": "^1.5"
   },
-
   "conflict": {
     "symfony/propel1-bridge": ">=2.8.0"
   },
-
   "replace": {
+    "propel/propel-bundle": "*",
     "symfony/propel1-bridge": "<=2.8.0"
-  },
-
-  "suggest": {
-    "propel/propel-acl-bundle": "For using the Propel ACL implementation"
   }
 }

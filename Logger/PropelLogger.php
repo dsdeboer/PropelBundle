@@ -18,7 +18,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
  * PropelLogger.
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelLogger implements \BasicLogger
 {

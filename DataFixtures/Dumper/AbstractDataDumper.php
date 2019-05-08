@@ -17,7 +17,7 @@ use PropelColumnTypes;
 /**
  * Abstract class to manage a common logic to dump data.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 abstract class AbstractDataDumper extends AbstractDataHandler implements DataDumperInterface
 {

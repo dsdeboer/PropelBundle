@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * Provides easy to use provisioning for Propel model users.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelUserProvider implements UserProviderInterface
 {

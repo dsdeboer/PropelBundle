@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\DefinitionDecorator;
 /**
  * PropelFactory creates services for Propel user provider.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelFactory implements UserProviderFactoryInterface
 {

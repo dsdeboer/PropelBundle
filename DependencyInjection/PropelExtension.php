@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * PropelExtension loads the PropelBundle configuration.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelExtension extends Extension
 {
@@ -35,7 +35,7 @@ class PropelExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         // Composer
-        if (file_exists($propelPath = $container->getParameter('kernel.root_dir') . '/../vendor/propel/propel1')) {
+        if (file_exists($propelPath = $container->getParameter('kernel.root_dir') . '/../vendor/dsdeboer/propel1')) {
             $container->setParameter('propel.path', $propelPath);
         }
         if (file_exists($phingPath = $container->getParameter('kernel.root_dir') . '/../vendor/phing/phing/classes')) {

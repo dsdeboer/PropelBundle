@@ -16,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * YAML fixtures loader.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class YamlDataLoader extends AbstractDataLoader
 {

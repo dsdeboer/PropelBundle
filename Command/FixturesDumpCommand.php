@@ -18,7 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * FixturesDumpCommand.
  *
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class FixturesDumpCommand extends AbstractCommand
 {

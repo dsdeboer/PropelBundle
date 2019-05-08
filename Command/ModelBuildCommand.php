@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * ModelBuildCommand.
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class ModelBuildCommand extends AbstractCommand
 {

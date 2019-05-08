@@ -12,7 +12,7 @@ namespace Propel\Bundle\PropelBundle\DataFixtures\Loader;
 /**
  * XML fixtures loader.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class XmlDataLoader extends AbstractDataLoader
 {

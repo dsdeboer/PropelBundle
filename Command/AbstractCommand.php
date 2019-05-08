@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * Wrapper for Propel commands.
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
- * @author William DURAND <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 abstract class AbstractCommand extends ContainerAwareCommand
 {

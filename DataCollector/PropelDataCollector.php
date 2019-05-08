@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 /**
  * The PropelDataCollector collector class collects information.
  *
- * @author William Durand <william.durand1@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
  */
 class PropelDataCollector extends DataCollector
 {

@@ -25,8 +25,8 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * ModelType class.
  *
- * @author William Durand <william.durand1@gmail.com>
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
+
  *
  * Example using the preferred_choices option.
  *

@@ -8,7 +8,7 @@ use Propel\Bundle\PropelBundle\Translation\ModelTranslation;
 use Symfony\Component\Translation\MessageCatalogue;
 
 /**
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+
  *
  * @covers Propel\Bundle\PropelBundle\Translation\ModelTranslation
  */

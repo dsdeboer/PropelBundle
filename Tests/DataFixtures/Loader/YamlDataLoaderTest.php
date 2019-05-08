@@ -13,8 +13,8 @@ use Propel\Bundle\PropelBundle\DataFixtures\Loader\YamlDataLoader;
 use Propel\Bundle\PropelBundle\Tests\DataFixtures\TestCase;
 
 /**
- * @author William Durand <william.durand1@gmail.com>
- * @author Toni Uebernickel <tuebernickel@gmail.com>
+ * @author Duncan de Boer <duncan@charpand.nl>
+
  */
 class YamlDataLoaderTest extends TestCase
 {
