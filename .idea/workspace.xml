@@ -2,83 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ecf8a91-8d81-4e89-87a2-4334b2bb87c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/composerJson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/bodu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dsdeboer-propelbundle.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Form/ChoiceList/ModelChoiceList.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Form/ChoiceList/CompatModelChoiceListTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Tests/Form/ChoiceList/ModelChoiceListTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/travis.php.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/AbstractCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/AbstractCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/BuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/BuildCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/FixturesDumpCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FixturesDumpCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/FixturesLoadCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FixturesLoadCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/FormGenerateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FormGenerateCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/GeneratorAwareCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/GeneratorAwareCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/GraphvizGenerateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/GraphvizGenerateCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/MigrationGenerateDiffCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationGenerateDiffCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/MigrationMigrateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationMigrateCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/MigrationStatusCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationStatusCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/ModelBuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/ModelBuildCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/ReverseCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/ReverseCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/SqlBuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/SqlBuildCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Command/SqlInsertCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/SqlInsertCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/PanelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/PanelController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataCollector/PropelDataCollector.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataCollector/PropelDataCollector.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/AbstractDataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/AbstractDataHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/AbstractDataDumper.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/AbstractDataDumper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/DataDumperInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/DataDumperInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/YamlDataDumper.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/YamlDataDumper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DependencyInjection/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Configuration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DependencyInjection/PropelExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/PropelExtension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DependencyInjection/Properties.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Properties.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DependencyInjection/Security/UserProvider/PropelFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Security/UserProvider/PropelFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/ChoiceList/PropelChoiceLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/ChoiceList/PropelChoiceLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/DataTransformer/CollectionToArrayTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/DataTransformer/CollectionToArrayTransformer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/EventListener/TranslationFormListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/EventListener/TranslationFormListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/PropelExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/PropelExtension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/PropelTypeGuesser.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/PropelTypeGuesser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/Type/ModelType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/Type/ModelType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Form/Type/TranslationCollectionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/Type/TranslationCollectionType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logger/PropelLogger.php" beforeDir="false" afterPath="$PROJECT_DIR$/Logger/PropelLogger.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PropelBundle.php" beforeDir="false" afterPath="$PROJECT_DIR$/PropelBundle.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.markdown" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/views/Collector/propel.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/views/Collector/propel.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Security/User/PropelUserProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Security/User/PropelUserProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Command/AbstractCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/AbstractCommandTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Command/GeneratorAwareCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/GeneratorAwareCommandTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/DataCollector/PropelDataCollectorTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataCollector/PropelDataCollectorTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Dumper/YamlDataDumperTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Dumper/YamlDataDumperTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Loader/XmlDataLoaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Loader/XmlDataLoaderTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Loader/YamlDataLoaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Loader/YamlDataLoaderTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Form/ChoiceList/PropelChoiceLoaderTest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Form/PropelTypeGuesserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Form/PropelTypeGuesserTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Form/Type/TranslationCollectionTypeTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Form/Type/TranslationCollectionTypeTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Request/ParamConverter/PropelParamConverterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Request/ParamConverter/PropelParamConverterTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Security/User/PropelUserProviderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Security/User/PropelUserProviderTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/TestCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/TestCase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Translation/ModelTranslationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Translation/ModelTranslationTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Util/PropelInflectorTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Util/PropelInflectorTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Twig/Extension/SyntaxExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/Twig/Extension/SyntaxExtension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/PropelInflector.php" beforeDir="false" afterPath="$PROJECT_DIR$/Util/PropelInflector.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Validator/Constraints/UniqueObjectValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Validator/Constraints/UniqueObjectValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dsdeboer-propelbundle.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dsdeboer-propelbundle.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,27 +18,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/composer.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="102">
-                <caret line="6" selection-start-line="6" selection-end-line="6" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/PanelController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -139,7 +45,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DataFixtures/Dumper/DataDumperInterface.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -149,37 +55,58 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/phpunit.xml.dist">
+        <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+            <state relative-caret-position="204">
+              <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tests/TestCase.php">
+        <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+            <state relative-caret-position="170">
+              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Form/Type/ModelType.php">
+        <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/DataWiper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+            <state relative-caret-position="221">
+              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/autoload_aliases.php">
+        <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="289">
+              <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/composer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+              <folding>
+                <element signature="e#281#342#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -214,14 +141,69 @@
       <list>
         <option value="$PROJECT_DIR$/Tests/TestCase.php" />
         <option value="$PROJECT_DIR$/Form/Type/ModelType.php" />
-        <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Controller/PanelController.php" />
+        <option value="$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
       </list>
     </option>
   </component>
   <component name="PhpServers">
     <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/phing/phing" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/dsdeboer/propel1" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-acl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php54" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php55" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/ircmaxell/password-compat" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+    </include_path>
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
@@ -278,6 +260,12 @@
               <item name="DataFixtures" type="462c0819:PsiDirectoryNode" />
               <item name="Dumper" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="dsdeboer-propelbundle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dsdeboer-propelbundle" type="462c0819:PsiDirectoryNode" />
+              <item name="DataFixtures" type="462c0819:PsiDirectoryNode" />
+              <item name="Loader" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -313,6 +301,12 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration>C:\Users\bodu\AppData\Roaming\Subversion</configuration>
   </component>
@@ -323,15 +317,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557314130743</updated>
-      <workItem from="1557314131850" duration="3272000" />
+      <workItem from="1557314131850" duration="3977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3272000" />
+    <option name="totallyTimeSpent" value="3977000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -387,13 +382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -429,6 +417,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/DataWiper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding>
+            <element signature="e#281#342#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
         </state>
       </provider>
     </entry>
