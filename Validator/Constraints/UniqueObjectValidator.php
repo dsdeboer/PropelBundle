@@ -67,6 +67,7 @@ class UniqueObjectValidator extends ConstraintValidator
                     '{{ fields }}' => implode($constraint->messageFieldSeparator, $fieldParts)
                 ))
                 ->addViolation();
+
         }
     }
 }

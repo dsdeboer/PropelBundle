@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1ecf8a91-8d81-4e89-87a2-4334b2bb87c4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/AbstractCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/AbstractCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/BuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/BuildCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/DatabaseCreateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/DatabaseCreateCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/DatabaseDropCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/DatabaseDropCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/FixturesDumpCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FixturesDumpCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/FixturesLoadCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FixturesLoadCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/FormGenerateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/FormGenerateCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/GeneratorAwareCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/GeneratorAwareCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/GraphvizGenerateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/GraphvizGenerateCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/MigrationGenerateDiffCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationGenerateDiffCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/MigrationMigrateCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationMigrateCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/MigrationStatusCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/MigrationStatusCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/ModelBuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/ModelBuildCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/Phing.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/Phing.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/ReverseCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/ReverseCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/SqlBuildCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/SqlBuildCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/SqlInsertCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/SqlInsertCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Command/TableDropCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/Command/TableDropCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/PanelController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/PanelController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataCollector/PropelDataCollector.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataCollector/PropelDataCollector.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/AbstractDataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/AbstractDataHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/AbstractDataDumper.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/AbstractDataDumper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/DataDumperInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/DataDumperInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Dumper/YamlDataDumper.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Dumper/YamlDataDumper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/AbstractDataLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/DataLoaderInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/DataWiper.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/DataWiper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/XmlDataLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/DataFixtures/Loader/YamlDataLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DependencyInjection/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DependencyInjection/PropelExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/PropelExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DependencyInjection/Properties.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Properties.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DependencyInjection/Security/UserProvider/PropelFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/DependencyInjection/Security/UserProvider/PropelFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/BaseAbstractType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/BaseAbstractType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/ChoiceList/PropelChoiceLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/ChoiceList/PropelChoiceLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/DataTransformer/CollectionToArrayTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/DataTransformer/CollectionToArrayTransformer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/EventListener/TranslationCollectionFormListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/EventListener/TranslationCollectionFormListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/EventListener/TranslationFormListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/EventListener/TranslationFormListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/PropelExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/PropelExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/PropelTypeGuesser.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/PropelTypeGuesser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/Type/ModelType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/Type/ModelType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/Type/TranslationCollectionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/Type/TranslationCollectionType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Form/Type/TranslationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Form/Type/TranslationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logger/PropelLogger.php" beforeDir="false" afterPath="$PROJECT_DIR$/Logger/PropelLogger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PropelBundle.php" beforeDir="false" afterPath="$PROJECT_DIR$/PropelBundle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Request/ParamConverter/PropelParamConverter.php" beforeDir="false" afterPath="$PROJECT_DIR$/Request/ParamConverter/PropelParamConverter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/config/converters.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/config/converters.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/config/propel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/config/propel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/commands.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/commands.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/configuration.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/configuration.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/fixtures.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/fixtures.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/index.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/index.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/model_translation.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/model_translation.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/param_converter.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/param_converter.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/propel_configuration.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/propel_configuration.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/schema.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/schema.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/doc/unique_object_validator.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/doc/unique_object_validator.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/meta/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/meta/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/skeleton/FormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/skeleton/FormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/views/Collector/propel.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/views/Collector/propel.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/views/Panel/configuration.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/views/Panel/configuration.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/views/Panel/explain.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/views/Panel/explain.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Security/User/PropelUserProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Security/User/PropelUserProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/AutoloadAliasTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/AutoloadAliasTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Command/AbstractCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/AbstractCommandTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Command/DatabaseCreateCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/DatabaseCreateCommandTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Command/FixturesLoadCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/FixturesLoadCommandTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Command/GeneratorAwareCommandTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Command/GeneratorAwareCommandTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataCollector/PropelDataCollectorTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataCollector/PropelDataCollectorTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Dumper/YamlDataDumperTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Dumper/YamlDataDumperTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Loader/DataWiperTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Loader/DataWiperTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Loader/XmlDataLoaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Loader/XmlDataLoaderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/Loader/YamlDataLoaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/Loader/YamlDataLoaderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DataFixtures/TestCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DataFixtures/TestCase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/DependencyInjection/PropelExtensionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/DependencyInjection/PropelExtensionTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Column.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Column.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/ItemQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/ItemQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/Book.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/BookPeer.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/BookPeer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/BookQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/BookQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/map/BookTableMap.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/map/BookTableMap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBook.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBook.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBookPeer.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBookPeer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBookQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/Model/om/BaseBookQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/ReadOnlyItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/ReadOnlyItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/ReadOnlyItemQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/ReadOnlyItemQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/TranslatableItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/TranslatableItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/TranslatableItemI18n.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/TranslatableItemI18n.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/schema.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/src/My/SuperBundle/Resources/config/a-schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/src/My/SuperBundle/Resources/config/a-schema.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/src/My/ThirdBundle/Resources/config/propel/schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/src/My/ThirdBundle/Resources/config/propel/schema.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Fixtures/translation_schema.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Fixtures/translation_schema.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Form/ChoiceList/PropelChoiceLoaderTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Form/DataTransformer/CollectionToArrayTransformerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Form/DataTransformer/CollectionToArrayTransformerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Form/PropelTypeGuesserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Form/PropelTypeGuesserTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Form/Type/TranslationCollectionTypeTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Form/Type/TranslationCollectionTypeTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Request/ParamConverter/PropelParamConverterTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Request/ParamConverter/PropelParamConverterTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Security/User/PropelUserProviderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Security/User/PropelUserProviderTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/TestCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/TestCase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Translation/ModelTranslationTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Translation/ModelTranslationTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/Util/PropelInflectorTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/Util/PropelInflectorTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Translation/ModelTranslation.php" beforeDir="false" afterPath="$PROJECT_DIR$/Translation/ModelTranslation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Twig/Extension/SyntaxExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/Twig/Extension/SyntaxExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/PropelInflector.php" beforeDir="false" afterPath="$PROJECT_DIR$/Util/PropelInflector.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Validator/Constraints/UniqueObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/Validator/Constraints/UniqueObject.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Validator/Constraints/UniqueObjectValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/Validator/Constraints/UniqueObjectValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autoload_aliases.php" beforeDir="false" afterPath="$PROJECT_DIR$/autoload_aliases.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="51">
+                <caret line="3" column="64" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phpunit.xml.dist">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/TestCase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Form/Type/ModelType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/autoload_aliases.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>propel/</find>
+      <find>vendor/propel/propel1</find>
+      <find>* @author William DURAND &lt;william.durand1@gmail.com&gt;</find>
+      <find>Will</find>
+      <find>* @author William Durand &lt;william.durand1@gmail.com&gt;</find>
+      <find>* @author Toni Uebernickel &lt;tuebernickel@gmail.com&gt;</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>vendor/dsdeboer/propel1</replace>
+      <replace>* @author Duncan de Boer &lt;duncan@charpand.nl&gt;</replace>
+      <replace />
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4.0" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Tests/TestCase.php" />
+        <option value="$PROJECT_DIR$/Form/Type/ModelType.php" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/README.md" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/dsdeboer-propelbundle.iml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/php.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/encodings.xml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" />
+        <option value="$PROJECT_DIR$/.idea/composerJson.xml" />
+        <option value="$PROJECT_DIR$/.idea/dictionaries/bodu.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1040" />
+    <option name="height" value="784" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="dsdeboer-propelbundle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dsdeboer-propelbundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/ProgramData/nodejs/node" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\bodu\AppData\Roaming\npm\node_modules\prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\bodu\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ecf8a91-8d81-4e89-87a2-4334b2bb87c4" name="Default Changelist" comment="" />
+      <created>1557314130743</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557314130743</updated>
+      <workItem from="1557314131850" duration="2975000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="2975000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.25785482" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Jenkins" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/phpunit.xml.dist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/TestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Form/Type/ModelType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autoload_aliases.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="51">
+            <caret line="3" column="64" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="Copyright.UI">
+        <settings>
+          <last-edited>aXtion</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

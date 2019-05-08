@@ -293,9 +293,7 @@ class PropelParamConverterTest extends TestCase
             ),
         )));
 
-        $router = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\Router')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $router = $this->getMock('Symfony\Bundle\FrameworkBundle\Routing\Router', array(), array(), '', false);
         $router
             ->expects($this->once())
             ->method('getRouteCollection')

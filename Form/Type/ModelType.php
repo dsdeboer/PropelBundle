@@ -13,8 +13,12 @@ namespace Propel\Bundle\PropelBundle\Form\Type;
 
 use Propel\Bundle\PropelBundle\Form\ChoiceList\PropelChoiceLoader;
 use Propel\Bundle\PropelBundle\Form\DataTransformer\CollectionToArrayTransformer;
+use ModelCriteria;
+use ColumnMap;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\ChoiceList\Factory\ChoiceListFactoryInterface;
+use Symfony\Component\Form\ChoiceList\Factory\DefaultChoiceListFactory;
+use Symfony\Component\Form\ChoiceList\Factory\PropertyAccessDecorator;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +38,7 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
  *  public function buildForm(FormBuilderInterface $builder, array $options)
  *  {
  *      $builder
- *          ->add('product', ModelType::class, array(
+ *          ->add('product', 'model', array(
  *              'class' => 'Model\Product',
  *              'query' => ProductQuery::create()
  *                  ->filterIsActive(true)
@@ -52,6 +56,25 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
  */
 class ModelType extends AbstractType
 {
+    /**
+     * @var ChoiceListFactoryInterface
+     */
+    private $choiceListFactory;
+
+    /**
+     * ModelType constructor.
+     *
+     * @param PropertyAccessorInterface|null  $propertyAccessor
+     * @param ChoiceListFactoryInterface|null $choiceListFactory
+     */
+    public function __construct(PropertyAccessorInterface $propertyAccessor = null, ChoiceListFactoryInterface $choiceListFactory = null)
+    {
+        $this->choiceListFactory = $choiceListFactory ?: new PropertyAccessDecorator(
+            new DefaultChoiceListFactory(),
+            $propertyAccessor
+        );
+    }
+
     /**
      * Creates the label for a choice.
      *
@@ -97,7 +120,9 @@ class ModelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ($options['multiple']) {
-            $builder->addViewTransformer(new CollectionToArrayTransformer(), true);
+            $builder
+                ->addViewTransformer(new CollectionToArrayTransformer(), true)
+            ;
         }
     }
 
@@ -111,8 +136,10 @@ class ModelType extends AbstractType
             if (null === $options['choices']) {
 
                 $propelChoiceLoader = new PropelChoiceLoader(
+                    $this->choiceListFactory,
                     $options['class'],
-                    $options['query']
+                    $options['query'],
+                    $options['index_property']
                 );
 
                 return $propelChoiceLoader;
@@ -123,14 +150,14 @@ class ModelType extends AbstractType
 
         $choiceName = function (Options $options) {
 
-            /** @var \ModelCriteria $query */
+            /** @var ModelCriteria $query */
             $query = $options['query'];
             if ($options['index_property']) {
                 $identifier = array($query->getTableMap()->getColumn($options['index_property']));
             } else {
                 $identifier = $query->getTableMap()->getPrimaryKeys();
             }
-            /** @var \ColumnMap $firstIdentifier */
+            /** @var ColumnMap $firstIdentifier */
             $firstIdentifier = current($identifier);
             if (count($identifier) === 1 && $firstIdentifier->getPdoType() === \PDO::PARAM_INT) {
                 return array(__CLASS__, 'createChoiceName');
@@ -140,21 +167,18 @@ class ModelType extends AbstractType
 
         $choiceValue = function (Options $options) {
 
-            /** @var \ModelCriteria $query */
+            /** @var ModelCriteria $query */
             $query = $options['query'];
             if ($options['index_property']) {
                 $identifier = array($query->getTableMap()->getColumn($options['index_property']));
             } else {
                 $identifier = $query->getTableMap()->getPrimaryKeys();
             }
-            /** @var \ColumnMap $firstIdentifier */
+            /** @var ColumnMap $firstIdentifier */
             $firstIdentifier = current($identifier);
-            if (count($identifier) === 1 && in_array($firstIdentifier->getPdoType(), [\PDO::PARAM_BOOL, \PDO::PARAM_INT, \PDO::PARAM_STR])) {
+            if (count($identifier) === 1 && in_array($firstIdentifier->getPdoType(), array(\PDO::PARAM_BOOL, \PDO::PARAM_INT, \PDO::PARAM_STR))) {
                 return function($object) use ($firstIdentifier) {
-                    if ($object) {
-                        return call_user_func([$object, 'get' . ucfirst($firstIdentifier->getPhpName())]);
-                    }
-                    return null;
+                    return call_user_func(array($object, 'get' . ucfirst($firstIdentifier->getPhpName())));
                 };
             }
             return null;
@@ -185,16 +209,12 @@ class ModelType extends AbstractType
                     $choiceLabel = array(__CLASS__, 'createChoiceLabel');
                 } else {
                     $valueProperty = $options['property'];
-                    /** @var \ModelCriteria $query */
+                    /** @var ModelCriteria $query */
                     $query = $options['query'];
+                    $getter = 'get' . ucfirst($query->getTableMap()->getColumn($valueProperty)->getPhpName());
 
-                    $choiceLabel = function($choice) use ($valueProperty, $query) {
-                        $getter = 'get'.ucfirst($valueProperty);
-                        if (!method_exists($choice, $getter)) {
-                            $getter = 'get' . ucfirst($query->getTableMap()->getColumn($valueProperty)->getPhpName());
-                        }
-
-                        return call_user_func([$choice, $getter]);
+                    $choiceLabel = function($choice) use ($getter) {
+                        return call_user_func(array($choice, $getter));
                     };
                 }
             }
@@ -202,23 +222,24 @@ class ModelType extends AbstractType
             return $choiceLabel;
         };
 
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'query' => null,
             'index_property' => null,
             'property' => null,
             'choices' => null,
+            'choices_as_values' => true,
             'choice_loader' => $choiceLoader,
             'choice_label' => null,
             'choice_name' => $choiceName,
             'choice_value' => $choiceValue,
             'choice_translation_domain' => false,
             'by_reference' => false,
-        ]);
+        ));
 
         $resolver->setRequired(array('class'));
         $resolver->setNormalizer('query', $queryNormalizer);
         $resolver->setNormalizer('choice_label', $choiceLabelNormalizer);
-        $resolver->setAllowedTypes('query', ['null', '\ModelCriteria']);
+        $resolver->setAllowedTypes('query', array('null', '\ModelCriteria'));
     }
 
     /**
@@ -229,11 +250,8 @@ class ModelType extends AbstractType
         return 'model';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent()
     {
-        return ChoiceType::class;
+        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 }

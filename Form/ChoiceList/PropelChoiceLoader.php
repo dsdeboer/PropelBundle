@@ -10,8 +10,10 @@
 
 namespace Propel\Bundle\PropelBundle\Form\ChoiceList;
 
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use ColumnMap;
+use ModelCriteria;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
+use Symfony\Component\Form\ChoiceList\Factory\ChoiceListFactoryInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 /**
@@ -22,12 +24,17 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 class PropelChoiceLoader implements ChoiceLoaderInterface
 {
     /**
+     * @var ChoiceListFactoryInterface
+     */
+    protected $factory;
+
+    /**
      * @var string
      */
     protected $class;
 
     /**
-     * @var \ModelCriteria
+     * @var ModelCriteria
      */
     protected $query;
 
@@ -55,12 +62,12 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
     /**
      * PropelChoiceListLoader constructor.
      *
-     * @param string            $class
-     * @param \ModelCriteria    $queryObject
-     * @param string            $useAsIdentifier
+     * @param ChoiceListFactoryInterface $factory
+     * @param string                     $class
      */
-    public function __construct($class, \ModelCriteria $queryObject, $useAsIdentifier = null)
+    public function __construct(ChoiceListFactoryInterface $factory, $class, ModelCriteria $queryObject, $useAsIdentifier = null)
     {
+        $this->factory = $factory;
         $this->class = $class;
         $this->query = $queryObject;
         if ($useAsIdentifier) {
@@ -84,7 +91,9 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
 
         $models = iterator_to_array($this->query->find());
 
-        return $this->choiceList = new ArrayChoiceList($models, $value);
+        $this->choiceList = $this->factory->createListFromChoices($models, $value);
+
+        return $this->choiceList;
     }
 
     /**
@@ -97,10 +106,8 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
             return array();
         }
 
-        $optimize = null === $value;
-
         // Optimize performance in case we have a single-field identifier
-        if ($optimize && !$this->choiceList && $this->identifierAsIndex && current($this->identifier) instanceof \ColumnMap) {
+        if (!$this->choiceList && $this->identifierAsIndex && current($this->identifier) instanceof ColumnMap) {
             $phpName = current($this->identifier)->getPhpName();
             $query = clone $this->query;
             $unorderedObjects = $query->filterBy($phpName, $values, \Criteria::IN)->find();
@@ -134,9 +141,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
             return array();
         }
 
-        $optimize = null === $value;
-
-        if ($optimize && !$this->choiceList && $this->identifierAsIndex) {
+        if (!$this->choiceList && $this->identifierAsIndex) {
             $values = array();
 
             // Maintain order and indices of the given objects
@@ -156,11 +161,11 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
     /**
      * Whether this column contains scalar values (to be used as indices).
      *
-     * @param \ColumnMap $column
+     * @param ColumnMap $column
      *
      * @return bool
      */
-    private function isScalar(\ColumnMap $column)
+    private function isScalar(ColumnMap $column)
     {
         return in_array(
             $column->getPdoType(),
@@ -189,7 +194,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
             return array();
         }
 
-        if (1 === count($this->identifier) && current($this->identifier) instanceof \ColumnMap) {
+        if (1 === count($this->identifier) && current($this->identifier) instanceof ColumnMap) {
             $phpName = current($this->identifier)->getPhpName();
             if (method_exists($model, 'get' . $phpName)) {
                 return array($model->{'get' . $phpName}());
@@ -199,7 +204,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
         if ($model instanceof \BaseObject) {
             return array($model->getPrimaryKey());
         }
-
+        
         return $model->getPrimaryKeys();
     }
 

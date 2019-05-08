@@ -11,6 +11,7 @@ namespace Propel\Bundle\PropelBundle\Tests\DataFixtures\Dumper;
 
 use Propel\Bundle\PropelBundle\DataFixtures\Dumper\YamlDataDumper;
 use Propel\Bundle\PropelBundle\Tests\DataFixtures\TestCase;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
 /**
  * @author Duncan de Boer <duncan@charpand.nl>
@@ -39,7 +40,31 @@ class YamlDataDumperTest extends TestCase
         $loader = new YamlDataDumper(__DIR__.'/../../Fixtures/DataFixtures/Loader');
         $loader->dump($filename);
 
-        $expected = <<<YAML
+        $expected = $this->getYamlForSymfonyVersion();
+
+        $result = file_get_contents($filename);
+        $this->assertEquals($expected, $result);
+    }
+
+    protected function getYamlForSymfonyVersion()
+    {
+        if (version_compare(AppKernel::VERSION, '2.8.3', '<')) {
+            return <<<YAML
+Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookAuthor:
+    BookAuthor_1:
+        id: '1'
+        name: 'A famous one'
+Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\Book:
+    Book_1:
+        id: '1'
+        name: 'An important one'
+        author_id: BookAuthor_1
+        complementary_infos: !!php/object:O:8:"stdClass":1:{s:15:"first_word_date";s:10:"2012-01-01";}
+
+YAML;
+        }
+
+        return <<<YAML
 Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\BookAuthor:
     BookAuthor_1:
         id: '1'
@@ -52,8 +77,18 @@ Propel\Bundle\PropelBundle\Tests\Fixtures\DataFixtures\Loader\Book:
         complementary_infos: !php/object:O:8:"stdClass":1:{s:15:"first_word_date";s:10:"2012-01-01";}
 
 YAML;
+    }
+}
 
-        $result = file_get_contents($filename);
-        $this->assertEquals($expected, $result);
+class AppKernel extends \Symfony\Component\HttpKernel\Kernel
+{
+    public function registerBundles()
+    {
+        // TODO: Implement registerBundles() method.
+    }
+
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        // TODO: Implement registerContainerConfiguration() method.
     }
 }

@@ -25,7 +25,7 @@ class GeneratorAwareCommandTest extends TestCase
         parent::setUp();
 
         $this->container = $this->getContainer();
-        $this->container->setParameter('propel.path',  __DIR__ . '/../../vendor/dsdeboer/propel1');
+        $this->container->setParameter('propel.path',  __DIR__ . '/../../vendor/propel/propel1');
     }
 
     public function testGetDatabasesFromSchema()
@@ -63,10 +63,10 @@ class GeneratorAwareCommandTestable extends GeneratorAwareCommand
         return $this->container;
     }
 
-    public function getDatabasesFromSchema(\SplFileInfo $file, \XmlToAppData $transformer = null)
+    public function getDatabasesFromSchema(\SplFileInfo $file)
     {
         $this->loadPropelGenerator();
 
-        return parent::getDatabasesFromSchema($file, $transformer);
+        return parent::getDatabasesFromSchema($file);
     }
 }

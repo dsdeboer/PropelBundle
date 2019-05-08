@@ -11,7 +11,6 @@ namespace Propel\Bundle\PropelBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -175,7 +174,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
         // Add any arbitrary arguments last
         foreach ($this->additionalPhingArgs as $arg) {
             if (in_array($arg, array('verbose', 'debug'))) {
-                $bufferPhingOutput = false;
+                $bufferPhingOutput = true;
             }
 
             $args[] = '-'.$arg;
@@ -210,7 +209,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
             $returnStatus = false;
         }
 
-        if ($bufferPhingOutput) {
+        if ($bufferPhingOutput === false) {
             ob_end_clean();
         } else {
             ob_end_flush();
@@ -394,7 +393,7 @@ EOT
         <connection>
           <dsn>%dsn%</dsn>
           <user>%username%</user>
-          <password>%password%</password>
+          <password><![CDATA[%password%]]></password>
         </connection>
       </datasource>
 
@@ -621,7 +620,7 @@ EOT;
      */
     protected function askConfirmation(OutputInterface $output, $question, $default = null)
     {
-        return $this->getHelper('question')->ask($this->input, $output, new ConfirmationQuestion($question, $default));
+        return $this->getHelperSet()->get('dialog')->askConfirmation($output, $question, $default);
     }
 
     /**

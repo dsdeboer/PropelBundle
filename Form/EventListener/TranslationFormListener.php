@@ -11,7 +11,6 @@
 namespace Propel\Bundle\PropelBundle\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -57,7 +56,7 @@ class TranslationFormListener implements EventSubscriberInterface
                 $options = array();
             }
 
-            $type = TextType::class;
+            $type = 'text';
             if (array_key_exists('type', $options)) {
                 $type = $options['type'];
             }

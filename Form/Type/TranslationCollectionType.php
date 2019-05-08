@@ -13,7 +13,6 @@ namespace Propel\Bundle\PropelBundle\Form\Type;
 
 use Propel\Bundle\PropelBundle\Form\EventListener\TranslationCollectionFormListener;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,14 +29,14 @@ class TranslationCollectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!isset($options['entry_options']['data_class']) || null === $options['entry_options']['data_class']) {
+        if (!isset($options['options']['data_class']) || null === $options['options']['data_class']) {
             throw new MissingOptionsException('data_class must be set');
         }
-        if (!isset($options['entry_options']['columns']) || null === $options['entry_options']['columns']) {
+        if (!isset($options['options']['columns']) || null === $options['options']['columns']) {
             throw new MissingOptionsException('columns must be set');
         }
 
-        $listener = new TranslationCollectionFormListener($options['languages'], $options['entry_options']['data_class']);
+        $listener = new TranslationCollectionFormListener($options['languages'], $options['options']['data_class']);
         $builder->addEventSubscriber($listener);
     }
 
@@ -46,7 +45,15 @@ class TranslationCollectionType extends AbstractType
      */
     public function getParent()
     {
-        return CollectionType::class;
+        return 'collection';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'propel1_translation_collection';
     }
 
     /**
@@ -54,14 +61,18 @@ class TranslationCollectionType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::configureOptions($resolver);
-
         $resolver->setRequired(array(
             'languages',
         ));
 
         $resolver->setDefaults(array(
-            'entry_type' => TranslationType::class,
+            'type' => 'propel1_translation',
+            'allow_add' => false,
+            'allow_delete' => false,
+            'options' => array(
+                'data_class' => null,
+                'columns' => null,
+            ),
         ));
     }
 }
