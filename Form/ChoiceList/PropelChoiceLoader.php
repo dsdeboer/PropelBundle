@@ -10,15 +10,17 @@
 
 namespace Propel\Bundle\PropelBundle\Form\ChoiceList;
 
+use BaseObject;
 use ColumnMap;
+use Criteria;
 use ModelCriteria;
+use PDO;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Factory\ChoiceListFactoryInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 /**
  * @author Duncan de Boer <duncan@charpand.nl>
- * @author Moritz Schroeder <moritz.schroeder@molabs.de>
  */
 class PropelChoiceLoader implements ChoiceLoaderInterface
 {
@@ -88,14 +90,11 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
      */
     private function isScalar(ColumnMap $column)
     {
-        return in_array(
-            $column->getPdoType(),
-            [
-                \PDO::PARAM_BOOL,
-                \PDO::PARAM_INT,
-                \PDO::PARAM_STR,
-            ]
-        );
+        return in_array($column->getPdoType(), [
+            PDO::PARAM_BOOL,
+            PDO::PARAM_INT,
+            PDO::PARAM_STR,
+        ], true);
     }
 
     /**
@@ -112,7 +111,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
         if (!$this->choiceList && $this->identifierAsIndex && current($this->identifier) instanceof ColumnMap) {
             $phpName          = current($this->identifier)->getPhpName();
             $query            = clone $this->query;
-            $unorderedObjects = $query->filterBy($phpName, $values, \Criteria::IN)->find();
+            $unorderedObjects = $query->filterBy($phpName, $values, Criteria::IN)->find();
             $objectsById      = [];
             $objects          = [];
 
@@ -157,7 +156,7 @@ class PropelChoiceLoader implements ChoiceLoaderInterface
             }
         }
 
-        if ($model instanceof \BaseObject) {
+        if ($model instanceof BaseObject) {
             return [$model->getPrimaryKey()];
         }
 

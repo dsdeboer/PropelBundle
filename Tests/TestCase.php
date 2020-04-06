@@ -10,6 +10,7 @@
 
 namespace Propel\Bundle\PropelBundle\Tests;
 
+use PHPUnit\Framework\TestCase as PhpUnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
@@ -18,7 +19,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  *
  * @author Duncan de Boer <duncan@charpand.nl>
  */
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends PhpUnitTestCase
 {
     public static function setUpBeforeClass()
     {
