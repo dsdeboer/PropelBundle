@@ -354,7 +354,10 @@ XML;
             ],
         ]));
 
-        $router = $this->getMock('Symfony\Bundle\FrameworkBundle\Routing\Router', [], [], '', false);
+        $router = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\Router')
+            ->setMockClassName('')
+            ->disableOriginalConstructor()
+            ->getMock();
         $router
             ->expects($this->once())
             ->method('getRouteCollection')

@@ -50,7 +50,10 @@ class ModelTranslationTest extends TestCase
 
         $resource = $this->getResource();
 
-        $translator = $this->getMock('Symfony\Component\Translation\Translator', [], ['en_US']);
+        $translator = $this->getMockBuilder('Symfony\Component\Translation\Translator')
+            ->setConstructorArgs(['en_US'])
+            ->getMock();
+
         $translator
             ->expects($this->once())
             ->method('addResource')
@@ -97,7 +100,7 @@ class ModelTranslationTest extends TestCase
 
     public function testLoadInvalidResource()
     {
-        $invalidResource = $this->getMock('Symfony\Component\Config\Resource\ResourceInterface');
+        $invalidResource = $this->getMockBuilder('Symfony\Component\Config\Resource\ResourceInterface')->getMock();
 
         $resource  = $this->getResource();
         $catalogue = $resource->load($invalidResource, 'en_US');

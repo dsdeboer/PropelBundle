@@ -39,9 +39,15 @@ class CompatModelChoiceListTest extends AbstractChoiceListTest
 
     protected function setUp()
     {
-        $this->query = $this->getMock('Propel\Bundle\PropelBundle\Tests\Fixtures\ItemQuery', [
-            'filterById',
-        ], [], '', true, true, true, false, true);
+        $this->query = $this->getMockBuilder('Propel\Bundle\PropelBundle\Tests\Fixtures\ItemQuery')
+            ->setMethods(['filterById'])
+            ->setMockClassName('')
+            ->enableOriginalConstructor()
+            ->enableOriginalClone()
+            ->enableAutoload()
+            ->enableArgumentCloning()
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         $this->query
             ->expects($this->any())

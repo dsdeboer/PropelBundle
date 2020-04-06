@@ -30,9 +30,9 @@ class MigrationGenerateDiffCommand extends AbstractCommand
             ->setDescription('Generates SQL diff between the XML schemas and the current database structure')
             ->addOption('connection', null, InputOption::VALUE_OPTIONAL, 'Set this parameter to define a connection to use')
             ->setHelp(<<<EOT
-The <info>propel:migration:generate-diff</info> command compares the current database structure and the available schemas. If there is a difference, it creates a migration file.
+The <info>%command.name%</info> command compares the current database structure and the available schemas. If there is a difference, it creates a migration file.
 
-  <info>php app/console propel:migration:generate-diff</info>
+  <info>php %command.full_name%</info>
 EOT
             )
             ->setName('propel:migration:generate-diff');

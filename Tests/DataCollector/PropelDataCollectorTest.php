@@ -29,14 +29,14 @@ class PropelDataCollectorTest extends TestCase
 
     private function createCollector($queries)
     {
-        $config = $this->getMock('\PropelConfiguration');
+        $config = $this->getMockBuilder('\PropelConfiguration')->getMock();
 
         $config
             ->expects($this->any())
             ->method('getParameter')
             ->will($this->returnArgument(1));
 
-        $logger = $this->getMock('\Propel\Bundle\PropelBundle\Logger\PropelLogger');
+        $logger = $this->getMockBuilder('\Propel\Bundle\PropelBundle\Logger\PropelLogger')->getMock();
         $logger
             ->expects($this->any())
             ->method('getQueries')
@@ -90,7 +90,7 @@ class PropelDataCollectorTest extends TestCase
                 'memory'     => '2.4 MB',
             ],
             [
-                'sql'        => "INSERT INTO `TABLE` (`some_array`) VALUES ('| 1 | 2 | 3 |')",
+                'sql'        => "INSERT INTO `table` (`some_array`) VALUES ('| 1 | 2 | 3 |')",
                 'time'       => '0.012 sec',
                 'connection' => 'default',
                 'memory'     => '2.4 MB',

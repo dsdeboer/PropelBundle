@@ -28,9 +28,9 @@ class GraphvizGenerateCommand extends AbstractCommand
         $this
             ->setDescription('Generates Graphviz file for your project')
             ->setHelp(<<<EOT
-The <info>propel:graphviz</info> generates Graphviz file for your project.
+The <info>%command.name%</info> generates Graphviz file for your project.
 
-  <info>php app/console propel:graphviz</info>
+  <info>php %command.full_name%</info>
 EOT
             )
             ->setName('propel:graphviz:generate');
