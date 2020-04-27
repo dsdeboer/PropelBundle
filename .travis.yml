@@ -25,7 +25,7 @@ matrix:
           env: COMPOSER_FLAGS="--prefer-stable" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
 
         - php: 7.0
-          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
+          env: COVERAGE=true PHPUNIT_FLAGS="--coverage-text"
         - php: 7.1
 
         - php: 7.0
