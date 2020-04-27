@@ -10,8 +10,8 @@ cache:
         - $HOME/.composer/cache/files
 
 env:
-    - SYMFONY_VERSION="^2.8.50"
-    - SYMFONY_VERSION="^2.8.50" COMPOSER_FLAGS="--prefer-lowest"
+    - SYMFONY_VERSION="^2.8, >2.8.50"
+    - SYMFONY_VERSION="^2.8, >2.8.50" COMPOSER_FLAGS="--prefer-lowest"
 
 matrix:
     fast_finish: true
