@@ -24,4 +24,4 @@ install:
     - composer update ${COMPOSER_FLAGS} --prefer-source
 
 script:
-    - ./vendor/bin/simple-phpunit --colors
+    - ./vendor/bin/simple-phpunit
