@@ -83,11 +83,9 @@ class TranslationCollectionTypeTest extends TypeTestCase
         $this->assertCount(2, $item->getTranslatableItemI18ns());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
-     */
     public function testNoArrayGiven()
     {
+        $this->expectException('Symfony\Component\Form\Exception\UnexpectedTypeException');
         $item = new Item(null, 'val');
 
         $builder = $this->factory->createBuilder(FormType::class, null, [
@@ -105,11 +103,9 @@ class TranslationCollectionTypeTest extends TypeTestCase
         $form->setData($item);
     }
 
-    /**
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
     public function testNoDataClassAdded()
     {
+        $this->expectException('Symfony\Component\OptionsResolver\Exception\MissingOptionsException');
         $this->factory->createNamed('itemI18ns', TranslationCollectionType::class, null, [
             'languages' => ['en', 'fr'],
             'entry_options'   => [
@@ -118,11 +114,9 @@ class TranslationCollectionTypeTest extends TypeTestCase
         ]);
     }
 
-    /**
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
     public function testNoLanguagesAdded()
     {
+        $this->expectException('Symfony\Component\OptionsResolver\Exception\MissingOptionsException');
         $this->factory->createNamed('itemI18ns', TranslationCollectionType::class, null, [
             'entry_options' => [
                 'data_class' => TranslatableItemI18n::class,
@@ -131,11 +125,9 @@ class TranslationCollectionTypeTest extends TypeTestCase
         ]);
     }
 
-    /**
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
     public function testNoColumnsAdded()
     {
+        $this->expectException('Symfony\Component\OptionsResolver\Exception\MissingOptionsException');
         $this->factory->createNamed('itemI18ns', TranslationCollectionType::class, null, [
             'languages' => ['en', 'fr'],
             'entry_options'   => [

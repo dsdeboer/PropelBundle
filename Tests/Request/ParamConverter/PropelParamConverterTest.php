@@ -55,11 +55,9 @@ class PropelParamConverterTest extends TestCase
             'param "book" should be an instance of "Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book"');
     }
 
-    /**
-     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
     public function testParamConverterFindPkNotFound()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $paramConverter = new PropelParamConverter();
         $request        = new Request([], [], ['id' => 2, 'book' => null]);
         $configuration  = new ParamConverter(['class' => 'Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book', 'name' => 'book']);
@@ -87,11 +85,9 @@ class PropelParamConverterTest extends TestCase
             'param "book" should be an instance of "Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book"');
     }
 
-    /**
-     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
     public function testParamConverterFindSlugNotFound()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $paramConverter = new PropelParamConverter();
         $request        = new Request([], [], ['slug' => 'my-foo', 'book' => null]);
         $configuration  = new ParamConverter(['class' => 'Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book', 'name' => 'book']);
@@ -112,11 +108,9 @@ class PropelParamConverterTest extends TestCase
             'param "book" should be an instance of "Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book"');
     }
 
-    /**
-     * @expectedException LogicException
-     */
     public function testParamConverterFindByAllParamExcluded()
     {
+        $this->expectException('LogicException');
         $paramConverter = new PropelParamConverter();
         $request        = new Request([], [], ['slug' => 'my-book', 'name' => 'foo', 'book' => null]);
         $configuration  = new ParamConverter([
@@ -129,11 +123,9 @@ class PropelParamConverterTest extends TestCase
             'param "book" should be an instance of "Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book"');
     }
 
-    /**
-     * @expectedException LogicException
-     */
     public function testParamConverterFindByIdExcluded()
     {
+        $this->expectException('LogicException');
         $paramConverter = new PropelParamConverter();
         $request        = new Request([], [], ['id' => '1234', 'book' => null]);
         $configuration  = new ParamConverter([
@@ -146,11 +138,9 @@ class PropelParamConverterTest extends TestCase
             'param "book" should be an instance of "Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book"');
     }
 
-    /**
-     * @expectedException LogicException
-     */
     public function testParamConverterFindLogicError()
     {
+        $this->expectException('LogicException');
         $paramConverter = new PropelParamConverter();
         $request        = new Request([], [], ['book' => null]);
         $configuration  = new ParamConverter(['class' => 'Propel\Bundle\PropelBundle\Tests\Fixtures\Model\Book', 'name' => 'book']);

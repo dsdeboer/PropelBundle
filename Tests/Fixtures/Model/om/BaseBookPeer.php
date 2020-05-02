@@ -108,7 +108,7 @@ abstract class BaseBookPeer
     public static function translateFieldName($name, $fromType, $toType)
     {
         $toNames = self::getFieldNames($toType);
-        $key     = isset(self::$fieldKeys[$fromType][$name]) ? self::$fieldKeys[$fromType][$name] : null;
+        $key     = self::$fieldKeys[$fromType][$name] ?? null;
         if ($key === null) {
             throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(self::$fieldKeys[$fromType], true));
         }
