@@ -1,0 +1,22 @@
+parameters:
+    php_version_features: '7.0'
+    autoload_paths:
+        - '/project/vendor/autoload.php'
+    sets:
+        - 'symfony28'
+        - 'php70'
+    paths:
+#        - '/project/Command'
+        - '/project/Controller'
+        - '/project/DataCollector'
+        - '/project/DataFixtures'
+        - '/project/DependencyInjection'
+        - '/project/Form'
+        - '/project/Logger'
+        - '/project/Request'
+        - '/project/Security'
+#        - '/project/Tests'
+        - '/project/Translation'
+        - '/project/Twig'
+        - '/project/Util'
+        - '/project/Validator'

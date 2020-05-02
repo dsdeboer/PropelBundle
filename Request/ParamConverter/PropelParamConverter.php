@@ -112,7 +112,7 @@ class PropelParamConverter implements ParamConverterInterface
                 }
             }
         } else {
-            $this->exclude = isset($options['exclude']) ? $options['exclude'] : [];
+            $this->exclude = $options['exclude'] ?? [];
             $this->filters = $request->attributes->all();
         }
 
